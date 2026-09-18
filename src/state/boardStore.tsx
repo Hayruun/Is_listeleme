@@ -11,12 +11,15 @@ import {
 } from 'react';
 import { loadBoard, saveBoard } from '../lib/boardApi';
 import { PERSON_COLORS } from '../lib/constants';
-import { descendantIds } from '../lib/hierarchy';
+import { canPlace, descendantIds } from '../lib/hierarchy';
 import { createId } from '../lib/id';
 import { normalizeBoard } from '../lib/normalize';
 import type { Board, Person, StorageMode, WorkItem, WorkItemType } from '../types';
 
 export type SaveStatus = 'idle' | 'saving' | 'saved' | 'local' | 'conflict';
+
+/** Surukle-birak hedefi: ogenin ustune, altina ya da icine. */
+export type DropMode = 'before' | 'after' | 'inside';
 
 type Action =
   | { type: 'replace'; board: Board }
@@ -28,7 +31,8 @@ type Action =
   | { type: 'item/patch'; id: string; patch: Partial<Omit<WorkItem, 'id' | 'createdAt'>> }
   | { type: 'item/remove'; id: string }
   | { type: 'item/toggleAssignee'; id: string; personId: string }
-  | { type: 'item/move'; id: string; direction: -1 | 1 };
+  | { type: 'item/move'; id: string; direction: -1 | 1 }
+  | { type: 'item/drop'; dragId: string; targetId: string; mode: DropMode };
 
 export interface NewItem {
   type: WorkItemType;
@@ -178,6 +182,61 @@ export function boardReducer(board: Board, action: Action): Board {
         board.items.map((item) =>
           orderById.has(item.id) ? { ...item, order: orderById.get(item.id) as number } : item,
         ),
+      );
+    }
+
+    case 'item/drop': {
+      const { dragId, targetId, mode } = action;
+      if (dragId === targetId) return board;
+
+      const dragged = board.items.find((item) => item.id === dragId);
+      const target = board.items.find((item) => item.id === targetId);
+      if (!dragged || !target) return board;
+
+      // Bir oge kendi alt agacinin icine tasinamaz; aksi halde dongu olusur.
+      if (descendantIds(board.items, dragId).includes(targetId)) return board;
+
+      const parentId = mode === 'inside' ? targetId : target.parentId;
+      const parent = parentId === null ? null : board.items.find((item) => item.id === parentId);
+      if (parentId !== null && !parent) return board;
+      if (!canPlace(dragged.type, parent ? parent.type : null)) return board;
+
+      const siblings = board.items
+        .filter((item) => item.parentId === parentId && item.id !== dragId)
+        .sort((a, b) => a.order - b.order || a.createdAt.localeCompare(b.createdAt));
+
+      let insertAt: number;
+      if (mode === 'inside') {
+        insertAt = siblings.length;
+      } else {
+        const index = siblings.findIndex((item) => item.id === targetId);
+        if (index === -1) return board;
+        insertAt = mode === 'before' ? index : index + 1;
+      }
+
+      const ordered = [...siblings];
+      ordered.splice(insertAt, 0, dragged);
+
+      // Tum kardes listesi 0..n olarak yeniden numaralanir.
+      const orderById = new Map(ordered.map((item, position) => [item.id, position]));
+      const stamp = nowIso();
+
+      return touch(
+        board,
+        board.items.map((item) => {
+          if (item.id === dragId) {
+            return {
+              ...item,
+              parentId,
+              order: orderById.get(item.id) as number,
+              updatedAt: stamp,
+            };
+          }
+          if (orderById.has(item.id)) {
+            return { ...item, order: orderById.get(item.id) as number };
+          }
+          return item;
+        }),
       );
     }
 

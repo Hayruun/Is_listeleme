@@ -1,6 +1,7 @@
 import { STATE_META, TYPE_META } from '../lib/constants';
 import { allowedChildTypes, progressOf, type TreeNode } from '../lib/hierarchy';
 import { useBoard } from '../state/boardStore';
+import { dropClass, useDnd } from '../state/dnd';
 import { AvatarStack } from './Avatar';
 import { PriorityBadge, StateBadge, TypeChip } from './Badges';
 import { QuickAdd } from './QuickAdd';
@@ -22,6 +23,7 @@ export function WorkItemNode({
   onSelect,
 }: Props): JSX.Element {
   const { board } = useBoard();
+  const dnd = useDnd();
   const { item, children } = node;
 
   const isOpen = expanded.has(item.id);
@@ -34,7 +36,7 @@ export function WorkItemNode({
   return (
     <div className="node">
       <div
-        className={`node__card${selectedId === item.id ? ' node__card--selected' : ''}`}
+        className={`node__card${selectedId === item.id ? ' node__card--selected' : ''}${dropClass(dnd, item.id)}`}
         onClick={() => onSelect(item.id)}
         onKeyDown={(event) => {
           if (event.key === 'Enter' || event.key === ' ') {
@@ -44,8 +46,18 @@ export function WorkItemNode({
         }}
         role="button"
         tabIndex={0}
+        draggable
+        onDragStart={(event) => dnd.startDrag(event, item.id)}
+        onDragEnd={dnd.endDrag}
+        onDragOver={(event) => dnd.dragOver(event, item.id)}
+        onDragLeave={() => dnd.dragLeave(item.id)}
+        onDrop={(event) => dnd.drop(event, item.id)}
         style={{ borderLeft: `3px solid ${TYPE_META[item.type].color}` }}
       >
+        <span className="node__grip" aria-hidden="true" title="Sürükleyerek taşıyın">
+          ⠿
+        </span>
+
         <button
           type="button"
           className={`node__toggle${isOpen ? ' node__toggle--open' : ''}${

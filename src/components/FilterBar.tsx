@@ -7,17 +7,33 @@ import type { Priority, WorkItemState, WorkItemType } from '../types';
 interface Props {
   filters: FilterState;
   onChange: (filters: FilterState) => void;
+  /** "Bana atananlar" kisayolu icin oturum acan kisinin kimligi. */
+  currentUserId: string;
 }
 
 function toggle<T>(list: T[], value: T): T[] {
   return list.includes(value) ? list.filter((entry) => entry !== value) : [...list, value];
 }
 
-export function FilterBar({ filters, onChange }: Props): JSX.Element {
+export function FilterBar({ filters, onChange, currentUserId }: Props): JSX.Element {
   const { board } = useBoard();
+  // Kisayol, kisi filtresinin kendisini kullanir; boylece digerleriyle
+  // tutarli davranir ve ayri bir durum tutmaya gerek kalmaz.
+  const onlyMine = filters.assignees.includes(currentUserId);
 
   return (
     <div className="filters">
+      <button
+        type="button"
+        className="chip chip--mine"
+        aria-pressed={onlyMine}
+        onClick={() => onChange({ ...filters, assignees: toggle(filters.assignees, currentUserId) })}
+        title="Yalnızca size atanmış öğeleri gösterir"
+      >
+        <span aria-hidden="true">★</span>
+        Bana atananlar
+      </button>
+
       <div className="search">
         <span className="search__icon" aria-hidden="true">
           ⌕

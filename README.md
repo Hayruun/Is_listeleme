@@ -31,9 +31,16 @@ npm run typecheck  # yalnızca tip kontrolü
   yazıp Enter'a basmak yeterli; Enter'da alan açık kalır, arka arkaya öğe girilir.
 - **Detay paneli.** Durum, öncelik, tür, efor (story point), başlangıç/bitiş
   tarihi, etiketler, açıklama ve atananlar tek yerden düzenlenir.
+- **İki görünüm.** *Ağaç* hiyerarşiyi gösterir; *Pano* aynı öğeleri durum
+  sütunlarına dizer. Geçiş araç çubuğundaki anahtarla yapılır.
+- **Sürükle-bırak.** Ağaçta bir öğeyi kardeşleri arasında yeniden sıralayabilir
+  ya da başka bir ebeveynin altına taşıyabilirsiniz: kartın üst/alt kenarına
+  bırakmak sıralar, ortasına bırakmak alt öğe yapar. Panoda kartı başka bir
+  sütuna sürüklemek durumunu değiştirir.
 - **Filtreler.** Metin araması (başlık, açıklama, etiket, kişi adı) ile tür,
-  durum, öncelik ve kişi filtreleri birlikte çalışır. Bir öğe filtreye uymasa
-  bile alt öğelerinden biri uyuyorsa bağlamı korumak için ağaçta kalır.
+  durum, öncelik ve kişi filtreleri birlikte çalışır. **Bana atananlar**
+  kısayolu tek tıkla size atanmış işleri süzer. Bir öğe filtreye uymasa bile
+  alt öğelerinden biri uyuyorsa bağlamı korumak için ağaçta kalır.
 - **İlerleme.** Her epic, alt ağacındaki tamamlanma yüzdesini ve toplanmış story
   point'i gösterir.
 - **Oturum açma.** Uygulama önce kim olduğunuzu sorar: ekipten kendinizi seçer
@@ -116,6 +123,23 @@ Core Web API'sine taşınacaksa yalnızca bu modülün içi değişir; bileşenl
 hiçbiri veri kaynağını bilmez. Çakışma kontrolü de aynı sözleşmeyle çalışır
 (`baseUpdatedAt` gönderilir, `409` beklenir), dolayısıyla sunucu tarafında
 optimistic concurrency'e doğrudan karşılık gelir.
+
+## Sürükle-bırak kuralları
+
+Taşıma `src/state/dnd.tsx` (sürükleme durumu ve hedef hesabı) ile
+`boardStore.tsx` içindeki `item/drop` eylemi arasında bölünmüştür. Harici bir
+sürükle-bırak kütüphanesi kullanılmaz; tarayıcının kendi HTML5 sürükleme
+olayları yeterlidir.
+
+İki kural her taşımada uygulanır ve geçersiz hedefler daha bırakılmadan elenir:
+
+- **Hiyerarşi.** Bir tür yalnızca izin verilen bir ebeveynin altına konabilir
+  (`canPlace`, `src/lib/hierarchy.ts`). Bir epic'i task'ın içine sürükleyemezsiniz.
+- **Döngü yok.** Bir öğe kendi alt ağacının içine taşınamaz.
+
+İmlecin kart üzerindeki konumu hedefi belirler: üst %32 → öncesine, alt %32 →
+sonrasına, orta bölge → içine. Ortaya bırakmak o tür için geçersizse, imlecin
+yarısına göre öncesine/sonrasına düşer.
 
 ## Görünüm ve renk paletleri
 
@@ -210,6 +234,7 @@ src/
     appearance.ts             Paletten CSS belirteci üretimi, kullanıcı tercihleri
     session.ts                Oturum kimliği (SSO buraya bağlanır)
   state/boardStore.tsx        Reducer, otomatik kaydetme, çakışma yönetimi
+  state/dnd.tsx               Sürükle-bırak durumu ve hedef doğrulaması
   components/                 Arayüz bileşenleri
   styles/global.css           Tasarım belirteçleri ve tüm stiller
 ```

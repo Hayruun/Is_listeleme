@@ -4,6 +4,7 @@ import { EpicCard } from './components/EpicCard';
 import { LoginScreen } from './components/LoginScreen';
 import { DetailPanel } from './components/DetailPanel';
 import { FilterBar } from './components/FilterBar';
+import { KanbanBoard } from './components/KanbanBoard';
 import { TeamModal } from './components/TeamModal';
 import { TopBar } from './components/TopBar';
 import { QuickAdd } from './components/QuickAdd';
@@ -18,6 +19,7 @@ import { buildTree, flatten } from './lib/hierarchy';
 import { clearSessionUserId, loadSessionUserId, saveSessionUserId } from './lib/session';
 import { EMPTY_FILTERS, filterTree, isFilterActive, statsOf, type FilterState } from './lib/filters';
 import { useBoard } from './state/boardStore';
+import { DndProvider } from './state/dnd';
 
 export function App(): JSX.Element {
   const { board, dispatch, ready, mode, saveStatus, notice, dismissNotice, acceptRemote } = useBoard();
@@ -27,6 +29,7 @@ export function App(): JSX.Element {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [teamOpen, setTeamOpen] = useState(false);
   const [appearanceOpen, setAppearanceOpen] = useState(false);
+  const [view, setView] = useState<'tree' | 'kanban'>('tree');
 
   const [userId, setUserId] = useState<string | null>(() => loadSessionUserId());
 
@@ -189,19 +192,45 @@ export function App(): JSX.Element {
           </div>
         </div>
 
-        <FilterBar filters={filters} onChange={setFilters} />
+        <FilterBar filters={filters} onChange={setFilters} currentUserId={currentUser.id} />
 
         <div className="row row--wrap">
+          <div className="viewswitch" role="group" aria-label="Görünüm">
+            <button
+              type="button"
+              className="viewswitch__option"
+              aria-pressed={view === 'tree'}
+              onClick={() => setView('tree')}
+            >
+              Ağaç
+            </button>
+            <button
+              type="button"
+              className="viewswitch__option"
+              aria-pressed={view === 'kanban'}
+              onClick={() => setView('kanban')}
+            >
+              Pano
+            </button>
+          </div>
+
           <span className="section-title">
-            {isFilterActive(filters) ? `Filtrelenmiş · ${visible.length} kutu` : 'Panolar'}
+            {isFilterActive(filters) ? `Filtrelenmiş · ${stats.total} öğe` : `${stats.total} öğe`}
           </span>
+
           <span className="spacer" />
-          <button type="button" className="btn btn--sm btn--ghost" onClick={expandAll}>
-            Tümünü aç
-          </button>
-          <button type="button" className="btn btn--sm btn--ghost" onClick={collapseAll}>
-            Tümünü kapat
-          </button>
+
+          {view === 'tree' && (
+            <>
+              <button type="button" className="btn btn--sm btn--ghost" onClick={expandAll}>
+                Tümünü aç
+              </button>
+              <button type="button" className="btn btn--sm btn--ghost" onClick={collapseAll}>
+                Tümünü kapat
+              </button>
+            </>
+          )}
+
           <span className="faint" style={{ fontSize: 11.5 }}>
             {mode === 'shared-file' ? 'Ortak dosya' : 'Yerel kopya'}
           </span>
@@ -230,22 +259,32 @@ export function App(): JSX.Element {
               </button>
             )}
           </div>
+        ) : view === 'kanban' ? (
+          <KanbanBoard nodes={visible} selectedId={selectedId} onSelect={setSelectedId} />
         ) : (
-          <div className="stack" style={{ gap: 11 }}>
-            {visible.map((node) => (
-              <EpicCard
-                key={node.item.id}
-                node={node}
-                expanded={expanded}
-                onToggleExpand={toggleExpand}
-                selectedId={selectedId}
-                onSelect={setSelectedId}
-              />
-            ))}
-          </div>
+          <DndProvider>
+            <div className="stack" style={{ gap: 11 }}>
+              {visible.map((node) => (
+                <EpicCard
+                  key={node.item.id}
+                  node={node}
+                  expanded={expanded}
+                  onToggleExpand={toggleExpand}
+                  selectedId={selectedId}
+                  onSelect={setSelectedId}
+                />
+              ))}
+            </div>
+          </DndProvider>
         )}
 
-        <QuickAdd parentId={null} types={['epic', 'feature', 'story']} triggerLabel="Kök seviyeye öğe ekle" />
+        {view === 'tree' && (
+          <QuickAdd
+            parentId={null}
+            types={['epic', 'feature', 'story']}
+            triggerLabel="Kök seviyeye öğe ekle"
+          />
+        )}
       </main>
 
       {selectedId && (

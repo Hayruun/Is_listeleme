@@ -90,6 +90,17 @@ export function allowedChildTypes(type: WorkItemType): WorkItemType[] {
   return TYPE_META[type].children;
 }
 
+/** Kok seviyede durabilecek turler. */
+export const ROOT_TYPES: WorkItemType[] = ['epic', 'feature', 'story'];
+
+/**
+ * Bir turun belirli bir ebeveynin altina konulup konulamayacagi.
+ * Surukle-birak sirasinda gecersiz hedefleri elemek icin kullanilir.
+ */
+export function canPlace(type: WorkItemType, parentType: WorkItemType | null): boolean {
+  return parentType === null ? ROOT_TYPES.includes(type) : allowedChildTypes(parentType).includes(type);
+}
+
 /** Ogeden koke dogru ebeveyn zinciri (en yakin ebeveyn basta). */
 export function ancestorsOf(board: Board, itemId: string): WorkItem[] {
   const byId = new Map(board.items.map((item) => [item.id, item]));

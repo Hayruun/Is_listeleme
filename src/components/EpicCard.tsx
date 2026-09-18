@@ -1,6 +1,7 @@
 import { TYPE_META } from '../lib/constants';
 import { allowedChildTypes, progressOf, type TreeNode } from '../lib/hierarchy';
 import { useBoard } from '../state/boardStore';
+import { dropClass, useDnd } from '../state/dnd';
 import { AvatarStack } from './Avatar';
 import { PriorityBadge, ProgressBar, StateBadge, TypeChip } from './Badges';
 import { QuickAdd } from './QuickAdd';
@@ -26,6 +27,7 @@ export function EpicCard({
   onSelect,
 }: Props): JSX.Element {
   const { board } = useBoard();
+  const dnd = useDnd();
   const { item, children } = node;
 
   const isOpen = expanded.has(item.id);
@@ -35,7 +37,7 @@ export function EpicCard({
   const accent = TYPE_META[item.type].color;
 
   return (
-    <section className={`epic${isOpen ? ' epic--open' : ''}`}>
+    <section className={`epic${isOpen ? ' epic--open' : ''}${dropClass(dnd, item.id)}`}>
       <div className="epic__accent" style={{ background: accent }} />
 
       <div
@@ -43,6 +45,12 @@ export function EpicCard({
         role="button"
         tabIndex={0}
         aria-expanded={isOpen}
+        draggable
+        onDragStart={(event) => dnd.startDrag(event, item.id)}
+        onDragEnd={dnd.endDrag}
+        onDragOver={(event) => dnd.dragOver(event, item.id)}
+        onDragLeave={() => dnd.dragLeave(item.id)}
+        onDrop={(event) => dnd.drop(event, item.id)}
         onClick={() => onToggleExpand(item.id)}
         onKeyDown={(event) => {
           if (event.key === 'Enter' || event.key === ' ') {

@@ -1349,6 +1349,10 @@ textarea {
     display: none;
   }
 
+  .kanban {
+    grid-auto-columns: minmax(78vw, 1fr);
+  }
+
   .panel {
     width: 100vw;
   }
@@ -1793,4 +1797,226 @@ textarea {
 .user-menu__trigger:hover {
   background: var(--bg-hover);
   border-color: var(--border-strong);
+}
+
+/* ==========================================================================
+   Surukle - birak
+   ========================================================================== */
+.node__grip,
+.kanban__grip {
+  flex: none;
+  width: 12px;
+  color: var(--text-faint);
+  font-size: 12px;
+  line-height: 1;
+  cursor: grab;
+  opacity: 0;
+  transition: opacity 0.15s;
+  user-select: none;
+}
+
+.node__card:hover .node__grip {
+  opacity: 0.7;
+}
+
+.node__card,
+.epic,
+.kanban__card {
+  /* Birakma cizgisi kartin disina tasabilsin. */
+  position: relative;
+}
+
+.is-dragging {
+  opacity: 0.4;
+}
+
+/* Kardes olarak birakma: kartin ust ya da alt kenarinda cizgi. */
+.drop-before::before,
+.drop-after::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 99px;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+  z-index: 2;
+}
+
+.drop-before::before {
+  top: -2px;
+}
+
+.drop-after::after {
+  bottom: -2px;
+}
+
+/* Alt oge olarak birakma: kartin tamami isaretlenir. */
+.drop-inside {
+  outline: 2px dashed var(--accent);
+  outline-offset: -2px;
+  background: var(--accent-soft);
+}
+
+.epic.drop-inside {
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Kanban gorunumu
+   ========================================================================== */
+.kanban {
+  display: grid;
+  grid-auto-flow: column;
+  /* Bes sutun masaustu genisliginde yan yana sigsin; darda yatay kaydirilir. */
+  grid-auto-columns: minmax(206px, 1fr);
+  gap: 11px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  align-items: start;
+}
+
+.kanban__col {
+  background: var(--bg-sunken);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 10px;
+  min-height: 160px;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.kanban__col--over {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.kanban__head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 3px 9px;
+}
+
+.kanban__title {
+  font-size: 12.5px;
+  font-weight: 650;
+}
+
+.kanban__count {
+  margin-left: auto;
+  font-size: 11.5px;
+  font-weight: 650;
+  color: var(--text-faint);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 0 7px;
+  font-variant-numeric: tabular-nums;
+}
+
+.kanban__list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.kanban__card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 9px 10px;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.08s;
+}
+
+.kanban__card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
+}
+
+.kanban__card:active {
+  cursor: grabbing;
+}
+
+.kanban__card--selected {
+  border-color: var(--accent);
+  box-shadow: var(--ring);
+}
+
+.kanban__card-top {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.kanban__path {
+  margin: 0 0 3px;
+  font-size: 10.5px;
+  color: var(--text-faint);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kanban__card-title {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 520;
+  line-height: 1.45;
+}
+
+.kanban__card-bottom {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.kanban__empty {
+  margin: 0;
+  padding: 14px 0;
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--text-faint);
+}
+
+/* ==========================================================================
+   Gorunum secici
+   ========================================================================== */
+.viewswitch {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--bg-sunken);
+  gap: 2px;
+}
+
+.viewswitch__option {
+  height: 26px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 99px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 560;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.viewswitch__option:hover {
+  color: var(--text);
+}
+
+.viewswitch__option[aria-pressed='true'] {
+  background: var(--bg-elevated);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+
+.chip--mine[aria-pressed='true'] {
+  border-color: var(--accent);
 }

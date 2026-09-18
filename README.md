@@ -57,9 +57,11 @@ npm run typecheck  # yalnızca tip kontrolü
 - **Oturum açma.** Uygulama önce kim olduğunuzu sorar: ekipten kendinizi seçer
   ya da listede yoksanız oracıkta eklersiniz. Seçim tarayıcıda saklanır,
   üst sağdaki menüden oturum kapatılır.
-- **Kişiye özel görünüm.** Tema (sistem / açık / koyu) ve renk paleti her
-  kullanıcı için ayrı ayrı saklanır; sizin seçiminiz ekip arkadaşınızın
-  ekranını değiştirmez.
+- **Açık / koyu tema.** Üst bardaki ☾/☀ düğmesi tek tıkla değiştirir; Görünüm
+  penceresinde Sistem / Açık / Koyu olarak da ayarlanır. "Sistem" seçiliyken
+  işletim sisteminin tercihi izlenir ve değiştiğinde arayüz anında uyar.
+- **Kişiye özel görünüm.** Tema ve renk paleti her kullanıcı için ayrı ayrı
+  saklanır; sizin seçiminiz ekip arkadaşınızın ekranını değiştirmez.
 - **Renk paletleri.** Beş hazır palet (biri renk körlüğüne uygun) ve kendi beş
   renginizi hex ile girebileceğiniz özel palet. Vurgu rengini de siz seçersiniz.
 - **Dışa / içe aktarma.** Panoyu JSON olarak indirip paylaşabilir, geri yükleyebilirsiniz.

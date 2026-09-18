@@ -105,8 +105,9 @@ export function FilterBar({ filters, onChange }: Props): JSX.Element {
         className="chip"
         aria-pressed={filters.hideDone}
         onClick={() => onChange({ ...filters, hideDone: !filters.hideDone })}
+        title="Tamamlanmış epic kutularını listeden çıkarır"
       >
-        Tamamlananları gizle
+        Tamamlanan epic’leri gizle
       </button>
 
       {isFilterActive(filters) && (

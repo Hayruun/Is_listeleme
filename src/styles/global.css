@@ -1,56 +1,61 @@
 /* ==========================================================================
    Tasarim belirtecleri
+
+   Palet: Dark green #0A3323 · Moss green #839958 · Beige #F7F4D5
+          Rosy brown #D3968C · Midnight green #105666
+   Ara tonlar bu bes renkten turetildi; metin renkleri okunabilirlik icin
+   koyulastirildi/acildi.
    ========================================================================== */
 :root {
   color-scheme: light;
 
-  --bg: #f6f7fb;
-  --bg-elevated: #ffffff;
-  --bg-sunken: #eef0f7;
-  --bg-hover: #f1f3f9;
-  --surface-glass: rgba(255, 255, 255, 0.78);
+  --bg: #f2eecd;
+  --bg-elevated: #fdfbe9;
+  --bg-sunken: #ebe6c0;
+  --bg-hover: #e7e1b5;
+  --surface-glass: rgba(253, 251, 233, 0.82);
 
-  --border: #e3e6ef;
-  --border-strong: #d0d5e3;
+  --border: #ddd6ab;
+  --border-strong: #c7bf8d;
 
-  --text: #161a27;
-  --text-muted: #5b6377;
-  --text-faint: #8a92a6;
+  --text: #0a3323;
+  --text-muted: #3f6152;
+  --text-faint: #6d8879;
 
-  --accent: #5b5bd6;
-  --accent-strong: #4a48c4;
-  --accent-soft: #eceafc;
-  --accent-contrast: #ffffff;
+  --accent: #105666;
+  --accent-strong: #0b404d;
+  --accent-soft: #dbe8eb;
+  --accent-contrast: #f7f4d5;
 
-  --type-epic: #7c3aed;
-  --type-feature: #2563eb;
-  --type-story: #0d9488;
-  --type-task: #64748b;
-  --type-bug: #e11d48;
+  --type-epic: #0a3323;
+  --type-feature: #105666;
+  --type-story: #6e8547;
+  --type-task: #7b8a7e;
+  --type-bug: #b4645c;
 
-  --state-new: #64748b;
-  --state-active: #2563eb;
-  --state-blocked: #e11d48;
-  --state-review: #d97706;
-  --state-done: #16a34a;
+  --state-new: #7b8a7e;
+  --state-active: #105666;
+  --state-blocked: #b4645c;
+  --state-review: #8f7526;
+  --state-done: #5f7340;
 
-  --prio-1: #e11d48;
-  --prio-2: #ea580c;
-  --prio-3: #0ea5e9;
-  --prio-4: #94a3b8;
+  --prio-1: #b4645c;
+  --prio-2: #a3722f;
+  --prio-3: #105666;
+  --prio-4: #8b967f;
 
-  --danger: #dc2626;
-  --danger-soft: #fee2e2;
+  --danger: #a8483d;
+  --danger-soft: #f2ddd7;
 
   --radius-sm: 7px;
   --radius: 11px;
   --radius-lg: 16px;
 
-  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05);
-  --shadow: 0 4px 14px -4px rgba(16, 24, 40, 0.1), 0 1px 3px rgba(16, 24, 40, 0.05);
-  --shadow-lg: 0 24px 48px -16px rgba(16, 24, 40, 0.24);
+  --shadow-sm: 0 1px 2px rgba(10, 51, 35, 0.07);
+  --shadow: 0 4px 14px -4px rgba(10, 51, 35, 0.16), 0 1px 3px rgba(10, 51, 35, 0.08);
+  --shadow-lg: 0 24px 48px -16px rgba(10, 51, 35, 0.32);
 
-  --ring: 0 0 0 3px rgba(91, 91, 214, 0.28);
+  --ring: 0 0 0 3px rgba(16, 86, 102, 0.3);
 
   /* Harici CDN bagimliligi olmasin diye yalnizca sistem fontlari. */
   --font: system-ui, -apple-system, 'Segoe UI', 'Inter', Roboto, 'Helvetica Neue',
@@ -61,48 +66,48 @@
 :root[data-theme='dark'] {
   color-scheme: dark;
 
-  --bg: #0e1119;
-  --bg-elevated: #161a25;
-  --bg-sunken: #11141d;
-  --bg-hover: #1d2230;
-  --surface-glass: rgba(22, 26, 37, 0.82);
+  --bg: #061a13;
+  --bg-elevated: #0c2a20;
+  --bg-sunken: #04140e;
+  --bg-hover: #143728;
+  --surface-glass: rgba(12, 42, 32, 0.86);
 
-  --border: #262b3a;
-  --border-strong: #343b4e;
+  --border: #1b4132;
+  --border-strong: #2b5945;
 
-  --text: #eef1f8;
-  --text-muted: #a2abbf;
-  --text-faint: #6f7992;
+  --text: #f7f4d5;
+  --text-muted: #b5c3a6;
+  --text-faint: #85997f;
 
-  --accent: #8b8bf0;
-  --accent-strong: #a0a0f5;
-  --accent-soft: #232449;
-  --accent-contrast: #0e1119;
+  --accent: #5aa5b6;
+  --accent-strong: #7cbecd;
+  --accent-soft: #11343d;
+  --accent-contrast: #04140e;
 
-  --type-epic: #a78bfa;
-  --type-feature: #60a5fa;
-  --type-story: #2dd4bf;
-  --type-task: #94a3b8;
-  --type-bug: #fb7185;
+  --type-epic: #5fa37f;
+  --type-feature: #5aa5b6;
+  --type-story: #a8be78;
+  --type-task: #93a28e;
+  --type-bug: #d3968c;
 
-  --state-new: #94a3b8;
-  --state-active: #60a5fa;
-  --state-blocked: #fb7185;
-  --state-review: #fbbf24;
-  --state-done: #4ade80;
+  --state-new: #93a28e;
+  --state-active: #5aa5b6;
+  --state-blocked: #d3968c;
+  --state-review: #d6b458;
+  --state-done: #a8be78;
 
-  --prio-1: #fb7185;
-  --prio-2: #fb923c;
-  --prio-3: #38bdf8;
-  --prio-4: #64748b;
+  --prio-1: #d3968c;
+  --prio-2: #d3a96b;
+  --prio-3: #5aa5b6;
+  --prio-4: #7e8c79;
 
-  --danger: #f87171;
-  --danger-soft: #3b1a1d;
+  --danger: #e08878;
+  --danger-soft: #3b1f1a;
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 24px 48px -16px rgba(0, 0, 0, 0.7);
-  --ring: 0 0 0 3px rgba(139, 139, 240, 0.3);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.45);
+  --shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 24px 48px -16px rgba(0, 0, 0, 0.72);
+  --ring: 0 0 0 3px rgba(90, 165, 182, 0.32);
 }
 
 /* ==========================================================================
@@ -230,7 +235,7 @@ textarea {
   place-items: center;
   font-size: 16px;
   color: #fff;
-  background: linear-gradient(135deg, #6d5bf0, #9c4ede);
+  background: linear-gradient(135deg, #0a3323, #105666);
   box-shadow: var(--shadow-sm);
 }
 
@@ -543,7 +548,7 @@ textarea {
 .progress__fill {
   height: 100%;
   border-radius: 99px;
-  background: linear-gradient(90deg, var(--accent), #9c4ede);
+  background: linear-gradient(90deg, var(--accent), var(--type-story));
   transition: width 0.3s ease;
 }
 
@@ -899,7 +904,7 @@ textarea {
 .scrim {
   position: fixed;
   inset: 0;
-  background: rgba(10, 13, 20, 0.45);
+  background: rgba(10, 51, 35, 0.48);
   backdrop-filter: blur(2px);
   z-index: 60;
   animation: fade 0.18s ease;
@@ -1115,6 +1120,33 @@ textarea {
 .person-row__name {
   flex: 1;
   min-width: 0;
+}
+
+.swatches {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 132px;
+}
+
+.swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.12s, border-color 0.12s;
+}
+
+.swatch:hover {
+  transform: scale(1.18);
+}
+
+.swatch[aria-pressed='true'] {
+  border-color: var(--text);
+  transform: scale(1.12);
 }
 
 .person-row__count {

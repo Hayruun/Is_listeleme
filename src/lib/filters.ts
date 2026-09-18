@@ -1,4 +1,4 @@
-import { flatten, type TreeNode } from './hierarchy';
+import { flatten, progressOf, type TreeNode } from './hierarchy';
 import type { Board, Priority, WorkItemState, WorkItemType } from '../types';
 
 export interface FilterState {
@@ -7,7 +7,7 @@ export interface FilterState {
   states: WorkItemState[];
   types: WorkItemType[];
   priorities: Priority[];
-  /** Tamamlanmis ogeleri gizle. */
+  /** Tamamlanmis epic kutularini tumuyle gizle. */
   hideDone: boolean;
 }
 
@@ -34,7 +34,6 @@ export function isFilterActive(filters: FilterState): boolean {
 function matches(node: TreeNode, filters: FilterState, board: Board): boolean {
   const { item } = node;
 
-  if (filters.hideDone && item.state === 'done') return false;
   if (filters.states.length > 0 && !filters.states.includes(item.state)) return false;
   if (filters.types.length > 0 && !filters.types.includes(item.type)) return false;
   if (filters.priorities.length > 0 && !filters.priorities.includes(item.priority)) return false;
@@ -64,6 +63,22 @@ function matches(node: TreeNode, filters: FilterState, board: Board): boolean {
  * Agaci filtreler. Bir oge eslesmese bile alt ogelerinden biri esliyorsa
  * baglami korumak icin agacta kalir.
  */
+/**
+ * Bir kutu "bitmis" sayilir: ya kendisi tamamlandi olarak isaretlenmistir ya da
+ * kendisi dahil tum alt agaci tamamlanmistir.
+ */
+export function isFullyDone(node: TreeNode): boolean {
+  return node.item.state === 'done' || progressOf(node).percent === 100;
+}
+
+/**
+ * Agaci filtreler. Bir oge eslesmese bile alt ogelerinden biri esliyorsa
+ * baglami korumak icin agacta kalir.
+ *
+ * "Tamamlananlari gizle" digerlerinden farkli calisir: tek tek ogeleri degil,
+ * bitmis kok kutularin tamamini listeden cikarir. Boylece acik bir epic'in
+ * icindeki tamamlanmis isler gorunur kalir, bitmis epic hic gorunmez.
+ */
 export function filterTree(nodes: TreeNode[], filters: FilterState, board: Board): TreeNode[] {
   if (!isFilterActive(filters)) return nodes;
 
@@ -76,7 +91,8 @@ export function filterTree(nodes: TreeNode[], filters: FilterState, board: Board
     return matches(node, filters, board) ? { ...node, children: [] } : null;
   };
 
-  return nodes.map(walkNode).filter((node): node is TreeNode => node !== null);
+  const roots = filters.hideDone ? nodes.filter((node) => !isFullyDone(node)) : nodes;
+  return roots.map(walkNode).filter((node): node is TreeNode => node !== null);
 }
 
 export interface BoardStats {

@@ -75,16 +75,19 @@ export const PRIORITY_META: Record<Priority, { label: string; color: string }> =
 
 export const PRIORITY_ORDER: Priority[] = [1, 2, 3, 4];
 
-/** Yeni kisi eklenirken sirayla kullanilan avatar renkleri. */
+/**
+ * Avatar renkleri. Hepsi paletten turetildi ve beyaz metinle okunabilecek
+ * kadar koyu tutuldu.
+ */
 export const PERSON_COLORS = [
-  '#6366f1',
-  '#0ea5e9',
-  '#10b981',
-  '#f59e0b',
-  '#ef4444',
-  '#ec4899',
-  '#8b5cf6',
-  '#14b8a6',
-  '#f97316',
-  '#64748b',
+  '#105666',
+  '#0a3323',
+  '#6e8547',
+  '#b4645c',
+  '#2e7d6b',
+  '#3e6e8c',
+  '#8a6a3c',
+  '#5c7a3a',
+  '#a05a52',
+  '#4a6b7c',
 ];

@@ -75,11 +75,11 @@ export function TeamModal({ onClose }: { onClose: () => void }): JSX.Element {
             </button>
           </div>
 
-          {board.people.length === 0 && (
-            <p className="faint" style={{ margin: 0, fontSize: 12.5 }}>
-              Henüz ekip üyesi yok. Kişi ekledikçe iş öğelerine etiketleyebilirsiniz.
-            </p>
-          )}
+          <p className="faint" style={{ margin: 0, fontSize: 12.5 }}>
+            {board.people.length === 0
+              ? 'Henüz ekip üyesi yok. Kişi ekledikçe iş öğelerine etiketleyebilirsiniz.'
+              : 'Ad, rol ve avatar rengi doğrudan düzenlenebilir; değişiklikler anında kaydedilir.'}
+          </p>
 
           <div className="stack" style={{ gap: 7 }}>
             {board.people.map((person) => {
@@ -114,32 +114,29 @@ export function TeamModal({ onClose }: { onClose: () => void }): JSX.Element {
                     />
                   </div>
 
-                  <div className="stack" style={{ gap: 6, alignItems: 'flex-end' }}>
+                  <div className="stack" style={{ gap: 7, alignItems: 'flex-end' }}>
                     <span className="person-row__count">{count} öğe</span>
-                    <div className="row" style={{ gap: 4 }}>
-                      <select
-                        className="select"
-                        style={{ width: 'auto', padding: '4px 22px 4px 8px' }}
-                        value={person.color}
-                        onChange={(event) =>
-                          dispatch({
-                            type: 'person/patch',
-                            id: person.id,
-                            patch: { color: event.target.value },
-                          })
-                        }
-                        aria-label="Renk"
-                      >
-                        {(PERSON_COLORS.includes(person.color)
-                          ? PERSON_COLORS
-                          : [person.color, ...PERSON_COLORS]
-                        ).map((color) => (
-                          <option key={color} value={color}>
-                            {color}
-                          </option>
-                        ))}
-                      </select>
 
+                    <div className="swatches" role="group" aria-label="Avatar rengi">
+                      {(PERSON_COLORS.includes(person.color)
+                        ? PERSON_COLORS
+                        : [person.color, ...PERSON_COLORS]
+                      ).map((color) => (
+                        <button
+                          key={color}
+                          type="button"
+                          className="swatch"
+                          style={{ background: color }}
+                          aria-label={`Renk ${color}`}
+                          aria-pressed={person.color === color}
+                          onClick={() =>
+                            dispatch({ type: 'person/patch', id: person.id, patch: { color } })
+                          }
+                        />
+                      ))}
+                    </div>
+
+                    <div className="row" style={{ gap: 4 }}>
                       {pendingRemoval === person.id ? (
                         <>
                           <button

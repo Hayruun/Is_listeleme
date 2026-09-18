@@ -8,31 +8,31 @@
     {
       "id": "usr-001tjd1wu",
       "name": "Ayşe Yılmaz",
-      "color": "#6366f1",
+      "color": "#105666",
       "role": "Backend / .NET"
     },
     {
       "id": "usr-002kwh9xh",
       "name": "Mert Demir",
-      "color": "#0ea5e9",
+      "color": "#6e8547",
       "role": "Python / Veri"
     },
     {
       "id": "usr-003gnmcvl",
       "name": "Elif Kaya",
-      "color": "#10b981",
+      "color": "#2e7d6b",
       "role": "DevOps"
     },
     {
       "id": "usr-004sp5r9o",
       "name": "Burak Şahin",
-      "color": "#f59e0b",
+      "color": "#8a6a3c",
       "role": "QA"
     },
     {
       "id": "usr-005856e9k",
       "name": "Zeynep Arslan",
-      "color": "#ec4899",
+      "color": "#b4645c",
       "role": "Takım Lideri"
     }
   ],
@@ -377,7 +377,7 @@
       "startDate": "2026-09-08",
       "dueDate": "2026-10-20",
       "createdAt": "2026-09-03T12:00:00Z",
-      "updatedAt": "2026-09-03T13:00:00Z",
+      "updatedAt": "2026-09-03T12:00:00Z",
       "order": 1
     },
     {

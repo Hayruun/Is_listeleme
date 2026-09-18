@@ -21,7 +21,7 @@ export type SaveStatus = 'idle' | 'saving' | 'saved' | 'local' | 'conflict';
 type Action =
   | { type: 'replace'; board: Board }
   | { type: 'project/patch'; patch: Partial<Board['project']> }
-  | { type: 'person/add'; name: string; role?: string }
+  | { type: 'person/add'; name: string; role?: string; id?: string }
   | { type: 'person/patch'; id: string; patch: Partial<Omit<Person, 'id'>> }
   | { type: 'person/remove'; id: string }
   | { type: 'item/add'; draft: NewItem; atStart?: boolean }
@@ -72,7 +72,9 @@ export function boardReducer(board: Board, action: Action): Board {
       const name = action.name.trim();
       if (name === '') return board;
       const person: Person = {
-        id: createId('usr'),
+        // Cagiran taraf kimligi onceden uretebilir (ornegin oturum acarken
+        // kendini ekleyen kisi, eklendikten hemen sonra girebilsin diye).
+        id: action.id ?? createId('usr'),
         name,
         role: action.role?.trim() || undefined,
         color: PERSON_COLORS[board.people.length % PERSON_COLORS.length],

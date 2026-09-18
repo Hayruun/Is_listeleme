@@ -4,6 +4,8 @@ interface TypeMeta {
   label: string;
   short: string;
   color: string;
+  /** Rozet zemininin uzerine yazilacak murekkep; palete gore hesaplanir. */
+  ink: string;
   icon: string;
   /** Altina eklenebilecek tur(ler); ilki varsayilan. */
   children: WorkItemType[];
@@ -14,6 +16,7 @@ export const TYPE_META: Record<WorkItemType, TypeMeta> = {
     label: 'Epic',
     short: 'EPC',
     color: 'var(--type-epic)',
+    ink: 'var(--type-epic-ink)',
     icon: '◆',
     children: ['feature', 'story'],
   },
@@ -21,6 +24,7 @@ export const TYPE_META: Record<WorkItemType, TypeMeta> = {
     label: 'Feature',
     short: 'FTR',
     color: 'var(--type-feature)',
+    ink: 'var(--type-feature-ink)',
     icon: '◈',
     children: ['story', 'bug'],
   },
@@ -28,6 +32,7 @@ export const TYPE_META: Record<WorkItemType, TypeMeta> = {
     label: 'User Story',
     short: 'STR',
     color: 'var(--type-story)',
+    ink: 'var(--type-story-ink)',
     icon: '▣',
     children: ['task', 'bug'],
   },
@@ -35,6 +40,7 @@ export const TYPE_META: Record<WorkItemType, TypeMeta> = {
     label: 'Task',
     short: 'TSK',
     color: 'var(--type-task)',
+    ink: 'var(--type-task-ink)',
     icon: '▪',
     children: [],
   },
@@ -42,6 +48,7 @@ export const TYPE_META: Record<WorkItemType, TypeMeta> = {
     label: 'Bug',
     short: 'BUG',
     color: 'var(--type-bug)',
+    ink: 'var(--type-bug-ink)',
     icon: '●',
     children: ['task'],
   },

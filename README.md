@@ -36,7 +36,14 @@ npm run typecheck  # yalnızca tip kontrolü
   bile alt öğelerinden biri uyuyorsa bağlamı korumak için ağaçta kalır.
 - **İlerleme.** Her epic, alt ağacındaki tamamlanma yüzdesini ve toplanmış story
   point'i gösterir.
-- **Açık / koyu tema.** Tercih yalnızca o tarayıcıda saklanır.
+- **Oturum açma.** Uygulama önce kim olduğunuzu sorar: ekipten kendinizi seçer
+  ya da listede yoksanız oracıkta eklersiniz. Seçim tarayıcıda saklanır,
+  üst sağdaki menüden oturum kapatılır.
+- **Kişiye özel görünüm.** Tema (sistem / açık / koyu) ve renk paleti her
+  kullanıcı için ayrı ayrı saklanır; sizin seçiminiz ekip arkadaşınızın
+  ekranını değiştirmez.
+- **Renk paletleri.** Beş hazır palet (biri renk körlüğüne uygun) ve kendi beş
+  renginizi hex ile girebileceğiniz özel palet. Vurgu rengini de siz seçersiniz.
 - **Dışa / içe aktarma.** Panoyu JSON olarak indirip paylaşabilir, geri yükleyebilirsiniz.
 
 ## Veri nerede duruyor
@@ -110,6 +117,47 @@ hiçbiri veri kaynağını bilmez. Çakışma kontrolü de aynı sözleşmeyle �
 (`baseUpdatedAt` gönderilir, `409` beklenir), dolayısıyla sunucu tarafında
 optimistic concurrency'e doğrudan karşılık gelir.
 
+## Görünüm ve renk paletleri
+
+Üst sağdaki kullanıcı menüsünden **Görünüm** ile açılır.
+
+Palet beş renkten oluşur ve sırasıyla Epic, Feature, User Story, Task ve Bug
+türlerine karşılık gelir; bunlardan biri vurgu (düğme, bağlantı, odak halkası,
+ilerleme çubuğu) rengi olarak seçilir. Hazır paletler `src/lib/palettes.ts`
+içinde tanımlıdır, yeni palet eklemek o dizinin bir satırıdır.
+
+Üç tasarım kararı:
+
+- **Zemin paletten boyanmaz.** Seçtiğiniz paletin tonu arka plana yalnızca çok
+  düşük doygunlukta sızar; sayfa nötr kalır. Palet vurguyu ve öğe türlerini
+  belirler, arka planı değil.
+- **Girdiğiniz renk okunur hale getirilir.** Çok açık ya da çok koyu bir renk,
+  tonu (hue) korunarak ölçülebilir kontrast eşiğine taşınır ve üzerine yazılacak
+  mürekkep otomatik seçilir. Yani okunmayan bir arayüz üretemezsiniz. Hesap
+  `src/lib/color.ts` (WCAG kontrast) ve `src/lib/appearance.ts` içindedir.
+- **Anlam renge emanet edilmez.** Her tür kendi ikonu ve üç harfli koduyla
+  (EPC / FTR / STR / TSK / BUG), her durum kendi metin etiketiyle gelir.
+  "Erişilebilir" paleti (Okabe–Ito) buna ek olarak renk körlüğünün üç yaygın
+  tipinde de ayırt edilebilen renkler kullanır ve durum renklerini de
+  kendisi belirler.
+
+Tercihler `localStorage`'da kullanıcı kimliğine göre ayrı anahtarlarda tutulur
+(`is-listeleme:appearance:<userId>`), panonun ortak dosyasına yazılmaz.
+
+## Oturum açma
+
+`src/lib/session.ts` ve `src/components/LoginScreen.tsx`.
+
+Bu ekran **kimlik doğrulaması yapmaz**; yalnızca "bu tarayıcıda kim çalışıyor"
+bilgisini belirler. Güvenlik yönergesi sıfırdan özel kimlik doğrulama yazmayı
+yasakladığı için, doğrulama yapmayan bir parola alanı bilerek konmadı — öyle bir
+alan yanlış bir güvenlik hissi yaratırdı.
+
+Kurumsal SSO (Keycloak / Azure AD) bağlanacağında değişmesi gereken tek yer
+`session.ts`: kimlik `localStorage` yerine sağlayıcıdan okunur, arayüzün geri
+kalanı aynı kalır. Giriş ekranındaki "Kurumsal hesapla giriş yap" düğmesi bu
+bağlantı için hazır ve şimdilik devre dışı duruyor.
+
 ## Güvenlik notları
 
 Kurum güvenlik yönergesiyle uyum için uygulanan başlıca noktalar:
@@ -141,9 +189,9 @@ Kurum güvenlik yönergesiyle uyum için uygulanan başlıca noktalar:
   çalışma zamanında yalnızca React kullanılır, harici CDN'e (font dahil) hiçbir
   istek yapılmaz.
 
-> Not: Bu uygulamanın kendi kimlik doğrulaması yoktur — erişim denetimi, onu
-> barındırdığınız ortamın sorumluluğundadır. Ekip içi kullanım dışına
-> çıkarılacaksa önce kurumsal SSO'nun arkasına alınmalıdır.
+> Not: Giriş ekranı kimlik **belirler**, kimlik **doğrulamaz** — erişim denetimi
+> şu an uygulamayı barındırdığınız ortamın sorumluluğundadır. Ekip içi kullanım
+> dışına çıkarılacaksa önce kurumsal SSO'nun arkasına alınmalıdır.
 
 ## Proje yapısı
 
@@ -157,6 +205,10 @@ src/
     hierarchy.ts              Ağaç kurma, ilerleme hesabı, ata/alt öğe sorguları
     filters.ts                Filtreleme ve istatistik
     constants.ts              Tür / durum / öncelik tanımları
+    color.ts                  Renk matematiği ve WCAG kontrast hesabı
+    palettes.ts               Hazır renk paletleri
+    appearance.ts             Paletten CSS belirteci üretimi, kullanıcı tercihleri
+    session.ts                Oturum kimliği (SSO buraya bağlanır)
   state/boardStore.tsx        Reducer, otomatik kaydetme, çakışma yönetimi
   components/                 Arayüz bileşenleri
   styles/global.css           Tasarım belirteçleri ve tüm stiller

@@ -4,7 +4,7 @@ import type { Priority, WorkItemState, WorkItemType } from '../types';
 export function TypeChip({ type, compact = false }: { type: WorkItemType; compact?: boolean }): JSX.Element {
   const meta = TYPE_META[type];
   return (
-    <span className="type-chip" style={{ background: meta.color }}>
+    <span className="type-chip" style={{ background: meta.color, color: meta.ink }}>
       <span aria-hidden="true">{meta.icon}</span>
       {compact ? meta.short : meta.label}
     </span>

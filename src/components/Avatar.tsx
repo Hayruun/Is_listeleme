@@ -1,3 +1,4 @@
+import { readableInk } from '../lib/color';
 import { initialsOf } from '../lib/id';
 import type { Person } from '../types';
 
@@ -13,7 +14,9 @@ export function Avatar({ person, size = 'md' }: { person: Person; size?: Size })
   return (
     <span
       className={SIZE_CLASS[size]}
-      style={{ background: person.color }}
+      // Murekkep, kisinin rengine gore secilir: acik bir avatar renginde de
+      // bas harfler okunur kalir.
+      style={{ background: person.color, color: readableInk(person.color) }}
       title={person.role ? `${person.name} · ${person.role}` : person.name}
     >
       {initialsOf(person.name)}

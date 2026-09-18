@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react';
 import { exportBoard, importBoardFile } from '../lib/boardApi';
-import { useTheme } from '../lib/useTheme';
+import { useDismiss } from '../lib/useDismiss';
 import { useBoard, type SaveStatus } from '../state/boardStore';
+import { Avatar } from './Avatar';
+import type { Person } from '../types';
 
 const SAVE_LABEL: Record<SaveStatus, string> = {
   idle: 'Hazır',
@@ -20,16 +22,28 @@ const SAVE_CLASS: Record<SaveStatus, string> = {
 };
 
 interface Props {
+  currentUser: Person;
   onOpenTeam: () => void;
+  onOpenAppearance: () => void;
+  onSignOut: () => void;
   onAddEpic: () => void;
 }
 
-export function TopBar({ onOpenTeam, onAddEpic }: Props): JSX.Element {
+export function TopBar({
+  currentUser,
+  onOpenTeam,
+  onOpenAppearance,
+  onSignOut,
+  onAddEpic,
+}: Props): JSX.Element {
   const { board, dispatch, saveStatus, replaceBoard } = useBoard();
-  const [theme, toggleTheme] = useTheme();
   const [editingName, setEditingName] = useState(false);
   const [importError, setImportError] = useState<string | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useDismiss(menuRef, menuOpen, () => setMenuOpen(false));
 
   const onImport = async (file: File | undefined): Promise<void> => {
     if (!file) return;
@@ -94,23 +108,92 @@ export function TopBar({ onOpenTeam, onAddEpic }: Props): JSX.Element {
             Ekip
           </button>
 
-          <button
-            type="button"
-            className="btn btn--sm"
-            onClick={() => exportBoard(board)}
-            title="Panoyu JSON olarak indir"
-          >
-            Dışa aktar
+          <button type="button" className="btn btn--sm btn--primary" onClick={onAddEpic}>
+            ＋ Epic
           </button>
 
-          <button
-            type="button"
-            className="btn btn--sm"
-            onClick={() => fileRef.current?.click()}
-            title="JSON dosyasından yükle"
-          >
-            İçe aktar
-          </button>
+          <div className="picker" ref={menuRef}>
+            <button
+              type="button"
+              className="user-menu__trigger"
+              onClick={() => setMenuOpen((value) => !value)}
+              aria-expanded={menuOpen}
+              aria-haspopup="menu"
+            >
+              <Avatar person={currentUser} size="sm" />
+              {currentUser.name.split(' ')[0]}
+              <span aria-hidden="true" style={{ fontSize: 9 }}>
+                ▼
+              </span>
+            </button>
+
+            {menuOpen && (
+              <div className="picker__menu picker__menu--right" role="menu">
+                <div style={{ padding: '6px 8px 8px' }}>
+                  <div style={{ fontSize: 13, fontWeight: 600 }}>{currentUser.name}</div>
+                  {currentUser.role && (
+                    <div className="picker__option-role">{currentUser.role}</div>
+                  )}
+                </div>
+                <div className="picker__divider" />
+
+                <button
+                  type="button"
+                  className="picker__option"
+                  role="menuitem"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    onOpenAppearance();
+                  }}
+                >
+                  <span aria-hidden="true">◑</span>
+                  <span className="picker__option-name">Görünüm ve renk paleti</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="picker__option"
+                  role="menuitem"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    exportBoard(board);
+                  }}
+                >
+                  <span aria-hidden="true">↓</span>
+                  <span className="picker__option-name">Panoyu dışa aktar</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="picker__option"
+                  role="menuitem"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    fileRef.current?.click();
+                  }}
+                >
+                  <span aria-hidden="true">↑</span>
+                  <span className="picker__option-name">JSON’dan içe aktar</span>
+                </button>
+
+                <div className="picker__divider" />
+
+                <button
+                  type="button"
+                  className="picker__option"
+                  role="menuitem"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    onSignOut();
+                  }}
+                >
+                  <span aria-hidden="true">⎋</span>
+                  <span className="picker__option-name">Oturumu kapat</span>
+                </button>
+              </div>
+            )}
+          </div>
+
           <input
             ref={fileRef}
             type="file"
@@ -118,20 +201,6 @@ export function TopBar({ onOpenTeam, onAddEpic }: Props): JSX.Element {
             className="sr-only"
             onChange={(event) => void onImport(event.target.files?.[0])}
           />
-
-          <button
-            type="button"
-            className="btn btn--sm btn--icon"
-            onClick={toggleTheme}
-            aria-label={theme === 'dark' ? 'Açık temaya geç' : 'Koyu temaya geç'}
-            title={theme === 'dark' ? 'Açık tema' : 'Koyu tema'}
-          >
-            {theme === 'dark' ? '☀' : '☾'}
-          </button>
-
-          <button type="button" className="btn btn--sm btn--primary" onClick={onAddEpic}>
-            ＋ Epic
-          </button>
         </div>
       </div>
 

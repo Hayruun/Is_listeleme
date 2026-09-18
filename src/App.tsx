@@ -1,11 +1,21 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { AppearanceModal } from './components/AppearanceModal';
 import { EpicCard } from './components/EpicCard';
+import { LoginScreen } from './components/LoginScreen';
 import { DetailPanel } from './components/DetailPanel';
 import { FilterBar } from './components/FilterBar';
 import { TeamModal } from './components/TeamModal';
 import { TopBar } from './components/TopBar';
 import { QuickAdd } from './components/QuickAdd';
+import {
+  DEFAULT_APPEARANCE,
+  applyAppearance,
+  loadAppearance,
+  saveAppearance,
+  type Appearance,
+} from './lib/appearance';
 import { buildTree, flatten } from './lib/hierarchy';
+import { clearSessionUserId, loadSessionUserId, saveSessionUserId } from './lib/session';
 import { EMPTY_FILTERS, filterTree, isFilterActive, statsOf, type FilterState } from './lib/filters';
 import { useBoard } from './state/boardStore';
 
@@ -16,6 +26,57 @@ export function App(): JSX.Element {
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [teamOpen, setTeamOpen] = useState(false);
+  const [appearanceOpen, setAppearanceOpen] = useState(false);
+
+  const [userId, setUserId] = useState<string | null>(() => loadSessionUserId());
+
+  // Ilk deger dogrudan kayitli tercihten okunur; boylece varsayilan degerlerin
+  // bir an uygulanip uzerine yazilmasi soz konusu olmaz.
+  const [appearance, setAppearanceState] = useState<Appearance>(() => {
+    const id = loadSessionUserId();
+    return id ? loadAppearance(id) : DEFAULT_APPEARANCE;
+  });
+
+  // Kayit yalnizca kullanici bir sey degistirdiginde yapilir. Kaydetmeyi bir
+  // efekte baglamak, yuklenen tercihin uzerine varsayilanlarin yazilmasina yol
+  // aciyordu; bu yuzden kasitli olarak burada duruyor.
+  const updateAppearance = useCallback(
+    (next: Appearance) => {
+      setAppearanceState(next);
+      if (userId) saveAppearance(userId, next);
+    },
+    [userId],
+  );
+
+  // Kullanici degisince (giris / cikis) o kisinin tercihleri yuklenir.
+  useEffect(() => {
+    setAppearanceState(userId ? loadAppearance(userId) : DEFAULT_APPEARANCE);
+  }, [userId]);
+
+  useEffect(() => {
+    applyAppearance(appearance);
+  }, [appearance]);
+
+  // "Sistem" secildiginde isletim sisteminin temasini takip eder.
+  useEffect(() => {
+    if (appearance.theme !== 'system') return;
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    const onChange = (): void => {
+      applyAppearance(appearance);
+    };
+    media.addEventListener('change', onChange);
+    return () => media.removeEventListener('change', onChange);
+  }, [appearance]);
+
+  const signIn = useCallback((personId: string) => {
+    saveSessionUserId(personId);
+    setUserId(personId);
+  }, []);
+
+  const signOut = useCallback(() => {
+    clearSessionUserId();
+    setUserId(null);
+  }, []);
 
   const tree = useMemo(() => buildTree(board.items), [board.items]);
   const visible = useMemo(() => filterTree(tree, filters, board), [tree, filters, board]);
@@ -56,9 +117,22 @@ export function App(): JSX.Element {
     );
   }
 
+  const currentUser = board.people.find((person) => person.id === userId) ?? null;
+
+  // Oturum yoksa ya da kayitli kisi ekipten cikarilmissa giris ekranina doneriz.
+  if (!currentUser) {
+    return <LoginScreen onSignIn={signIn} />;
+  }
+
   return (
     <div className="app">
-      <TopBar onOpenTeam={() => setTeamOpen(true)} onAddEpic={addEpic} />
+      <TopBar
+        currentUser={currentUser}
+        onOpenTeam={() => setTeamOpen(true)}
+        onOpenAppearance={() => setAppearanceOpen(true)}
+        onSignOut={signOut}
+        onAddEpic={addEpic}
+      />
 
       <main className="app__body stack">
         {notice && (
@@ -183,6 +257,15 @@ export function App(): JSX.Element {
       )}
 
       {teamOpen && <TeamModal onClose={() => setTeamOpen(false)} />}
+
+      {appearanceOpen && (
+        <AppearanceModal
+          appearance={appearance}
+          onChange={updateAppearance}
+          onClose={() => setAppearanceOpen(false)}
+          userName={currentUser.name}
+        />
+      )}
     </div>
   );
 }

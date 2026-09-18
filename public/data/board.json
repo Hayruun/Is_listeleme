@@ -1,0 +1,914 @@
+{
+  "version": 1,
+  "project": {
+    "name": "Platform Yükseltme Programı",
+    "description": ".NET 8 ve Python 3.12 geçişi ile ilgili tüm iş kalemleri."
+  },
+  "people": [
+    {
+      "id": "usr-001tjd1wu",
+      "name": "Ayşe Yılmaz",
+      "color": "#6366f1",
+      "role": "Backend / .NET"
+    },
+    {
+      "id": "usr-002kwh9xh",
+      "name": "Mert Demir",
+      "color": "#0ea5e9",
+      "role": "Python / Veri"
+    },
+    {
+      "id": "usr-003gnmcvl",
+      "name": "Elif Kaya",
+      "color": "#10b981",
+      "role": "DevOps"
+    },
+    {
+      "id": "usr-004sp5r9o",
+      "name": "Burak Şahin",
+      "color": "#f59e0b",
+      "role": "QA"
+    },
+    {
+      "id": "usr-005856e9k",
+      "name": "Zeynep Arslan",
+      "color": "#ec4899",
+      "role": "Takım Lideri"
+    }
+  ],
+  "items": [
+    {
+      "id": "wi-006mipkhy",
+      "type": "epic",
+      "title": ".NET 8 (LTS) Geçişi",
+      "description": "Web API katmanının .NET 8 LTS sürümüne taşınması; bağımlılıkların ve breaking change’lerin giderilmesi.",
+      "state": "active",
+      "priority": 1,
+      "assignees": [
+        "usr-001tjd1wu",
+        "usr-005856e9k"
+      ],
+      "tags": [
+        "platform",
+        "lts"
+      ],
+      "parentId": null,
+      "effort": null,
+      "startDate": "2026-09-01",
+      "dueDate": "2026-10-15",
+      "createdAt": "2026-09-01T12:00:00Z",
+      "updatedAt": "2026-09-01T13:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-007q0qdr6",
+      "type": "feature",
+      "title": "Keşif ve envanter çıkarma",
+      "description": "Tüm .csproj / .sln / Directory.*.props dosyalarının ve NuGet paket sürümlerinin envanteri.",
+      "state": "done",
+      "priority": 2,
+      "assignees": [
+        "usr-001tjd1wu"
+      ],
+      "tags": [],
+      "parentId": "wi-006mipkhy",
+      "effort": 5,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-01T15:00:00Z",
+      "updatedAt": "2026-09-01T15:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-0089pkqc9",
+      "type": "story",
+      "title": "Proje dosyalarındaki TargetFramework değerleri listelensin",
+      "description": "",
+      "state": "done",
+      "priority": 2,
+      "assignees": [
+        "usr-001tjd1wu"
+      ],
+      "tags": [],
+      "parentId": "wi-007q0qdr6",
+      "effort": 2,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-01T18:00:00Z",
+      "updatedAt": "2026-09-01T19:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-0098kbidb",
+      "type": "task",
+      "title": "dotnet list package --outdated çıktısı raporlansın",
+      "description": "",
+      "state": "done",
+      "priority": 3,
+      "assignees": [
+        "usr-001tjd1wu"
+      ],
+      "tags": [
+        "nuget"
+      ],
+      "parentId": "wi-007q0qdr6",
+      "effort": 1,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-01T21:00:00Z",
+      "updatedAt": "2026-09-01T22:00:00Z",
+      "order": 1
+    },
+    {
+      "id": "wi-010k6db0h",
+      "type": "feature",
+      "title": "TargetFramework ve SDK yükseltmesi",
+      "description": "global.json 8.0.x’e alınır, tüm projeler net8.0 hedefine geçirilir.",
+      "state": "active",
+      "priority": 1,
+      "assignees": [
+        "usr-001tjd1wu"
+      ],
+      "tags": [],
+      "parentId": "wi-006mipkhy",
+      "effort": 8,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-02T00:00:00Z",
+      "updatedAt": "2026-09-02T01:00:00Z",
+      "order": 1
+    },
+    {
+      "id": "wi-011ut2ph1",
+      "type": "story",
+      "title": "global.json SDK sürümü 8.0.x olsun",
+      "description": "",
+      "state": "done",
+      "priority": 1,
+      "assignees": [
+        "usr-001tjd1wu"
+      ],
+      "tags": [],
+      "parentId": "wi-010k6db0h",
+      "effort": 1,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-02T03:00:00Z",
+      "updatedAt": "2026-09-02T04:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-012u2cp13",
+      "type": "task",
+      "title": "global.json oluştur / güncelle",
+      "description": "",
+      "state": "done",
+      "priority": 2,
+      "assignees": [
+        "usr-001tjd1wu"
+      ],
+      "tags": [],
+      "parentId": "wi-011ut2ph1",
+      "effort": 1,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-02T06:00:00Z",
+      "updatedAt": "2026-09-02T07:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-013zcnxna",
+      "type": "story",
+      "title": "Tüm .csproj dosyaları net8.0 hedefine alınsın",
+      "description": "",
+      "state": "active",
+      "priority": 1,
+      "assignees": [
+        "usr-001tjd1wu",
+        "usr-005856e9k"
+      ],
+      "tags": [],
+      "parentId": "wi-010k6db0h",
+      "effort": 5,
+      "startDate": null,
+      "dueDate": "2026-09-25",
+      "createdAt": "2026-09-02T09:00:00Z",
+      "updatedAt": "2026-09-02T10:00:00Z",
+      "order": 1
+    },
+    {
+      "id": "wi-0140xxx76",
+      "type": "task",
+      "title": "Api projesi net8.0’a alınsın",
+      "description": "",
+      "state": "done",
+      "priority": 2,
+      "assignees": [
+        "usr-001tjd1wu"
+      ],
+      "tags": [],
+      "parentId": "wi-013zcnxna",
+      "effort": 1,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-02T12:00:00Z",
+      "updatedAt": "2026-09-02T13:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-0155geax3",
+      "type": "task",
+      "title": "Domain ve Infrastructure projeleri net8.0’a alınsın",
+      "description": "",
+      "state": "active",
+      "priority": 2,
+      "assignees": [
+        "usr-001tjd1wu"
+      ],
+      "tags": [],
+      "parentId": "wi-013zcnxna",
+      "effort": 2,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-02T15:00:00Z",
+      "updatedAt": "2026-09-02T16:00:00Z",
+      "order": 1
+    },
+    {
+      "id": "wi-01627um31",
+      "type": "task",
+      "title": "Test projeleri net8.0’a alınsın",
+      "description": "",
+      "state": "new",
+      "priority": 3,
+      "assignees": [
+        "usr-004sp5r9o"
+      ],
+      "tags": [],
+      "parentId": "wi-013zcnxna",
+      "effort": 2,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-02T18:00:00Z",
+      "updatedAt": "2026-09-02T19:00:00Z",
+      "order": 2
+    },
+    {
+      "id": "wi-017myotri",
+      "type": "feature",
+      "title": "Breaking change taraması",
+      "description": "Obsolete API’ler, nullable davranışı, endpoint routing ve EF Core uyumluluğu.",
+      "state": "active",
+      "priority": 1,
+      "assignees": [
+        "usr-001tjd1wu",
+        "usr-004sp5r9o"
+      ],
+      "tags": [],
+      "parentId": "wi-006mipkhy",
+      "effort": 13,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-02T21:00:00Z",
+      "updatedAt": "2026-09-02T22:00:00Z",
+      "order": 2
+    },
+    {
+      "id": "wi-018m3wlvu",
+      "type": "story",
+      "title": "Derleme uyarıları sıfıra indirilsin",
+      "description": "",
+      "state": "active",
+      "priority": 2,
+      "assignees": [
+        "usr-001tjd1wu"
+      ],
+      "tags": [
+        "derleme"
+      ],
+      "parentId": "wi-017myotri",
+      "effort": 5,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-03T00:00:00Z",
+      "updatedAt": "2026-09-03T01:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-019wxokt5",
+      "type": "story",
+      "title": "EF Core migration uyumluluğu doğrulansın",
+      "description": "Majör sürüm atlaması var; onay gerektiren bir değişiklik olabilir.",
+      "state": "blocked",
+      "priority": 1,
+      "assignees": [
+        "usr-001tjd1wu",
+        "usr-002kwh9xh"
+      ],
+      "tags": [
+        "ef-core",
+        "risk"
+      ],
+      "parentId": "wi-017myotri",
+      "effort": 5,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-03T03:00:00Z",
+      "updatedAt": "2026-09-03T04:00:00Z",
+      "order": 1
+    },
+    {
+      "id": "wi-020rwohez",
+      "type": "task",
+      "title": "Mevcut migration’lar yeni sürümle yeniden üretilip karşılaştırılsın",
+      "description": "",
+      "state": "blocked",
+      "priority": 1,
+      "assignees": [
+        "usr-001tjd1wu"
+      ],
+      "tags": [],
+      "parentId": "wi-019wxokt5",
+      "effort": 3,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-03T06:00:00Z",
+      "updatedAt": "2026-09-03T07:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-0212ezebc",
+      "type": "bug",
+      "title": "System.Text.Json varsayılanları DTO alan adlarını değiştiriyor",
+      "description": "camelCase davranışı Python tarafındaki pydantic modelleriyle uyuşmuyor; sessiz kırıcı değişiklik riski.",
+      "state": "active",
+      "priority": 1,
+      "assignees": [
+        "usr-001tjd1wu",
+        "usr-002kwh9xh"
+      ],
+      "tags": [
+        "sözleşme",
+        "risk"
+      ],
+      "parentId": "wi-017myotri",
+      "effort": 3,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-03T09:00:00Z",
+      "updatedAt": "2026-09-03T10:00:00Z",
+      "order": 2
+    },
+    {
+      "id": "wi-022q9c63o",
+      "type": "epic",
+      "title": "Python 3.12 Geçişi",
+      "description": "Python servisinin 3.12’ye taşınması, kaldırılan modüllerin ve uyumsuz paketlerin giderilmesi.",
+      "state": "active",
+      "priority": 1,
+      "assignees": [
+        "usr-002kwh9xh"
+      ],
+      "tags": [
+        "platform"
+      ],
+      "parentId": null,
+      "effort": null,
+      "startDate": "2026-09-08",
+      "dueDate": "2026-10-20",
+      "createdAt": "2026-09-03T12:00:00Z",
+      "updatedAt": "2026-09-03T13:00:00Z",
+      "order": 1
+    },
+    {
+      "id": "wi-023docwn9",
+      "type": "feature",
+      "title": "Sürüm ve ortam tanımları",
+      "description": "",
+      "state": "active",
+      "priority": 2,
+      "assignees": [
+        "usr-002kwh9xh"
+      ],
+      "tags": [],
+      "parentId": "wi-022q9c63o",
+      "effort": 5,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-03T15:00:00Z",
+      "updatedAt": "2026-09-03T16:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-024n89jpe",
+      "type": "story",
+      "title": ".python-version ve pyproject requires-python 3.12 olsun",
+      "description": "",
+      "state": "done",
+      "priority": 2,
+      "assignees": [
+        "usr-002kwh9xh"
+      ],
+      "tags": [],
+      "parentId": "wi-023docwn9",
+      "effort": 2,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-03T18:00:00Z",
+      "updatedAt": "2026-09-03T19:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-025d2ruus",
+      "type": "story",
+      "title": "3.12 sanal ortamı ve kilit dosyası yeniden üretilsin",
+      "description": "",
+      "state": "active",
+      "priority": 2,
+      "assignees": [
+        "usr-002kwh9xh"
+      ],
+      "tags": [
+        "bağımlılık"
+      ],
+      "parentId": "wi-023docwn9",
+      "effort": 3,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-03T21:00:00Z",
+      "updatedAt": "2026-09-03T22:00:00Z",
+      "order": 1
+    },
+    {
+      "id": "wi-0267q37su",
+      "type": "feature",
+      "title": "Kaldırılan modüllerin temizliği",
+      "description": "PEP 594 ile kaldırılan modüller (distutils vb.) ve değişen f-string / asyncio davranışları.",
+      "state": "new",
+      "priority": 1,
+      "assignees": [
+        "usr-002kwh9xh"
+      ],
+      "tags": [],
+      "parentId": "wi-022q9c63o",
+      "effort": 8,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-04T00:00:00Z",
+      "updatedAt": "2026-09-04T01:00:00Z",
+      "order": 1
+    },
+    {
+      "id": "wi-027xgv1r7",
+      "type": "story",
+      "title": "distutils kullanımları setuptools ile değiştirilsin",
+      "description": "",
+      "state": "new",
+      "priority": 1,
+      "assignees": [
+        "usr-002kwh9xh"
+      ],
+      "tags": [
+        "pep-594"
+      ],
+      "parentId": "wi-0267q37su",
+      "effort": 5,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-04T03:00:00Z",
+      "updatedAt": "2026-09-04T04:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-028mgfo2g",
+      "type": "task",
+      "title": "setup.py içindeki distutils importları taransın",
+      "description": "",
+      "state": "new",
+      "priority": 2,
+      "assignees": [
+        "usr-002kwh9xh"
+      ],
+      "tags": [],
+      "parentId": "wi-027xgv1r7",
+      "effort": 2,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-04T06:00:00Z",
+      "updatedAt": "2026-09-04T07:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-029qgkrp0",
+      "type": "task",
+      "title": "Build script’leri setuptools’a taşınsın",
+      "description": "",
+      "state": "new",
+      "priority": 2,
+      "assignees": [
+        "usr-002kwh9xh",
+        "usr-003gnmcvl"
+      ],
+      "tags": [],
+      "parentId": "wi-027xgv1r7",
+      "effort": 3,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-04T09:00:00Z",
+      "updatedAt": "2026-09-04T10:00:00Z",
+      "order": 1
+    },
+    {
+      "id": "wi-030kp0ob7",
+      "type": "feature",
+      "title": "Test ve statik analiz yeşile alınsın",
+      "description": "",
+      "state": "new",
+      "priority": 2,
+      "assignees": [
+        "usr-004sp5r9o",
+        "usr-002kwh9xh"
+      ],
+      "tags": [],
+      "parentId": "wi-022q9c63o",
+      "effort": 8,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-04T12:00:00Z",
+      "updatedAt": "2026-09-04T13:00:00Z",
+      "order": 2
+    },
+    {
+      "id": "wi-031dprqdr",
+      "type": "story",
+      "title": "pytest paketi 3.12 altında tam yeşil olsun",
+      "description": "",
+      "state": "new",
+      "priority": 2,
+      "assignees": [
+        "usr-004sp5r9o"
+      ],
+      "tags": [
+        "test"
+      ],
+      "parentId": "wi-030kp0ob7",
+      "effort": 5,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-04T15:00:00Z",
+      "updatedAt": "2026-09-04T16:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-032b68pcj",
+      "type": "story",
+      "title": "mypy ve ruff uyarıları giderilsin",
+      "description": "",
+      "state": "new",
+      "priority": 3,
+      "assignees": [
+        "usr-002kwh9xh"
+      ],
+      "tags": [
+        "lint"
+      ],
+      "parentId": "wi-030kp0ob7",
+      "effort": 3,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-04T18:00:00Z",
+      "updatedAt": "2026-09-04T19:00:00Z",
+      "order": 1
+    },
+    {
+      "id": "wi-033ar7o4j",
+      "type": "epic",
+      "title": "Docker ve CI/CD Güncellemesi",
+      "description": "Base image’lar, compose tanımları, pipeline adımları ve cache anahtarları yeni sürümlere göre güncellenir.",
+      "state": "new",
+      "priority": 2,
+      "assignees": [
+        "usr-003gnmcvl"
+      ],
+      "tags": [
+        "devops"
+      ],
+      "parentId": null,
+      "effort": null,
+      "startDate": "2026-09-22",
+      "dueDate": "2026-10-25",
+      "createdAt": "2026-09-04T21:00:00Z",
+      "updatedAt": "2026-09-04T22:00:00Z",
+      "order": 2
+    },
+    {
+      "id": "wi-0347xhlkw",
+      "type": "feature",
+      "title": "Base image güncellemeleri",
+      "description": "",
+      "state": "new",
+      "priority": 2,
+      "assignees": [
+        "usr-003gnmcvl"
+      ],
+      "tags": [],
+      "parentId": "wi-033ar7o4j",
+      "effort": 5,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-05T00:00:00Z",
+      "updatedAt": "2026-09-05T01:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-035whp833",
+      "type": "story",
+      "title": ".NET Dockerfile sdk/aspnet 8.0 etiketine alınsın",
+      "description": "",
+      "state": "new",
+      "priority": 2,
+      "assignees": [
+        "usr-003gnmcvl"
+      ],
+      "tags": [
+        "docker"
+      ],
+      "parentId": "wi-0347xhlkw",
+      "effort": 2,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-05T03:00:00Z",
+      "updatedAt": "2026-09-05T04:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-036lek1xw",
+      "type": "story",
+      "title": "Python Dockerfile python:3.12-slim olsun",
+      "description": "",
+      "state": "new",
+      "priority": 2,
+      "assignees": [
+        "usr-003gnmcvl"
+      ],
+      "tags": [
+        "docker"
+      ],
+      "parentId": "wi-0347xhlkw",
+      "effort": 2,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-05T06:00:00Z",
+      "updatedAt": "2026-09-05T07:00:00Z",
+      "order": 1
+    },
+    {
+      "id": "wi-037m6p4w3",
+      "type": "task",
+      "title": "Container’lar root olmayan kullanıcıyla çalışsın",
+      "description": "",
+      "state": "new",
+      "priority": 1,
+      "assignees": [
+        "usr-003gnmcvl"
+      ],
+      "tags": [
+        "güvenlik"
+      ],
+      "parentId": "wi-0347xhlkw",
+      "effort": 2,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-05T09:00:00Z",
+      "updatedAt": "2026-09-05T10:00:00Z",
+      "order": 2
+    },
+    {
+      "id": "wi-038kyqxsr",
+      "type": "feature",
+      "title": "Pipeline ve cache anahtarları",
+      "description": "",
+      "state": "new",
+      "priority": 3,
+      "assignees": [
+        "usr-003gnmcvl"
+      ],
+      "tags": [],
+      "parentId": "wi-033ar7o4j",
+      "effort": 5,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-05T12:00:00Z",
+      "updatedAt": "2026-09-05T13:00:00Z",
+      "order": 1
+    },
+    {
+      "id": "wi-039z643jh",
+      "type": "story",
+      "title": "setup-dotnet 8.0.x ve setup-python 3.12 adımları güncellensin",
+      "description": "",
+      "state": "new",
+      "priority": 2,
+      "assignees": [
+        "usr-003gnmcvl"
+      ],
+      "tags": [
+        "ci"
+      ],
+      "parentId": "wi-038kyqxsr",
+      "effort": 3,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-05T15:00:00Z",
+      "updatedAt": "2026-09-05T16:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-04061sjws",
+      "type": "story",
+      "title": "NuGet ve pip cache anahtarları yenilensin",
+      "description": "",
+      "state": "new",
+      "priority": 3,
+      "assignees": [
+        "usr-003gnmcvl"
+      ],
+      "tags": [
+        "ci"
+      ],
+      "parentId": "wi-038kyqxsr",
+      "effort": 2,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-05T18:00:00Z",
+      "updatedAt": "2026-09-05T19:00:00Z",
+      "order": 1
+    },
+    {
+      "id": "wi-0417fi34j",
+      "type": "epic",
+      "title": "Entegrasyon ve Kabul Doğrulaması",
+      "description": "İki servis arasındaki sözleşme, kimlik doğrulama, zaman aşımı ve uçtan uca akışların doğrulanması.",
+      "state": "new",
+      "priority": 1,
+      "assignees": [
+        "usr-004sp5r9o",
+        "usr-005856e9k"
+      ],
+      "tags": [
+        "kalite"
+      ],
+      "parentId": null,
+      "effort": null,
+      "startDate": "2026-10-01",
+      "dueDate": "2026-11-01",
+      "createdAt": "2026-09-05T21:00:00Z",
+      "updatedAt": "2026-09-05T22:00:00Z",
+      "order": 3
+    },
+    {
+      "id": "wi-042zq3pwh",
+      "type": "feature",
+      "title": "Servisler arası sözleşme doğrulaması",
+      "description": "",
+      "state": "new",
+      "priority": 1,
+      "assignees": [
+        "usr-004sp5r9o",
+        "usr-002kwh9xh"
+      ],
+      "tags": [],
+      "parentId": "wi-0417fi34j",
+      "effort": 8,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-06T00:00:00Z",
+      "updatedAt": "2026-09-06T01:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-043arm6x5",
+      "type": "story",
+      "title": "OpenAPI şeması geçiş öncesi/sonrası karşılaştırılsın",
+      "description": "",
+      "state": "new",
+      "priority": 1,
+      "assignees": [
+        "usr-004sp5r9o"
+      ],
+      "tags": [
+        "sözleşme"
+      ],
+      "parentId": "wi-042zq3pwh",
+      "effort": 3,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-06T03:00:00Z",
+      "updatedAt": "2026-09-06T04:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-044h7o3ye",
+      "type": "story",
+      "title": "HttpClient ve httpx varsayılan timeout/retry ayarları gözden geçirilsin",
+      "description": "",
+      "state": "new",
+      "priority": 2,
+      "assignees": [
+        "usr-001tjd1wu",
+        "usr-002kwh9xh"
+      ],
+      "tags": [],
+      "parentId": "wi-042zq3pwh",
+      "effort": 3,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-06T06:00:00Z",
+      "updatedAt": "2026-09-06T07:00:00Z",
+      "order": 1
+    },
+    {
+      "id": "wi-045lui5rw",
+      "type": "feature",
+      "title": "Kabul kriterleri ve güvenlik taraması",
+      "description": "",
+      "state": "new",
+      "priority": 1,
+      "assignees": [
+        "usr-005856e9k",
+        "usr-003gnmcvl"
+      ],
+      "tags": [],
+      "parentId": "wi-0417fi34j",
+      "effort": 8,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-06T09:00:00Z",
+      "updatedAt": "2026-09-06T10:00:00Z",
+      "order": 1
+    },
+    {
+      "id": "wi-046u3bw8q",
+      "type": "story",
+      "title": "docker-compose ile uçtan uca smoke test geçsin",
+      "description": "",
+      "state": "new",
+      "priority": 1,
+      "assignees": [
+        "usr-004sp5r9o"
+      ],
+      "tags": [
+        "e2e"
+      ],
+      "parentId": "wi-045lui5rw",
+      "effort": 3,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-06T12:00:00Z",
+      "updatedAt": "2026-09-06T13:00:00Z",
+      "order": 0
+    },
+    {
+      "id": "wi-0476m6b0b",
+      "type": "story",
+      "title": "dotnet list package --vulnerable ve pip-audit temiz olsun",
+      "description": "",
+      "state": "new",
+      "priority": 1,
+      "assignees": [
+        "usr-003gnmcvl"
+      ],
+      "tags": [
+        "güvenlik",
+        "sca"
+      ],
+      "parentId": "wi-045lui5rw",
+      "effort": 3,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-06T15:00:00Z",
+      "updatedAt": "2026-09-06T16:00:00Z",
+      "order": 1
+    },
+    {
+      "id": "wi-04895jvz1",
+      "type": "task",
+      "title": "Rollback planı ve eski imaj etiketleri yazılı hale getirilsin",
+      "description": "",
+      "state": "new",
+      "priority": 2,
+      "assignees": [
+        "usr-005856e9k"
+      ],
+      "tags": [],
+      "parentId": "wi-045lui5rw",
+      "effort": 2,
+      "startDate": null,
+      "dueDate": null,
+      "createdAt": "2026-09-06T18:00:00Z",
+      "updatedAt": "2026-09-06T19:00:00Z",
+      "order": 2
+    }
+  ],
+  "updatedAt": "2026-09-06T19:00:00Z"
+}

@@ -11,6 +11,7 @@ import { useEscapeLayer } from '../lib/escapeStack';
 import { useBoard } from '../state/boardStore';
 import { AssigneePicker } from './AssigneePicker';
 import { Avatar } from './Avatar';
+import { StepList } from './StepList';
 import { TagInput } from './TagInput';
 import { TypeChip } from './Badges';
 import type { Priority, WorkItem, WorkItemState, WorkItemType } from '../types';
@@ -244,6 +245,11 @@ export function DetailPanel({ itemId, onClose, onSelect }: Props): JSX.Element |
           <div className="field">
             <span className="field__label">Etiketler</span>
             <TagInput tags={item.tags} onChange={(tags) => patch({ tags })} />
+          </div>
+
+          <div className="field">
+            <span className="field__label">Adımlar / kabul kriterleri</span>
+            <StepList itemId={item.id} steps={item.steps} />
           </div>
 
           <label className="field">

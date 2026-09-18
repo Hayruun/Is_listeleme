@@ -10,10 +10,22 @@ export interface TreeNode {
 export interface Progress {
   /** Kendisi dahil tum alt ogeler. */
   total: number;
+  /** Tamamlanmis (durumu "done") oge sayisi. */
   done: number;
+  /**
+   * Yuzde, kismi ilerlemeyi de sayar: tamamlanmamis bir ogenin adim listesi
+   * varsa isaretli adimlari orani kadar katki verir. Bu yuzden yuzde ile
+   * done/total orani birebir ayni olmayabilir.
+   */
   percent: number;
   effort: number;
   effortDone: number;
+}
+
+/** Bir ogenin kendi adim ilerlemesi; adimi yoksa null. */
+export function stepProgress(item: WorkItem): { done: number; total: number } | null {
+  if (item.steps.length === 0) return null;
+  return { done: item.steps.filter((step) => step.done).length, total: item.steps.length };
 }
 
 /** parentId iliskisinden agac kurar; sahipsiz kalan ogeler koke tasinir. */
@@ -63,13 +75,23 @@ export function flatten(nodes: TreeNode[]): TreeNode[] {
 export function progressOf(node: TreeNode): Progress {
   let total = 0;
   let done = 0;
+  // Kismi ilerleme: tamamlanan oge 1, adimlari kismen bitmis oge kesirli sayilir.
+  let credit = 0;
   let effort = 0;
   let effortDone = 0;
 
   walk([node], ({ item }) => {
     total += 1;
     const isDone = STATE_META[item.state].completed;
-    if (isDone) done += 1;
+
+    if (isDone) {
+      done += 1;
+      credit += 1;
+    } else {
+      const steps = stepProgress(item);
+      if (steps) credit += steps.done / steps.total;
+    }
+
     if (typeof item.effort === 'number') {
       effort += item.effort;
       if (isDone) effortDone += item.effort;
@@ -79,7 +101,7 @@ export function progressOf(node: TreeNode): Progress {
   return {
     total,
     done,
-    percent: total === 0 ? 0 : Math.round((done / total) * 100),
+    percent: total === 0 ? 0 : Math.round((credit / total) * 100),
     effort,
     effortDone,
   };

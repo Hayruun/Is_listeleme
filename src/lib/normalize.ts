@@ -1,6 +1,6 @@
 import { PERSON_COLORS, PRIORITY_ORDER, STATE_ORDER, TYPE_ORDER } from './constants';
 import { createId } from './id';
-import type { Board, Person, Priority, WorkItem, WorkItemState, WorkItemType } from '../types';
+import type { Board, Person, Priority, Step, WorkItem, WorkItemState, WorkItemType } from '../types';
 
 const nowIso = (): string => new Date().toISOString();
 
@@ -48,6 +48,27 @@ function normalizePerson(raw: unknown, index: number): Person | null {
   };
 }
 
+const MAX_STEPS = 50;
+const MAX_STEP_TEXT = 200;
+
+function normalizeSteps(raw: unknown): Step[] {
+  if (!Array.isArray(raw)) return [];
+  return raw
+    .slice(0, MAX_STEPS)
+    .map((entry) => {
+      if (typeof entry !== 'object' || entry === null) return null;
+      const source = entry as Record<string, unknown>;
+      const text = asString(source.text).trim().slice(0, MAX_STEP_TEXT);
+      if (text === '') return null;
+      return {
+        id: asString(source.id) || createId('stp'),
+        text,
+        done: source.done === true,
+      };
+    })
+    .filter((step): step is Step => step !== null);
+}
+
 function normalizeItem(raw: unknown, index: number, createdAt: string): WorkItem | null {
   if (typeof raw !== 'object' || raw === null) return null;
   const source = raw as Record<string, unknown>;
@@ -64,6 +85,7 @@ function normalizeItem(raw: unknown, index: number, createdAt: string): WorkItem
     assignees: asStringArray(source.assignees),
     owners: asStringArray(source.owners),
     tags: asStringArray(source.tags),
+    steps: normalizeSteps(source.steps),
     parentId: asString(source.parentId) || null,
     effort: asNumberOrNull(source.effort),
     startDate: asDateOrNull(source.startDate),

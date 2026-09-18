@@ -1,5 +1,6 @@
 import { PRIORITY_ORDER, STATE_META, STATE_ORDER, TYPE_META, TYPE_ORDER } from '../lib/constants';
 import { EMPTY_FILTERS, isFilterActive, type FilterState } from '../lib/filters';
+import { STALE_DAYS } from '../lib/staleness';
 import { useBoard } from '../state/boardStore';
 import { Avatar } from './Avatar';
 import type { Priority, WorkItemState, WorkItemType } from '../types';
@@ -115,6 +116,28 @@ export function FilterBar({ filters, onChange, currentUserId }: Props): JSX.Elem
           ))}
         </div>
       )}
+
+      <button
+        type="button"
+        className="chip"
+        aria-pressed={filters.starredOnly}
+        onClick={() => onChange({ ...filters, starredOnly: !filters.starredOnly })}
+        title="Yalnızca takip listenizdeki işler"
+      >
+        <span aria-hidden="true">★</span>
+        Takip listem
+      </button>
+
+      <button
+        type="button"
+        className="chip"
+        aria-pressed={filters.staleOnly}
+        onClick={() => onChange({ ...filters, staleOnly: !filters.staleOnly })}
+        title={`Akıştaki ama ${STALE_DAYS} gündür güncellenmemiş işler`}
+      >
+        <span aria-hidden="true">⏱</span>
+        Bayatlamış
+      </button>
 
       <button
         type="button"

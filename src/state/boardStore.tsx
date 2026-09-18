@@ -32,6 +32,11 @@ type Action =
   | { type: 'item/remove'; id: string }
   | { type: 'item/toggleAssignee'; id: string; personId: string }
   | { type: 'item/toggleOwner'; id: string; personId: string }
+  | { type: 'step/add'; id: string; text: string }
+  | { type: 'step/toggle'; id: string; stepId: string }
+  | { type: 'step/patch'; id: string; stepId: string; text: string }
+  | { type: 'step/remove'; id: string; stepId: string }
+  | { type: 'step/move'; id: string; stepId: string; direction: -1 | 1 }
   | { type: 'item/move'; id: string; direction: -1 | 1 }
   | { type: 'item/drop'; dragId: string; targetId: string; mode: DropMode };
 
@@ -44,6 +49,10 @@ export interface NewItem {
 }
 
 const nowIso = (): string => new Date().toISOString();
+
+/** Adim listesi sinirlari; normalize.ts ile ayni degerler. */
+const MAX_STEPS = 50;
+const MAX_STEP_TEXT = 200;
 
 function touch(board: Board, items?: WorkItem[], people?: Person[]): Board {
   return {
@@ -133,6 +142,7 @@ export function boardReducer(board: Board, action: Action): Board {
         assignees: action.draft.assignees ?? [],
         owners: [],
         tags: [],
+        steps: [],
         parentId: action.draft.parentId,
         effort: null,
         startDate: null,
@@ -213,6 +223,55 @@ export function boardReducer(board: Board, action: Action): Board {
         ),
       );
     }
+
+    case 'step/add': {
+      const text = action.text.trim().slice(0, MAX_STEP_TEXT);
+      if (text === '') return board;
+      return patchItem(board, action.id, (item) =>
+        item.steps.length >= MAX_STEPS
+          ? item
+          : {
+              ...item,
+              steps: [...item.steps, { id: createId('stp'), text, done: false }],
+              updatedAt: nowIso(),
+            },
+      );
+    }
+
+    case 'step/toggle':
+      return patchItem(board, action.id, (item) => ({
+        ...item,
+        steps: item.steps.map((step) =>
+          step.id === action.stepId ? { ...step, done: !step.done } : step,
+        ),
+        updatedAt: nowIso(),
+      }));
+
+    case 'step/patch': {
+      const text = action.text.slice(0, MAX_STEP_TEXT);
+      return patchItem(board, action.id, (item) => ({
+        ...item,
+        steps: item.steps.map((step) => (step.id === action.stepId ? { ...step, text } : step)),
+        updatedAt: nowIso(),
+      }));
+    }
+
+    case 'step/remove':
+      return patchItem(board, action.id, (item) => ({
+        ...item,
+        steps: item.steps.filter((step) => step.id !== action.stepId),
+        updatedAt: nowIso(),
+      }));
+
+    case 'step/move':
+      return patchItem(board, action.id, (item) => {
+        const index = item.steps.findIndex((step) => step.id === action.stepId);
+        const target = index + action.direction;
+        if (index === -1 || target < 0 || target >= item.steps.length) return item;
+        const steps = [...item.steps];
+        [steps[index], steps[target]] = [steps[target], steps[index]];
+        return { ...item, steps, updatedAt: nowIso() };
+      });
 
     case 'item/drop': {
       const { dragId, targetId, mode } = action;

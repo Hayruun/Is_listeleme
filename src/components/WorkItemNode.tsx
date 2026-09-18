@@ -6,6 +6,7 @@ import type { ColorBy } from '../lib/appearance';
 import { AvatarStack } from './Avatar';
 import { PriorityBadge, StateBadge, TypeChip } from './Badges';
 import { QuickAdd } from './QuickAdd';
+import { StaleBadge, StarButton, StepBadge } from './ItemMarks';
 
 interface Props {
   node: TreeNode;
@@ -87,6 +88,8 @@ export function WorkItemNode({
         <span className={`node__title${isDone ? ' node__title--done' : ''}`}>{item.title}</span>
 
         <span className="node__side">
+          <StepBadge item={item} />
+          <StaleBadge item={item} />
           {hasChildren && (
             <span className="progress-label" title={`${progress.done}/${progress.total} tamamlandı`}>
               {progress.done}/{progress.total}
@@ -106,6 +109,7 @@ export function WorkItemNode({
             emptyLabel="—"
             ownerIds={item.owners}
           />
+          <StarButton itemId={item.id} />
         </span>
       </div>
 

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { PRIORITY_META, PRIORITY_ORDER, STATE_META, STATE_ORDER } from '../lib/constants';
 import { flatten, progressOf, type TreeNode } from '../lib/hierarchy';
+import { STALE_DAYS, daysSinceUpdate, isStale } from '../lib/staleness';
 import { useBoard } from '../state/boardStore';
 import { Avatar } from './Avatar';
 import { TypeChip } from './Badges';
@@ -71,6 +72,15 @@ export function Dashboard({ nodes, onSelect }: Props): JSX.Element {
 
   const blockedItems = useMemo(() => items.filter((item) => item.state === 'blocked'), [items]);
 
+  /** Akista olup uzun suredir dokunulmamis isler. */
+  const staleItems = useMemo(
+    () =>
+      items
+        .filter((item) => isStale(item))
+        .sort((a, b) => daysSinceUpdate(b) - daysSinceUpdate(a)),
+    [items],
+  );
+
   /** Kok kutularin ilerlemesi. */
   const epics = useMemo(
     () =>
@@ -117,6 +127,7 @@ export function Dashboard({ nodes, onSelect }: Props): JSX.Element {
           <Kpi label="Devam eden" value={active} tone="var(--state-active)" />
           <Kpi label="Engellenen" value={blocked} tone="var(--state-blocked)" />
           <Kpi label="Gecikmiş" value={overdue.length} tone="var(--state-blocked)" />
+          <Kpi label="Bayatlamış" value={staleItems.length} tone="var(--state-review)" />
           <Kpi
             label="Story point"
             value={`${effort.completed}/${effort.total}`}
@@ -347,6 +358,16 @@ export function Dashboard({ nodes, onSelect }: Props): JSX.Element {
         />
       </div>
 
+      <RiskList
+        title="Bayatlamış işler"
+        subtitle={`Akışta görünüyor ama ${STALE_DAYS} gündür kimse dokunmamış`}
+        items={staleItems}
+        board={board}
+        onSelect={onSelect}
+        empty="Bayatlamış iş yok."
+        showAge
+      />
+
       {tip && (
         <div className="charttip" style={{ left: tip.x + 14, top: tip.y + 14 }} role="status">
           <span className="charttip__label">{tip.label}</span>
@@ -425,6 +446,7 @@ function RiskList({
   onSelect,
   empty,
   showDue = false,
+  showAge = false,
 }: {
   title: string;
   subtitle: string;
@@ -433,6 +455,8 @@ function RiskList({
   onSelect: (id: string) => void;
   empty: string;
   showDue?: boolean;
+  /** Son guncellemeden bu yana gecen gun sayisini goster. */
+  showAge?: boolean;
 }): JSX.Element {
   return (
     <section className="card">
@@ -459,6 +483,7 @@ function RiskList({
                   {new Date(item.dueDate).toLocaleDateString('tr-TR')}
                 </span>
               )}
+              {showAge && <span className="risklist__due">{daysSinceUpdate(item)} gün</span>}
               {owners.map((person) => (
                 <Avatar key={person.id} person={person} size="sm" owner />
               ))}

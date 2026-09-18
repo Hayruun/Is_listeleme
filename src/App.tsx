@@ -21,6 +21,7 @@ import { clearSessionUserId, loadSessionUserId, saveSessionUserId } from './lib/
 import { EMPTY_FILTERS, filterTree, isFilterActive, statsOf, type FilterState } from './lib/filters';
 import { useBoard } from './state/boardStore';
 import { DndProvider } from './state/dnd';
+import { StarredProvider, useStarredState } from './state/starred';
 
 export function App(): JSX.Element {
   const { board, dispatch, ready, mode, saveStatus, notice, dismissNotice, acceptRemote } = useBoard();
@@ -33,6 +34,10 @@ export function App(): JSX.Element {
   const [view, setView] = useState<'tree' | 'kanban' | 'dash'>('tree');
 
   const [userId, setUserId] = useState<string | null>(() => loadSessionUserId());
+
+  // Kisisel takip listesi; filtreleme burada kullanildigi icin durum App'te.
+  const starredState = useStarredState(userId);
+  const { starred } = starredState;
 
   // Ilk deger dogrudan kayitli tercihten okunur; boylece varsayilan degerlerin
   // bir an uygulanip uzerine yazilmasi soz konusu olmaz.
@@ -83,7 +88,10 @@ export function App(): JSX.Element {
   }, []);
 
   const tree = useMemo(() => buildTree(board.items), [board.items]);
-  const visible = useMemo(() => filterTree(tree, filters, board), [tree, filters, board]);
+  const visible = useMemo(
+    () => filterTree(tree, filters, board, { starred }),
+    [tree, filters, board, starred],
+  );
   const stats = useMemo(() => statsOf(tree), [tree]);
 
   const toggleExpand = useCallback((id: string) => {
@@ -129,6 +137,7 @@ export function App(): JSX.Element {
   }
 
   return (
+    <StarredProvider value={starredState}>
     <div className="app">
       <TopBar
         currentUser={currentUser}
@@ -325,5 +334,6 @@ export function App(): JSX.Element {
         />
       )}
     </div>
+    </StarredProvider>
   );
 }

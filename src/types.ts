@@ -15,6 +15,13 @@ export interface Person {
   email?: string;
 }
 
+/** Bir is ogesinin icindeki isaretlenebilir adim (kabul kriteri). */
+export interface Step {
+  id: string;
+  text: string;
+  done: boolean;
+}
+
 export interface WorkItem {
   id: string;
   type: WorkItemType;
@@ -30,6 +37,8 @@ export interface WorkItem {
    */
   owners: string[];
   tags: string[];
+  /** Kabul kriterleri / alt adimlar. */
+  steps: Step[];
   parentId: string | null;
   /** Efor / story point. */
   effort: number | null;

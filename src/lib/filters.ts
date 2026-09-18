@@ -1,4 +1,5 @@
 import { flatten, progressOf, type TreeNode } from './hierarchy';
+import { isStale } from './staleness';
 import type { Board, Priority, WorkItemState, WorkItemType } from '../types';
 
 export interface FilterState {
@@ -9,6 +10,10 @@ export interface FilterState {
   priorities: Priority[];
   /** Tamamlanmis epic kutularini tumuyle gizle. */
   hideDone: boolean;
+  /** Yalnizca kisisel takip listesindekiler. */
+  starredOnly: boolean;
+  /** Yalnizca uzun suredir dokunulmamis akistaki isler. */
+  staleOnly: boolean;
 }
 
 export const EMPTY_FILTERS: FilterState = {
@@ -18,6 +23,8 @@ export const EMPTY_FILTERS: FilterState = {
   types: [],
   priorities: [],
   hideDone: false,
+  starredOnly: false,
+  staleOnly: false,
 };
 
 export function isFilterActive(filters: FilterState): boolean {
@@ -27,12 +34,27 @@ export function isFilterActive(filters: FilterState): boolean {
     filters.states.length > 0 ||
     filters.types.length > 0 ||
     filters.priorities.length > 0 ||
-    filters.hideDone
+    filters.hideDone ||
+    filters.starredOnly ||
+    filters.staleOnly
   );
 }
 
-function matches(node: TreeNode, filters: FilterState, board: Board): boolean {
+export interface FilterContext {
+  /** Kisisel takip listesindeki oge kimlikleri. */
+  starred: Set<string>;
+}
+
+function matches(
+  node: TreeNode,
+  filters: FilterState,
+  board: Board,
+  context: FilterContext,
+): boolean {
   const { item } = node;
+
+  if (filters.starredOnly && !context.starred.has(item.id)) return false;
+  if (filters.staleOnly && !isStale(item)) return false;
 
   if (filters.states.length > 0 && !filters.states.includes(item.state)) return false;
   if (filters.types.length > 0 && !filters.types.includes(item.type)) return false;
@@ -79,7 +101,12 @@ export function isFullyDone(node: TreeNode): boolean {
  * bitmis kok kutularin tamamini listeden cikarir. Boylece acik bir epic'in
  * icindeki tamamlanmis isler gorunur kalir, bitmis epic hic gorunmez.
  */
-export function filterTree(nodes: TreeNode[], filters: FilterState, board: Board): TreeNode[] {
+export function filterTree(
+  nodes: TreeNode[],
+  filters: FilterState,
+  board: Board,
+  context: FilterContext,
+): TreeNode[] {
   if (!isFilterActive(filters)) return nodes;
 
   const walkNode = (node: TreeNode): TreeNode | null => {
@@ -88,7 +115,7 @@ export function filterTree(nodes: TreeNode[], filters: FilterState, board: Board
       .filter((child): child is TreeNode => child !== null);
 
     if (children.length > 0) return { ...node, children };
-    return matches(node, filters, board) ? { ...node, children: [] } : null;
+    return matches(node, filters, board, context) ? { ...node, children: [] } : null;
   };
 
   const roots = filters.hideDone ? nodes.filter((node) => !isFullyDone(node)) : nodes;

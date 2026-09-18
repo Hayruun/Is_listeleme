@@ -37,6 +37,13 @@ npm run typecheck  # yalnızca tip kontrolü
 - **Sorumlular.** Atananlardan ayrı olarak, bir işin hesap verebilir sahibi
   işaretlenir ve birden fazla olabilir. Sorumlu yapılan kişi atananlara da
   eklenir; avatarı vurgu halkasıyla gösterilir.
+- **Adımlar / kabul kriterleri.** Bir işin içine işaretlenebilir adımlar
+  eklenir. Kartta "☑ 3/7" olarak görünür ve üstündeki kutunun yüzdesine kısmi
+  katkı verir.
+- **Takip listem.** Yıldızladığınız işler kişisel listede toplanır; filtre
+  çubuğundaki kısayolla süzülür. Liste kullanıcı başına, tarayıcıda saklanır.
+- **Bayatlama uyarısı.** Akışta görünen ama uzun süredir kimsenin dokunmadığı
+  işler kartta ve özet ekranında işaretlenir.
 - **Sürükle-bırak.** Ağaçta bir öğeyi kardeşleri arasında yeniden sıralayabilir
   ya da başka bir ebeveynin altına taşıyabilirsiniz: kartın üst/alt kenarına
   bırakmak sıralar, ortasına bırakmak alt öğe yapar. Panoda kartı başka bir
@@ -127,6 +134,24 @@ Core Web API'sine taşınacaksa yalnızca bu modülün içi değişir; bileşenl
 hiçbiri veri kaynağını bilmez. Çakışma kontrolü de aynı sözleşmeyle çalışır
 (`baseUpdatedAt` gönderilir, `409` beklenir), dolayısıyla sunucu tarafında
 optimistic concurrency'e doğrudan karşılık gelir.
+
+## Adımlar, takip listesi ve bayatlama
+
+**Adımlar** her iş öğesinin içindedir (`steps`, en fazla 50 adım). İşaretli
+adımlar ögenin kendi ilerlemesini gösterir ve üstündeki kutunun yüzdesine
+*kısmi* katkı verir: tamamlanmamış ama adımlarının yarısı biten bir iş 0 değil
+0,5 sayılır. Bu yüzden kutu başlığındaki yüzde ile "6/16" sayısı birebir
+örtüşmeyebilir — yüzdenin üzerine gelince bunu açıklayan ipucu çıkar.
+
+**Bayatlama** (`src/lib/staleness.ts`) yalnızca *akıştaki* işler için işler:
+durumu "Devam Ediyor", "Engellendi" ya da "İncelemede" olup `STALE_DAYS`
+(varsayılan 14) gündür güncellenmemiş kalemler. Henüz başlanmamış bir backlog
+kalemi uzun süredir duruyor diye sorun sayılmaz. Rozet rengin yanında kaç gün
+geçtiğini rakamla da yazar.
+
+**Takip listesi** (`src/lib/starred.ts`) kişiseldir ve panonun ortak dosyasına
+yazılmaz: bir kişinin yıldızladığı işler başkasını ilgilendirmez. Görünüm
+tercihleri gibi kullanıcı kimliğine göre tarayıcıda saklanır.
 
 ## Özet görünümü ve grafikler
 
@@ -280,6 +305,8 @@ src/
   state/boardStore.tsx        Reducer, otomatik kaydetme, çakışma yönetimi
   state/dnd.tsx               Sürükle-bırak durumu ve hedef doğrulaması
   lib/escapeStack.ts          Esc katman yığını (üstteki katman önce kapanır)
+  lib/staleness.ts            Bayatlama kuralı
+  lib/starred.ts              Kişisel takip listesi (kullanıcı başına)
   components/Dashboard.tsx    Özet görünümü ve grafikler
   components/                 Arayüz bileşenleri
   styles/global.css           Tasarım belirteçleri ve tüm stiller

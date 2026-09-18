@@ -5,6 +5,7 @@ import { useBoard } from '../state/boardStore';
 import type { ColorBy } from '../lib/appearance';
 import { AvatarStack } from './Avatar';
 import { PriorityBadge, TypeChip } from './Badges';
+import { StaleBadge, StarButton, StepBadge } from './ItemMarks';
 import type { WorkItem, WorkItemState } from '../types';
 
 interface Props {
@@ -121,6 +122,10 @@ export function KanbanBoard({ nodes, selectedId, onSelect, colorBy }: Props): JS
                       <TypeChip type={item.type} compact />
                       <PriorityBadge priority={item.priority} withLabel />
                       {item.effort !== null && <span className="tag">{item.effort} sp</span>}
+                      <StepBadge item={item} />
+                      <StaleBadge item={item} />
+                      <span className="spacer" />
+                      <StarButton itemId={item.id} />
                     </div>
 
                     {path.length > 0 && (

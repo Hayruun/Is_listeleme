@@ -6,6 +6,8 @@ import type { ColorBy } from '../lib/appearance';
 import { AvatarStack } from './Avatar';
 import { PriorityBadge, ProgressBar, StateBadge, TypeChip } from './Badges';
 import { QuickAdd } from './QuickAdd';
+import { StaleBadge, StepBadge } from './ItemMarks';
+import { StarButton } from './ItemMarks';
 import { WorkItemNode } from './WorkItemNode';
 
 interface Props {
@@ -73,6 +75,8 @@ export function EpicCard({
             <h2 className="epic__title">{item.title}</h2>
             <StateBadge state={item.state} />
             <PriorityBadge priority={item.priority} withLabel />
+            <StepBadge item={item} />
+            <StaleBadge item={item} />
             {item.tags.map((tag) => (
               <span key={tag} className="tag">
                 {tag}
@@ -84,7 +88,14 @@ export function EpicCard({
 
           <div className="epic__meta">
             <ProgressBar percent={progress.percent} />
-            <span className="progress-label">
+            <span
+              className="progress-label"
+              title={
+                `${progress.done}/${progress.total} iş tamamlandı. ` +
+                'Yüzde, tamamlanmamış işlerin işaretli adımlarını da kısmi olarak sayar; ' +
+                'bu yüzden iki sayı birebir örtüşmeyebilir.'
+              }
+            >
               %{progress.percent} · {progress.done}/{progress.total}
             </span>
             {progress.effort > 0 && (
@@ -101,6 +112,7 @@ export function EpicCard({
         </div>
 
         <div className="epic__side">
+          <StarButton itemId={item.id} />
           <AvatarStack people={assignees} size="md" max={4} ownerIds={item.owners} />
           <button
             type="button"

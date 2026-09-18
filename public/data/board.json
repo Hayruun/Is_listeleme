@@ -57,6 +57,7 @@
         "platform",
         "lts"
       ],
+      "steps": [],
       "parentId": null,
       "effort": null,
       "startDate": "2026-09-01",
@@ -77,6 +78,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-006mipkhy",
       "effort": 5,
       "startDate": null,
@@ -97,6 +99,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-007q0qdr6",
       "effort": 2,
       "startDate": null,
@@ -119,6 +122,7 @@
       "tags": [
         "nuget"
       ],
+      "steps": [],
       "parentId": "wi-007q0qdr6",
       "effort": 1,
       "startDate": null,
@@ -139,6 +143,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-006mipkhy",
       "effort": 8,
       "startDate": null,
@@ -159,6 +164,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-010k6db0h",
       "effort": 1,
       "startDate": null,
@@ -179,6 +185,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-011ut2ph1",
       "effort": 1,
       "startDate": null,
@@ -200,6 +207,28 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [
+        {
+          "id": "stp-ujzde8gxd",
+          "text": "Api projesi",
+          "done": true
+        },
+        {
+          "id": "stp-6ncf10epf",
+          "text": "Domain projesi",
+          "done": true
+        },
+        {
+          "id": "stp-91dhodzdo",
+          "text": "Infrastructure projesi",
+          "done": false
+        },
+        {
+          "id": "stp-c9is0j8ht",
+          "text": "Test projeleri",
+          "done": false
+        }
+      ],
       "parentId": "wi-010k6db0h",
       "effort": 5,
       "startDate": null,
@@ -220,6 +249,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-013zcnxna",
       "effort": 1,
       "startDate": null,
@@ -240,6 +270,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-013zcnxna",
       "effort": 2,
       "startDate": null,
@@ -260,6 +291,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-013zcnxna",
       "effort": 2,
       "startDate": null,
@@ -284,12 +316,39 @@
         "usr-004sp5r9o"
       ],
       "tags": [],
+      "steps": [
+        {
+          "id": "stp-a5lqsaj08",
+          "text": "Derleme uyarıları sıfırlansın",
+          "done": false
+        },
+        {
+          "id": "stp-xui6d39zz",
+          "text": "Obsolete API kullanımları listelensin",
+          "done": true
+        },
+        {
+          "id": "stp-zzg4zdmen",
+          "text": "Nullable davranış değişiklikleri gözden geçirilsin",
+          "done": false
+        },
+        {
+          "id": "stp-2khvdgaj8",
+          "text": "Endpoint routing değişiklikleri kontrol edilsin",
+          "done": false
+        },
+        {
+          "id": "stp-gxbenyjqw",
+          "text": "Resmî breaking-change listesiyle karşılaştırılsın",
+          "done": false
+        }
+      ],
       "parentId": "wi-006mipkhy",
       "effort": 13,
       "startDate": null,
       "dueDate": null,
       "createdAt": "2026-09-02T21:00:00Z",
-      "updatedAt": "2026-09-02T22:00:00Z",
+      "updatedAt": "2026-09-18T20:51:39.932Z",
       "order": 2
     },
     {
@@ -306,6 +365,7 @@
       "tags": [
         "derleme"
       ],
+      "steps": [],
       "parentId": "wi-017myotri",
       "effort": 5,
       "startDate": null,
@@ -330,6 +390,28 @@
         "ef-core",
         "risk"
       ],
+      "steps": [
+        {
+          "id": "stp-9lgmxg9ed",
+          "text": "Mevcut migration’lar yeni sürümle yeniden üretilsin",
+          "done": true
+        },
+        {
+          "id": "stp-n581u33xt",
+          "text": "Üretilen SQL eski sürümle karşılaştırılsın",
+          "done": false
+        },
+        {
+          "id": "stp-plpft75v2",
+          "text": "Geri alma (down) senaryosu denensin",
+          "done": false
+        },
+        {
+          "id": "stp-seh60kvj5",
+          "text": "Takım liderinden majör sürüm onayı alınsın",
+          "done": false
+        }
+      ],
       "parentId": "wi-017myotri",
       "effort": 5,
       "startDate": null,
@@ -350,6 +432,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-019wxokt5",
       "effort": 3,
       "startDate": null,
@@ -374,6 +457,7 @@
         "sözleşme",
         "risk"
       ],
+      "steps": [],
       "parentId": "wi-017myotri",
       "effort": 3,
       "startDate": null,
@@ -398,6 +482,7 @@
       "tags": [
         "platform"
       ],
+      "steps": [],
       "parentId": null,
       "effort": null,
       "startDate": "2026-09-08",
@@ -418,6 +503,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-022q9c63o",
       "effort": 5,
       "startDate": null,
@@ -438,6 +524,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-023docwn9",
       "effort": 2,
       "startDate": null,
@@ -460,6 +547,7 @@
       "tags": [
         "bağımlılık"
       ],
+      "steps": [],
       "parentId": "wi-023docwn9",
       "effort": 3,
       "startDate": null,
@@ -480,6 +568,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-022q9c63o",
       "effort": 8,
       "startDate": null,
@@ -502,6 +591,23 @@
       "tags": [
         "pep-594"
       ],
+      "steps": [
+        {
+          "id": "stp-0ce9uvw53",
+          "text": "setup.py taransın",
+          "done": false
+        },
+        {
+          "id": "stp-efr4edt2s",
+          "text": "Build script’leri güncellensin",
+          "done": false
+        },
+        {
+          "id": "stp-ywb3wkh5d",
+          "text": "CI’da temiz kurulum doğrulansın",
+          "done": false
+        }
+      ],
       "parentId": "wi-0267q37su",
       "effort": 5,
       "startDate": null,
@@ -522,6 +628,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-027xgv1r7",
       "effort": 2,
       "startDate": null,
@@ -543,6 +650,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-027xgv1r7",
       "effort": 3,
       "startDate": null,
@@ -564,6 +672,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-022q9c63o",
       "effort": 8,
       "startDate": null,
@@ -586,6 +695,7 @@
       "tags": [
         "test"
       ],
+      "steps": [],
       "parentId": "wi-030kp0ob7",
       "effort": 5,
       "startDate": null,
@@ -608,6 +718,7 @@
       "tags": [
         "lint"
       ],
+      "steps": [],
       "parentId": "wi-030kp0ob7",
       "effort": 3,
       "startDate": null,
@@ -632,6 +743,7 @@
       "tags": [
         "devops"
       ],
+      "steps": [],
       "parentId": null,
       "effort": null,
       "startDate": "2026-09-22",
@@ -652,6 +764,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-033ar7o4j",
       "effort": 5,
       "startDate": null,
@@ -674,6 +787,7 @@
       "tags": [
         "docker"
       ],
+      "steps": [],
       "parentId": "wi-0347xhlkw",
       "effort": 2,
       "startDate": null,
@@ -696,6 +810,7 @@
       "tags": [
         "docker"
       ],
+      "steps": [],
       "parentId": "wi-0347xhlkw",
       "effort": 2,
       "startDate": null,
@@ -718,6 +833,7 @@
       "tags": [
         "güvenlik"
       ],
+      "steps": [],
       "parentId": "wi-0347xhlkw",
       "effort": 2,
       "startDate": null,
@@ -738,6 +854,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-033ar7o4j",
       "effort": 5,
       "startDate": null,
@@ -760,6 +877,7 @@
       "tags": [
         "ci"
       ],
+      "steps": [],
       "parentId": "wi-038kyqxsr",
       "effort": 3,
       "startDate": null,
@@ -782,6 +900,7 @@
       "tags": [
         "ci"
       ],
+      "steps": [],
       "parentId": "wi-038kyqxsr",
       "effort": 2,
       "startDate": null,
@@ -808,6 +927,7 @@
       "tags": [
         "kalite"
       ],
+      "steps": [],
       "parentId": null,
       "effort": null,
       "startDate": "2026-10-01",
@@ -829,6 +949,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-0417fi34j",
       "effort": 8,
       "startDate": null,
@@ -851,6 +972,23 @@
       "tags": [
         "sözleşme"
       ],
+      "steps": [
+        {
+          "id": "stp-nsipzz5fk",
+          "text": "Geçiş öncesi şema kaydedilsin",
+          "done": true
+        },
+        {
+          "id": "stp-2z9ri19r0",
+          "text": "Geçiş sonrası şema üretilsin",
+          "done": false
+        },
+        {
+          "id": "stp-wyojfljoo",
+          "text": "Alan adı ve tip farkları raporlansın",
+          "done": false
+        }
+      ],
       "parentId": "wi-042zq3pwh",
       "effort": 3,
       "startDate": null,
@@ -872,6 +1010,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-042zq3pwh",
       "effort": 3,
       "startDate": null,
@@ -893,6 +1032,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-0417fi34j",
       "effort": 8,
       "startDate": null,
@@ -915,6 +1055,7 @@
       "tags": [
         "e2e"
       ],
+      "steps": [],
       "parentId": "wi-045lui5rw",
       "effort": 3,
       "startDate": null,
@@ -938,6 +1079,7 @@
         "güvenlik",
         "sca"
       ],
+      "steps": [],
       "parentId": "wi-045lui5rw",
       "effort": 3,
       "startDate": null,
@@ -958,6 +1100,7 @@
       ],
       "owners": [],
       "tags": [],
+      "steps": [],
       "parentId": "wi-045lui5rw",
       "effort": 2,
       "startDate": null,
@@ -967,5 +1110,5 @@
       "order": 2
     }
   ],
-  "updatedAt": "2026-09-18T20:35:39.941Z"
+  "updatedAt": "2026-09-18T20:51:39.932Z"
 }

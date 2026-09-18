@@ -19,9 +19,13 @@ export type ThemeMode = 'system' | 'light' | 'dark';
 
 export const CUSTOM_PALETTE_ID = 'custom';
 
+/** Kartlarin kenar rengi neyi anlatsin. */
+export type ColorBy = 'type' | 'priority';
+
 export interface Appearance {
   theme: ThemeMode;
   paletteId: string;
+  colorBy: ColorBy;
   /** "Kendi paletim" secildiginde kullanilan bes renk. */
   customColors: string[];
   customAccentIndex: number;
@@ -30,6 +34,7 @@ export interface Appearance {
 export const DEFAULT_APPEARANCE: Appearance = {
   theme: 'system',
   paletteId: DEFAULT_PALETTE_ID,
+  colorBy: 'type',
   customColors: ['#4f46e5', '#0284c7', '#0d9488', '#64748b', '#e11d48'],
   customAccentIndex: 0,
 };
@@ -56,6 +61,7 @@ export function loadAppearance(userId: string): Appearance {
           ? parsed.theme
           : DEFAULT_APPEARANCE.theme,
       paletteId: typeof parsed.paletteId === 'string' ? parsed.paletteId : DEFAULT_PALETTE_ID,
+      colorBy: parsed.colorBy === 'priority' ? 'priority' : 'type',
       customColors: DEFAULT_APPEARANCE.customColors.map((fallback, index) =>
         isValidHex(colors[index] ?? '') ? (colors[index] as string) : fallback,
       ),
@@ -180,10 +186,25 @@ export function buildTokens(palette: Palette, theme: 'light' | 'dark'): Record<s
     tokens[`--state-${key}`] = ensureContrast(states[key], surface, TEXT_CONTRAST);
   }
 
-  tokens['--prio-1'] = tokens['--state-blocked'];
-  tokens['--prio-2'] = tokens['--state-review'];
-  tokens['--prio-3'] = tokens['--state-active'];
-  tokens['--prio-4'] = tokens['--state-new'];
+  /**
+   * Oncelik SIRALI bir olcek, kimlik degil. Bu yuzden dort ayri renk yerine
+   * tek tonun dort basamagi kullanilir: P1 en koyu/en yuksek, P4 en soluk.
+   *
+   * Basamaklar dogrulanmis bir ramp'ten (#7f1616 → #b02020 → #d15c5c →
+   * #e29393) alinmistir; tonu paletin uyari renginden gelir. Dort ayri hue
+   * denenmisti, kirmizi-turuncu ikilisi normal gorusde bile esigin altinda
+   * kaliyordu (OKLab ΔE 8.7), sirali ramp ise tum kontrolleri geciyor.
+   */
+  const alarmHue = hexToHsl(states.blocked).h;
+  const rampL = dark ? [68, 58, 47, 38] : [30, 41, 59, 73];
+  const rampS = dark ? [72, 66, 50, 40] : [70, 69, 56, 58];
+
+  rampL.forEach((lightness, index) => {
+    const step = hslToHex({ h: alarmHue, s: rampS[index], l: lightness });
+    tokens[`--prio-${index + 1}`] = step;
+    // Rozet, rengin uzerine yazar: murekkep dolguya gore secilir.
+    tokens[`--prio-${index + 1}-ink`] = readableInk(step);
+  });
 
   tokens['--danger'] = tokens['--state-blocked'];
   tokens['--danger-soft'] = dark

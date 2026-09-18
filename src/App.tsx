@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AppearanceModal } from './components/AppearanceModal';
+import { Dashboard } from './components/Dashboard';
 import { EpicCard } from './components/EpicCard';
 import { LoginScreen } from './components/LoginScreen';
 import { DetailPanel } from './components/DetailPanel';
@@ -29,7 +30,7 @@ export function App(): JSX.Element {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [teamOpen, setTeamOpen] = useState(false);
   const [appearanceOpen, setAppearanceOpen] = useState(false);
-  const [view, setView] = useState<'tree' | 'kanban'>('tree');
+  const [view, setView] = useState<'tree' | 'kanban' | 'dash'>('tree');
 
   const [userId, setUserId] = useState<string | null>(() => loadSessionUserId());
 
@@ -163,6 +164,7 @@ export function App(): JSX.Element {
           </div>
         )}
 
+        {view !== 'dash' && (
         <div className="stats">
           <div className="stat">
             <div className="stat__value">{stats.total}</div>
@@ -191,6 +193,7 @@ export function App(): JSX.Element {
             <div className="stat__label">İlerleme</div>
           </div>
         </div>
+        )}
 
         <FilterBar filters={filters} onChange={setFilters} currentUserId={currentUser.id} />
 
@@ -211,6 +214,14 @@ export function App(): JSX.Element {
               onClick={() => setView('kanban')}
             >
               Pano
+            </button>
+            <button
+              type="button"
+              className="viewswitch__option"
+              aria-pressed={view === 'dash'}
+              onClick={() => setView('dash')}
+            >
+              Özet
             </button>
           </div>
 
@@ -259,8 +270,15 @@ export function App(): JSX.Element {
               </button>
             )}
           </div>
+        ) : view === 'dash' ? (
+          <Dashboard nodes={visible} onSelect={setSelectedId} />
         ) : view === 'kanban' ? (
-          <KanbanBoard nodes={visible} selectedId={selectedId} onSelect={setSelectedId} />
+          <KanbanBoard
+            nodes={visible}
+            selectedId={selectedId}
+            onSelect={setSelectedId}
+            colorBy={appearance.colorBy}
+          />
         ) : (
           <DndProvider>
             <div className="stack" style={{ gap: 11 }}>
@@ -272,6 +290,7 @@ export function App(): JSX.Element {
                   onToggleExpand={toggleExpand}
                   selectedId={selectedId}
                   onSelect={setSelectedId}
+                  colorBy={appearance.colorBy}
                 />
               ))}
             </div>

@@ -28,19 +28,34 @@ export function StateBadge({ state }: { state: WorkItemState }): JSX.Element {
   );
 }
 
-export function PriorityBadge({ priority }: { priority: Priority }): JSX.Element {
+/**
+ * Oncelik rozeti.
+ *
+ * Renk sirali bir ramp'in basamagi: P1 en koyu, P4 en soluk. Murekkep dolguya
+ * gore secildigi icin her basamak okunur kalir ve "P1".."P4" metni her zaman
+ * yazili oldugundan anlam hicbir zaman yalnizca renge emanet degildir.
+ */
+export function PriorityBadge({
+  priority,
+  withLabel = false,
+}: {
+  priority: Priority;
+  withLabel?: boolean;
+}): JSX.Element {
   const meta = PRIORITY_META[priority];
+
   return (
     <span
       className="badge"
       style={{
-        color: meta.color,
-        background: `color-mix(in srgb, ${meta.color} 12%, transparent)`,
-        borderColor: `color-mix(in srgb, ${meta.color} 26%, transparent)`,
+        background: meta.color,
+        color: `var(--prio-${priority}-ink)`,
+        borderColor: 'transparent',
       }}
       title={meta.label}
     >
       P{priority}
+      {withLabel && ` · ${meta.short}`}
     </span>
   );
 }

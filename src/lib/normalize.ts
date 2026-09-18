@@ -62,6 +62,7 @@ function normalizeItem(raw: unknown, index: number, createdAt: string): WorkItem
     state: asState(source.state),
     priority: asPriority(source.priority),
     assignees: asStringArray(source.assignees),
+    owners: asStringArray(source.owners),
     tags: asStringArray(source.tags),
     parentId: asString(source.parentId) || null,
     effort: asNumberOrNull(source.effort),
@@ -108,6 +109,11 @@ export function normalizeBoard(raw: unknown): Board {
     }
     // Ekipten cikarilmis kisileri etiketlerden dusur.
     item.assignees = item.assignees.filter((id) => peopleIds.has(id));
+    // Sorumlu her zaman atananlarin arasindadir; eksikse tamamlanir.
+    item.owners = item.owners.filter((id) => peopleIds.has(id));
+    for (const ownerId of item.owners) {
+      if (!item.assignees.includes(ownerId)) item.assignees.push(ownerId);
+    }
   }
 
   breakCycles(items);

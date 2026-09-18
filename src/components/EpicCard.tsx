@@ -1,7 +1,8 @@
-import { TYPE_META } from '../lib/constants';
+import { PRIORITY_META, TYPE_META } from '../lib/constants';
 import { allowedChildTypes, progressOf, type TreeNode } from '../lib/hierarchy';
 import { useBoard } from '../state/boardStore';
 import { dropClass, useDnd } from '../state/dnd';
+import type { ColorBy } from '../lib/appearance';
 import { AvatarStack } from './Avatar';
 import { PriorityBadge, ProgressBar, StateBadge, TypeChip } from './Badges';
 import { QuickAdd } from './QuickAdd';
@@ -13,6 +14,7 @@ interface Props {
   onToggleExpand: (id: string) => void;
   selectedId: string | null;
   onSelect: (id: string) => void;
+  colorBy: ColorBy;
 }
 
 /**
@@ -25,6 +27,7 @@ export function EpicCard({
   onToggleExpand,
   selectedId,
   onSelect,
+  colorBy,
 }: Props): JSX.Element {
   const { board } = useBoard();
   const dnd = useDnd();
@@ -34,7 +37,8 @@ export function EpicCard({
   const progress = progressOf(node);
   const assignees = board.people.filter((person) => item.assignees.includes(person.id));
   const childTypes = allowedChildTypes(item.type);
-  const accent = TYPE_META[item.type].color;
+  const accent =
+    colorBy === 'priority' ? PRIORITY_META[item.priority].color : TYPE_META[item.type].color;
 
   return (
     <section className={`epic${isOpen ? ' epic--open' : ''}${dropClass(dnd, item.id)}`}>
@@ -68,7 +72,7 @@ export function EpicCard({
             <TypeChip type={item.type} />
             <h2 className="epic__title">{item.title}</h2>
             <StateBadge state={item.state} />
-            <PriorityBadge priority={item.priority} />
+            <PriorityBadge priority={item.priority} withLabel />
             {item.tags.map((tag) => (
               <span key={tag} className="tag">
                 {tag}
@@ -97,7 +101,7 @@ export function EpicCard({
         </div>
 
         <div className="epic__side">
-          <AvatarStack people={assignees} size="md" max={4} />
+          <AvatarStack people={assignees} size="md" max={4} ownerIds={item.owners} />
           <button
             type="button"
             className="btn btn--sm btn--ghost"
@@ -128,6 +132,7 @@ export function EpicCard({
                 onToggleExpand={onToggleExpand}
                 selectedId={selectedId}
                 onSelect={onSelect}
+                colorBy={colorBy}
               />
             ))}
           </div>

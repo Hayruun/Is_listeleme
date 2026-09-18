@@ -95,6 +95,32 @@ export function AppearanceModal({ appearance, onChange, onClose, userName }: Pro
           </div>
 
           <div className="field">
+            <span className="field__label">Kart kenarı neyi göstersin</span>
+            <div className="theme-choice" style={{ gridTemplateColumns: '1fr 1fr' }}>
+              <button
+                type="button"
+                className="theme-choice__option"
+                aria-pressed={appearance.colorBy === 'type'}
+                onClick={() => onChange({ ...appearance, colorBy: 'type' })}
+              >
+                Türe göre
+              </button>
+              <button
+                type="button"
+                className="theme-choice__option"
+                aria-pressed={appearance.colorBy === 'priority'}
+                onClick={() => onChange({ ...appearance, colorBy: 'priority' })}
+              >
+                Önceliğe göre
+              </button>
+            </div>
+            <p className="faint" style={{ fontSize: 11, margin: '5px 0 0', lineHeight: 1.5 }}>
+              Tür rozeti ve öncelik etiketi her iki seçenekte de kartta kalır; değişen
+              yalnızca kenar çizgisinin neyi anlattığı.
+            </p>
+          </div>
+
+          <div className="field">
             <span className="field__label">Renk paleti</span>
             <div className="palette-grid">
               {PALETTES.map((palette) => (

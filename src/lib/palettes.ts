@@ -21,11 +21,18 @@ export const TYPE_SLOTS: WorkItemType[] = ['epic', 'feature', 'story', 'task', '
 export const SLOT_LABELS = ['Epic', 'Feature', 'User Story', 'Task', 'Bug'];
 
 /** Palet bir sey soylemezse kullanilan semantik durum renkleri. */
+/**
+ * Palet bir sey soylemezse kullanilan semantik durum renkleri.
+ *
+ * "Incelemede" bilerek mor: amber tonu (#d97706) ile "Engellendi" kirmizisi
+ * arasindaki fark normal gorusde bile esigin altindaydi (OKLab ΔE 14.4 < 15).
+ * Mor ile dort anlamli durum renk korlugu dogrulamasinin tamamini geciyor.
+ */
 export const DEFAULT_STATES: Record<WorkItemState, string> = {
   new: '#64748b',
   active: '#2563eb',
   blocked: '#dc2626',
-  review: '#d97706',
+  review: '#9333ea',
   done: '#16a34a',
 };
 
@@ -62,7 +69,7 @@ export const PALETTES: Palette[] = [
       new: '#7b8a7e',
       active: '#105666',
       blocked: '#b4645c',
-      review: '#8f7526',
+      review: '#8a5a86',
       done: '#5f7340',
     },
   },

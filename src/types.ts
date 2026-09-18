@@ -22,8 +22,13 @@ export interface WorkItem {
   description: string;
   state: WorkItemState;
   priority: Priority;
-  /** Birden fazla kisi etiketlenebilir. */
+  /** Ise atanan kisiler; birden fazla olabilir. */
   assignees: string[];
+  /**
+   * Isin sahibi / hesap verebilir kisiler. assignees'in bir alt kumesidir:
+   * bir kisi sorumlu yapildiginda atananlara da eklenir. Birden fazla olabilir.
+   */
+  owners: string[];
   tags: string[];
   parentId: string | null;
   /** Efor / story point. */

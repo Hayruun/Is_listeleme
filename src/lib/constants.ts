@@ -73,11 +73,11 @@ export const STATE_META: Record<WorkItemState, StateMeta> = {
 
 export const STATE_ORDER: WorkItemState[] = ['new', 'active', 'blocked', 'review', 'done'];
 
-export const PRIORITY_META: Record<Priority, { label: string; color: string }> = {
-  1: { label: 'P1 · Kritik', color: 'var(--prio-1)' },
-  2: { label: 'P2 · Yüksek', color: 'var(--prio-2)' },
-  3: { label: 'P3 · Orta', color: 'var(--prio-3)' },
-  4: { label: 'P4 · Düşük', color: 'var(--prio-4)' },
+export const PRIORITY_META: Record<Priority, { label: string; short: string; color: string }> = {
+  1: { label: 'P1 · Kritik', short: 'Kritik', color: 'var(--prio-1)' },
+  2: { label: 'P2 · Yüksek', short: 'Yüksek', color: 'var(--prio-2)' },
+  3: { label: 'P3 · Orta', short: 'Orta', color: 'var(--prio-3)' },
+  4: { label: 'P4 · Düşük', short: 'Düşük', color: 'var(--prio-4)' },
 };
 
 export const PRIORITY_ORDER: Priority[] = [1, 2, 3, 4];

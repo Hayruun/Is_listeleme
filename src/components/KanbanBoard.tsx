@@ -1,7 +1,8 @@
 import { useMemo, useState, type DragEvent } from 'react';
-import { STATE_META, STATE_ORDER, TYPE_META } from '../lib/constants';
+import { PRIORITY_META, STATE_META, STATE_ORDER, TYPE_META } from '../lib/constants';
 import { ancestorsOf, flatten, type TreeNode } from '../lib/hierarchy';
 import { useBoard } from '../state/boardStore';
+import type { ColorBy } from '../lib/appearance';
 import { AvatarStack } from './Avatar';
 import { PriorityBadge, TypeChip } from './Badges';
 import type { WorkItem, WorkItemState } from '../types';
@@ -11,6 +12,7 @@ interface Props {
   nodes: TreeNode[];
   selectedId: string | null;
   onSelect: (id: string) => void;
+  colorBy: ColorBy;
 }
 
 /**
@@ -20,7 +22,7 @@ interface Props {
  * (breadcrumb) ile temsil edilir; kart bir sutundan digerine suruklenince
  * ogenin durumu degisir.
  */
-export function KanbanBoard({ nodes, selectedId, onSelect }: Props): JSX.Element {
+export function KanbanBoard({ nodes, selectedId, onSelect, colorBy }: Props): JSX.Element {
   const { board, dispatch } = useBoard();
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const [overState, setOverState] = useState<WorkItemState | null>(null);
@@ -88,7 +90,13 @@ export function KanbanBoard({ nodes, selectedId, onSelect }: Props): JSX.Element
                     className={`kanban__card${selectedId === item.id ? ' kanban__card--selected' : ''}${
                       draggingId === item.id ? ' is-dragging' : ''
                     }`}
-                    style={{ borderLeft: `3px solid ${TYPE_META[item.type].color}` }}
+                    style={{
+                      borderLeft: `3px solid ${
+                        colorBy === 'priority'
+                          ? PRIORITY_META[item.priority].color
+                          : TYPE_META[item.type].color
+                      }`,
+                    }}
                     draggable
                     onDragStart={(event) => {
                       setDraggingId(item.id);
@@ -111,7 +119,7 @@ export function KanbanBoard({ nodes, selectedId, onSelect }: Props): JSX.Element
                   >
                     <div className="kanban__card-top">
                       <TypeChip type={item.type} compact />
-                      <PriorityBadge priority={item.priority} />
+                      <PriorityBadge priority={item.priority} withLabel />
                       {item.effort !== null && <span className="tag">{item.effort} sp</span>}
                     </div>
 
@@ -124,7 +132,13 @@ export function KanbanBoard({ nodes, selectedId, onSelect }: Props): JSX.Element
                     <p className="kanban__card-title">{item.title}</p>
 
                     <div className="kanban__card-bottom">
-                      <AvatarStack people={assignees} size="sm" max={3} emptyLabel="—" />
+                      <AvatarStack
+                        people={assignees}
+                        size="sm"
+                        max={3}
+                        emptyLabel="—"
+                        ownerIds={item.owners}
+                      />
                       <span className="spacer" />
                       {item.dueDate && (
                         <span className="faint" style={{ fontSize: 11 }}>

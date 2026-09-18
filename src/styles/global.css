@@ -43,13 +43,17 @@
   --state-new: #64748b;
   --state-active: #2563eb;
   --state-blocked: #dc2626;
-  --state-review: #b45309;
+  --state-review: #7e22ce;
   --state-done: #15803d;
 
-  --prio-1: #dc2626;
-  --prio-2: #b45309;
-  --prio-3: #2563eb;
-  --prio-4: #64748b;
+  --prio-1: #7f1616;
+  --prio-2: #b02020;
+  --prio-3: #d15c5c;
+  --prio-4: #e29393;
+  --prio-1-ink: #ffffff;
+  --prio-2-ink: #ffffff;
+  --prio-3-ink: #ffffff;
+  --prio-4-ink: #12161b;
 
   --danger: #dc2626;
   --danger-soft: #fde8e8;
@@ -527,6 +531,17 @@ textarea {
   width: 34px;
   height: 34px;
   font-size: 13px;
+}
+
+/* Sorumlu kisi: avatarin cevresinde vurgu halkasi. Renge ek olarak
+   baslikta da "sorumlu" yazar, yani anlam yalnizca renge emanet degil. */
+.avatar--owner {
+  box-shadow: 0 0 0 2px var(--bg-elevated), 0 0 0 4px var(--accent);
+}
+
+.avatar-stack .avatar--owner {
+  position: relative;
+  z-index: 1;
 }
 
 .avatar-stack {
@@ -2019,4 +2034,401 @@ textarea {
 
 .chip--mine[aria-pressed='true'] {
   border-color: var(--accent);
+}
+
+/* ==========================================================================
+   Ozet (dashboard)
+   ========================================================================== */
+.dash {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dash__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 12px;
+}
+
+.dash__hero {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.dash__hero-label {
+  margin: 0;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* Tek baslik sayisi: orantili rakamlar, govde yazi tipi. */
+.dash__hero-value {
+  margin: 2px 0 0;
+  font-size: 52px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  color: var(--accent);
+}
+
+.dash__hero-sub {
+  margin: 6px 0 0;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.dash__kpis {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+
+.kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 74px;
+}
+
+.kpi__value {
+  font-size: 23px;
+  font-weight: 680;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.kpi__label {
+  font-size: 11.5px;
+  color: var(--text-faint);
+  font-weight: 550;
+}
+
+.card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 15px 17px 17px;
+  box-shadow: var(--shadow-sm);
+}
+
+.card__title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 650;
+}
+
+.card__count {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 99px;
+  color: var(--state-blocked);
+  background: color-mix(in srgb, var(--state-blocked) 13%, transparent);
+}
+
+.card__sub {
+  margin: 3px 0 13px;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--text-faint);
+}
+
+.card__empty {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
+/* --- Yigilmis cubuk -------------------------------------------------------
+   Segmentleri ayiran sey cizgi degil, zemin renginde 2px bosluk.            */
+.stackbar {
+  display: flex;
+  gap: 2px;
+  height: 16px;
+  width: 100%;
+}
+
+.stackbar--slim {
+  height: 11px;
+  min-width: 3px;
+}
+
+.stackbar__seg {
+  min-width: 3px;
+  border-radius: 0;
+  transition: filter 0.12s;
+}
+
+.stackbar__seg:first-child {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.stackbar__seg:hover {
+  filter: brightness(1.08);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 15px;
+  margin-top: 11px;
+}
+
+.legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  /* Metin veri rengini giymez; kimligi yanindaki kare tasir. */
+  color: var(--text-muted);
+}
+
+.legend__swatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  flex: none;
+}
+
+.legend__value {
+  font-weight: 650;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Yatay cubuk listesi -------------------------------------------------- */
+.barlist {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.barlist__row {
+  display: grid;
+  grid-template-columns: minmax(84px, 33%) 1fr auto;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 2px 0;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: default;
+}
+
+button.barlist__row {
+  cursor: pointer;
+}
+
+button.barlist__row:hover .barlist__label {
+  color: var(--accent);
+}
+
+.barlist__label {
+  font-size: 12px;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.barlist__track {
+  height: 10px;
+  border-radius: 4px;
+  background: var(--bg-sunken);
+  overflow: hidden;
+  display: block;
+}
+
+.barlist__fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  /* Taban kare, veri ucu yuvarlak. */
+  border-radius: 0 4px 4px 0;
+  transition: width 0.3s ease;
+}
+
+.barlist__value {
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  min-width: 34px;
+  text-align: right;
+}
+
+/* --- Kisi bazli is yuku --------------------------------------------------- */
+.workload {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.workload__row {
+  display: grid;
+  grid-template-columns: minmax(120px, 190px) 1fr auto;
+  align-items: center;
+  gap: 11px;
+}
+
+.workload__who {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.workload__name {
+  font-size: 12.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.workload__total {
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.workload__owning {
+  font-weight: 450;
+  color: var(--text-faint);
+}
+
+/* --- Tablo gorunumu ------------------------------------------------------- */
+.tablewrap {
+  overflow-x: auto;
+}
+
+.datatable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.datatable th,
+.datatable td {
+  text-align: right;
+  padding: 6px 9px;
+  border-bottom: 1px solid var(--border);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.datatable th:first-child,
+.datatable td:first-child {
+  text-align: left;
+  font-variant-numeric: normal;
+}
+
+.datatable th {
+  color: var(--text-faint);
+  font-weight: 600;
+  font-size: 11px;
+}
+
+/* --- Risk listeleri ------------------------------------------------------- */
+.risklist {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.risklist__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 9px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  cursor: pointer;
+  text-align: left;
+}
+
+.risklist__row:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-hover);
+}
+
+.risklist__title {
+  flex: 1;
+  min-width: 0;
+  font-size: 12.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.risklist__due {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--state-blocked);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Grafik ipucu --------------------------------------------------------- */
+.charttip {
+  position: fixed;
+  z-index: 80;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 7px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow-lg);
+  max-width: 260px;
+}
+
+.charttip__label {
+  font-size: 11px;
+  color: var(--text-faint);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.charttip__value {
+  font-size: 12.5px;
+  font-weight: 620;
+}
+
+@media (max-width: 720px) {
+  .dash__hero-value {
+    font-size: 42px;
+  }
+
+  .dash__kpis {
+    margin-left: 0;
+    gap: 16px;
+  }
+
+  .workload__row {
+    grid-template-columns: minmax(96px, 130px) 1fr auto;
+  }
 }

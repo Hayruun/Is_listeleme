@@ -31,8 +31,12 @@ npm run typecheck  # yalnızca tip kontrolü
   yazıp Enter'a basmak yeterli; Enter'da alan açık kalır, arka arkaya öğe girilir.
 - **Detay paneli.** Durum, öncelik, tür, efor (story point), başlangıç/bitiş
   tarihi, etiketler, açıklama ve atananlar tek yerden düzenlenir.
-- **İki görünüm.** *Ağaç* hiyerarşiyi gösterir; *Pano* aynı öğeleri durum
-  sütunlarına dizer. Geçiş araç çubuğundaki anahtarla yapılır.
+- **Üç görünüm.** *Ağaç* hiyerarşiyi gösterir; *Pano* aynı öğeleri durum
+  sütunlarına dizer; *Özet* işlerin gidişatını grafiklerle anlatır. Geçiş araç
+  çubuğundaki anahtarla yapılır.
+- **Sorumlular.** Atananlardan ayrı olarak, bir işin hesap verebilir sahibi
+  işaretlenir ve birden fazla olabilir. Sorumlu yapılan kişi atananlara da
+  eklenir; avatarı vurgu halkasıyla gösterilir.
 - **Sürükle-bırak.** Ağaçta bir öğeyi kardeşleri arasında yeniden sıralayabilir
   ya da başka bir ebeveynin altına taşıyabilirsiniz: kartın üst/alt kenarına
   bırakmak sıralar, ortasına bırakmak alt öğe yapar. Panoda kartı başka bir
@@ -123,6 +127,46 @@ Core Web API'sine taşınacaksa yalnızca bu modülün içi değişir; bileşenl
 hiçbiri veri kaynağını bilmez. Çakışma kontrolü de aynı sözleşmeyle çalışır
 (`baseUpdatedAt` gönderilir, `409` beklenir), dolayısıyla sunucu tarafında
 optimistic concurrency'e doğrudan karşılık gelir.
+
+## Özet görünümü ve grafikler
+
+Grafikler harici bir grafik kütüphanesi kullanmaz; hepsi tasarım belirteçleriyle
+boyanan HTML/CSS çubuklardır. Formlar işin gereğine göre seçildi:
+
+| Ne anlatılıyor | Form |
+|---|---|
+| Tek başlık sayısı (genel ilerleme) | hero figür, sayfada yalnızca bir tane |
+| Birkaç anlık sayı | KPI şeridi |
+| Parça-bütün (durum dağılımı) | tek yığılmış yatay çubuk + efsane |
+| Büyüklük karşılaştırması (kutu ilerlemesi) | tek serili yatay çubuk |
+| Sıralı ölçek (öncelik) | sıralı ramp'li yatay çubuk |
+| Kişi × durum | kişi başına yığılmış çubuk + tablo görünümü |
+| Dikkat gerektirenler | liste (grafik değil) |
+
+Uygulanan kurallar: segmentleri ayıran şey çizgi değil zemin renginde 2px
+boşluk; taban kare, veri ucu 4px yuvarlak; ızgara ve eksen yok denecek kadar
+silik; metin hiçbir zaman veri rengini giymez (kimliği yanındaki renk kutusu
+taşır); iki veya daha fazla seri olan her grafikte efsane var; her çubuğun
+üzerinde imleçle değeri okunuyor; kişi bazlı grafiğin tüm sayıları "Tabloyu
+göster" ile metin olarak da okunabiliyor.
+
+### Renklerin ölçülmesi
+
+Durum ve öncelik renkleri göz kararıyla seçilmedi, OKLab kontrast doğrulayıcısı
+ile ölçüldü. İki şey bu yüzden değişti:
+
+- **"İncelemede" amberden mora alındı.** Eski amber (#d97706) ile "Engellendi"
+  kırmızısı arasındaki fark normal görüşte bile eşiğin altındaydı (ΔE 14.4 < 15).
+  Mor ile dört anlamlı durum rengi, renk körlüğünün üç yaygın tipi dahil tüm
+  ayırt edilebilirlik kontrollerini geçiyor.
+- **Öncelik dört ayrı renk yerine tek tonun dört basamağı oldu.** Öncelik sıralı
+  bir ölçek, kimlik değil. Klasik kırmızı–turuncu–mavi–gri dizisi denendi ve
+  kırmızı–turuncu ikilisi ölçümde kaldı (ΔE 8.7); sıralı ramp (koyudan soluğa)
+  tüm kontrolleri geçiyor. Rozetin üzerindeki "P1".."P4" metni her zaman yazılı
+  olduğu için anlam hiçbir zaman yalnızca renge emanet değil.
+
+Her iki ölçek de seçilen paletin tonundan türetilir; "Erişilebilir" palette
+öncelik rampı o paletin uyarı renginden (vermilyon) üretilir.
 
 ## Sürükle-bırak kuralları
 
@@ -235,6 +279,8 @@ src/
     session.ts                Oturum kimliği (SSO buraya bağlanır)
   state/boardStore.tsx        Reducer, otomatik kaydetme, çakışma yönetimi
   state/dnd.tsx               Sürükle-bırak durumu ve hedef doğrulaması
+  lib/escapeStack.ts          Esc katman yığını (üstteki katman önce kapanır)
+  components/Dashboard.tsx    Özet görünümü ve grafikler
   components/                 Arayüz bileşenleri
   styles/global.css           Tasarım belirteçleri ve tüm stiller
 ```

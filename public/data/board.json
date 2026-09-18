@@ -46,7 +46,12 @@
       "priority": 1,
       "assignees": [
         "usr-001tjd1wu",
-        "usr-005856e9k"
+        "usr-005856e9k",
+        "usr-003gnmcvl"
+      ],
+      "owners": [
+        "usr-001tjd1wu",
+        "usr-003gnmcvl"
       ],
       "tags": [
         "platform",
@@ -57,7 +62,7 @@
       "startDate": "2026-09-01",
       "dueDate": "2026-10-15",
       "createdAt": "2026-09-01T12:00:00Z",
-      "updatedAt": "2026-09-01T13:00:00Z",
+      "updatedAt": "2026-09-18T20:35:39.941Z",
       "order": 0
     },
     {
@@ -70,6 +75,7 @@
       "assignees": [
         "usr-001tjd1wu"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-006mipkhy",
       "effort": 5,
@@ -89,6 +95,7 @@
       "assignees": [
         "usr-001tjd1wu"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-007q0qdr6",
       "effort": 2,
@@ -108,6 +115,7 @@
       "assignees": [
         "usr-001tjd1wu"
       ],
+      "owners": [],
       "tags": [
         "nuget"
       ],
@@ -129,6 +137,7 @@
       "assignees": [
         "usr-001tjd1wu"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-006mipkhy",
       "effort": 8,
@@ -148,6 +157,7 @@
       "assignees": [
         "usr-001tjd1wu"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-010k6db0h",
       "effort": 1,
@@ -167,6 +177,7 @@
       "assignees": [
         "usr-001tjd1wu"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-011ut2ph1",
       "effort": 1,
@@ -187,6 +198,7 @@
         "usr-001tjd1wu",
         "usr-005856e9k"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-010k6db0h",
       "effort": 5,
@@ -206,6 +218,7 @@
       "assignees": [
         "usr-001tjd1wu"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-013zcnxna",
       "effort": 1,
@@ -225,6 +238,7 @@
       "assignees": [
         "usr-001tjd1wu"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-013zcnxna",
       "effort": 2,
@@ -244,6 +258,7 @@
       "assignees": [
         "usr-004sp5r9o"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-013zcnxna",
       "effort": 2,
@@ -261,6 +276,10 @@
       "state": "active",
       "priority": 1,
       "assignees": [
+        "usr-001tjd1wu",
+        "usr-004sp5r9o"
+      ],
+      "owners": [
         "usr-001tjd1wu",
         "usr-004sp5r9o"
       ],
@@ -283,6 +302,7 @@
       "assignees": [
         "usr-001tjd1wu"
       ],
+      "owners": [],
       "tags": [
         "derleme"
       ],
@@ -305,6 +325,7 @@
         "usr-001tjd1wu",
         "usr-002kwh9xh"
       ],
+      "owners": [],
       "tags": [
         "ef-core",
         "risk"
@@ -327,6 +348,7 @@
       "assignees": [
         "usr-001tjd1wu"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-019wxokt5",
       "effort": 3,
@@ -347,6 +369,7 @@
         "usr-001tjd1wu",
         "usr-002kwh9xh"
       ],
+      "owners": [],
       "tags": [
         "sözleşme",
         "risk"
@@ -367,6 +390,9 @@
       "state": "active",
       "priority": 1,
       "assignees": [
+        "usr-002kwh9xh"
+      ],
+      "owners": [
         "usr-002kwh9xh"
       ],
       "tags": [
@@ -390,6 +416,7 @@
       "assignees": [
         "usr-002kwh9xh"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-022q9c63o",
       "effort": 5,
@@ -409,6 +436,7 @@
       "assignees": [
         "usr-002kwh9xh"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-023docwn9",
       "effort": 2,
@@ -428,6 +456,7 @@
       "assignees": [
         "usr-002kwh9xh"
       ],
+      "owners": [],
       "tags": [
         "bağımlılık"
       ],
@@ -449,6 +478,7 @@
       "assignees": [
         "usr-002kwh9xh"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-022q9c63o",
       "effort": 8,
@@ -468,6 +498,7 @@
       "assignees": [
         "usr-002kwh9xh"
       ],
+      "owners": [],
       "tags": [
         "pep-594"
       ],
@@ -489,6 +520,7 @@
       "assignees": [
         "usr-002kwh9xh"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-027xgv1r7",
       "effort": 2,
@@ -509,6 +541,7 @@
         "usr-002kwh9xh",
         "usr-003gnmcvl"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-027xgv1r7",
       "effort": 3,
@@ -529,6 +562,7 @@
         "usr-004sp5r9o",
         "usr-002kwh9xh"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-022q9c63o",
       "effort": 8,
@@ -548,6 +582,7 @@
       "assignees": [
         "usr-004sp5r9o"
       ],
+      "owners": [],
       "tags": [
         "test"
       ],
@@ -569,6 +604,7 @@
       "assignees": [
         "usr-002kwh9xh"
       ],
+      "owners": [],
       "tags": [
         "lint"
       ],
@@ -588,6 +624,9 @@
       "state": "new",
       "priority": 2,
       "assignees": [
+        "usr-003gnmcvl"
+      ],
+      "owners": [
         "usr-003gnmcvl"
       ],
       "tags": [
@@ -611,6 +650,7 @@
       "assignees": [
         "usr-003gnmcvl"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-033ar7o4j",
       "effort": 5,
@@ -630,6 +670,7 @@
       "assignees": [
         "usr-003gnmcvl"
       ],
+      "owners": [],
       "tags": [
         "docker"
       ],
@@ -651,6 +692,7 @@
       "assignees": [
         "usr-003gnmcvl"
       ],
+      "owners": [],
       "tags": [
         "docker"
       ],
@@ -672,6 +714,7 @@
       "assignees": [
         "usr-003gnmcvl"
       ],
+      "owners": [],
       "tags": [
         "güvenlik"
       ],
@@ -693,6 +736,7 @@
       "assignees": [
         "usr-003gnmcvl"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-033ar7o4j",
       "effort": 5,
@@ -712,6 +756,7 @@
       "assignees": [
         "usr-003gnmcvl"
       ],
+      "owners": [],
       "tags": [
         "ci"
       ],
@@ -733,6 +778,7 @@
       "assignees": [
         "usr-003gnmcvl"
       ],
+      "owners": [],
       "tags": [
         "ci"
       ],
@@ -752,6 +798,10 @@
       "state": "new",
       "priority": 1,
       "assignees": [
+        "usr-004sp5r9o",
+        "usr-005856e9k"
+      ],
+      "owners": [
         "usr-004sp5r9o",
         "usr-005856e9k"
       ],
@@ -777,6 +827,7 @@
         "usr-004sp5r9o",
         "usr-002kwh9xh"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-0417fi34j",
       "effort": 8,
@@ -796,6 +847,7 @@
       "assignees": [
         "usr-004sp5r9o"
       ],
+      "owners": [],
       "tags": [
         "sözleşme"
       ],
@@ -818,6 +870,7 @@
         "usr-001tjd1wu",
         "usr-002kwh9xh"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-042zq3pwh",
       "effort": 3,
@@ -838,6 +891,7 @@
         "usr-005856e9k",
         "usr-003gnmcvl"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-0417fi34j",
       "effort": 8,
@@ -857,6 +911,7 @@
       "assignees": [
         "usr-004sp5r9o"
       ],
+      "owners": [],
       "tags": [
         "e2e"
       ],
@@ -878,6 +933,7 @@
       "assignees": [
         "usr-003gnmcvl"
       ],
+      "owners": [],
       "tags": [
         "güvenlik",
         "sca"
@@ -900,6 +956,7 @@
       "assignees": [
         "usr-005856e9k"
       ],
+      "owners": [],
       "tags": [],
       "parentId": "wi-045lui5rw",
       "effort": 2,
@@ -910,5 +967,5 @@
       "order": 2
     }
   ],
-  "updatedAt": "2026-09-06T19:00:00Z"
+  "updatedAt": "2026-09-18T20:35:39.941Z"
 }

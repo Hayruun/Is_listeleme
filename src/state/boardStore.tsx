@@ -31,6 +31,7 @@ type Action =
   | { type: 'item/patch'; id: string; patch: Partial<Omit<WorkItem, 'id' | 'createdAt'>> }
   | { type: 'item/remove'; id: string }
   | { type: 'item/toggleAssignee'; id: string; personId: string }
+  | { type: 'item/toggleOwner'; id: string; personId: string }
   | { type: 'item/move'; id: string; direction: -1 | 1 }
   | { type: 'item/drop'; dragId: string; targetId: string; mode: DropMode };
 
@@ -99,8 +100,13 @@ export function boardReducer(board: Board, action: Action): Board {
       const people = board.people.filter((person) => person.id !== action.id);
       // Kisi silinince tum etiketlerden de dusurulur.
       const items = board.items.map((item) =>
-        item.assignees.includes(action.id)
-          ? { ...item, assignees: item.assignees.filter((id) => id !== action.id), updatedAt: nowIso() }
+        item.assignees.includes(action.id) || item.owners.includes(action.id)
+          ? {
+              ...item,
+              assignees: item.assignees.filter((id) => id !== action.id),
+              owners: item.owners.filter((id) => id !== action.id),
+              updatedAt: nowIso(),
+            }
           : item,
       );
       return touch(board, items, people);
@@ -125,6 +131,7 @@ export function boardReducer(board: Board, action: Action): Board {
         state: 'new',
         priority: 3,
         assignees: action.draft.assignees ?? [],
+        owners: [],
         tags: [],
         parentId: action.draft.parentId,
         effort: null,
@@ -153,13 +160,35 @@ export function boardReducer(board: Board, action: Action): Board {
     }
 
     case 'item/toggleAssignee':
-      return patchItem(board, action.id, (item) => ({
-        ...item,
-        assignees: item.assignees.includes(action.personId)
-          ? item.assignees.filter((id) => id !== action.personId)
-          : [...item.assignees, action.personId],
-        updatedAt: nowIso(),
-      }));
+      return patchItem(board, action.id, (item) => {
+        const removing = item.assignees.includes(action.personId);
+        return {
+          ...item,
+          assignees: removing
+            ? item.assignees.filter((id) => id !== action.personId)
+            : [...item.assignees, action.personId],
+          // Atamadan cikarilan kisi sorumlu da kalamaz.
+          owners: removing ? item.owners.filter((id) => id !== action.personId) : item.owners,
+          updatedAt: nowIso(),
+        };
+      });
+
+    case 'item/toggleOwner':
+      return patchItem(board, action.id, (item) => {
+        const removing = item.owners.includes(action.personId);
+        return {
+          ...item,
+          owners: removing
+            ? item.owners.filter((id) => id !== action.personId)
+            : [...item.owners, action.personId],
+          // Sorumlu yapilan kisi ayni zamanda ise atanmis sayilir.
+          assignees:
+            !removing && !item.assignees.includes(action.personId)
+              ? [...item.assignees, action.personId]
+              : item.assignees,
+          updatedAt: nowIso(),
+        };
+      });
 
     case 'item/move': {
       const current = board.items.find((item) => item.id === action.id);

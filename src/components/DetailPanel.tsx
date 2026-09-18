@@ -7,6 +7,7 @@ import {
   TYPE_META,
 } from '../lib/constants';
 import { allowedChildTypes, ancestorsOf, buildTree, descendantIds } from '../lib/hierarchy';
+import { useEscapeLayer } from '../lib/escapeStack';
 import { useBoard } from '../state/boardStore';
 import { AssigneePicker } from './AssigneePicker';
 import { Avatar } from './Avatar';
@@ -35,13 +36,9 @@ export function DetailPanel({ itemId, onClose, onSelect }: Props): JSX.Element |
     setConfirmDelete(false);
   }, [itemId]);
 
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent): void => {
-      if (event.key === 'Escape') onClose();
-    };
-    document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
-  }, [onClose]);
+  // Panel, Esc yigininin en altindaki katman: ustunde acik bir secici varsa
+  // Esc once onu kapatir.
+  useEscapeLayer(true, onClose);
 
   const ancestors = useMemo(
     () => (item ? ancestorsOf(board, item.id).reverse() : []),
@@ -57,6 +54,7 @@ export function DetailPanel({ itemId, onClose, onSelect }: Props): JSX.Element |
   if (!item) return null;
 
   const assignees = board.people.filter((person) => item.assignees.includes(person.id));
+  const owners = board.people.filter((person) => item.owners.includes(person.id));
   const childTypes = allowedChildTypes(item.type);
   const doomedCount = descendantIds(board.items, item.id).length;
 
@@ -182,11 +180,44 @@ export function DetailPanel({ itemId, onClose, onSelect }: Props): JSX.Element |
           </div>
 
           <div className="field">
+            <span className="field__label">Sorumlular ({owners.length})</span>
+            <div className="row row--wrap">
+              {owners.map((person) => (
+                <span key={person.id} className="tag" style={{ paddingLeft: 3, height: 26 }}>
+                  <Avatar person={person} size="sm" owner />
+                  {person.name}
+                  <button
+                    type="button"
+                    className="tag__remove"
+                    onClick={() =>
+                      dispatch({ type: 'item/toggleOwner', id: item.id, personId: person.id })
+                    }
+                    aria-label={`${person.name} sorumluluğunu kaldır`}
+                  >
+                    ×
+                  </button>
+                </span>
+              ))}
+              <AssigneePicker
+                selected={item.owners}
+                onToggle={(personId) =>
+                  dispatch({ type: 'item/toggleOwner', id: item.id, personId })
+                }
+                label="Sorumlu ekle"
+              />
+            </div>
+            <p className="faint" style={{ fontSize: 11, margin: '5px 0 0', lineHeight: 1.5 }}>
+              İşin hesap verebilir sahibi. Birden fazla olabilir; sorumlu yapılan kişi
+              atananlara da eklenir.
+            </p>
+          </div>
+
+          <div className="field">
             <span className="field__label">Atananlar ({assignees.length})</span>
             <div className="row row--wrap">
               {assignees.map((person) => (
                 <span key={person.id} className="tag" style={{ paddingLeft: 3, height: 26 }}>
-                  <Avatar person={person} size="sm" />
+                  <Avatar person={person} size="sm" owner={item.owners.includes(person.id)} />
                   {person.name}
                   <button
                     type="button"

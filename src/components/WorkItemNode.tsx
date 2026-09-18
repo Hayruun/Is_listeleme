@@ -1,7 +1,8 @@
-import { STATE_META, TYPE_META } from '../lib/constants';
+import { PRIORITY_META, STATE_META, TYPE_META } from '../lib/constants';
 import { allowedChildTypes, progressOf, type TreeNode } from '../lib/hierarchy';
 import { useBoard } from '../state/boardStore';
 import { dropClass, useDnd } from '../state/dnd';
+import type { ColorBy } from '../lib/appearance';
 import { AvatarStack } from './Avatar';
 import { PriorityBadge, StateBadge, TypeChip } from './Badges';
 import { QuickAdd } from './QuickAdd';
@@ -12,6 +13,8 @@ interface Props {
   onToggleExpand: (id: string) => void;
   selectedId: string | null;
   onSelect: (id: string) => void;
+  /** Kenar rengi turu mu onceligi mi anlatsin. */
+  colorBy: ColorBy;
 }
 
 /** Epic altindaki her kademe icin ic ice gecen satir karti. */
@@ -21,6 +24,7 @@ export function WorkItemNode({
   onToggleExpand,
   selectedId,
   onSelect,
+  colorBy,
 }: Props): JSX.Element {
   const { board } = useBoard();
   const dnd = useDnd();
@@ -52,7 +56,11 @@ export function WorkItemNode({
         onDragOver={(event) => dnd.dragOver(event, item.id)}
         onDragLeave={() => dnd.dragLeave(item.id)}
         onDrop={(event) => dnd.drop(event, item.id)}
-        style={{ borderLeft: `3px solid ${TYPE_META[item.type].color}` }}
+        style={{
+          borderLeft: `3px solid ${
+            colorBy === 'priority' ? PRIORITY_META[item.priority].color : TYPE_META[item.type].color
+          }`,
+        }}
       >
         <span className="node__grip" aria-hidden="true" title="Sürükleyerek taşıyın">
           ⠿
@@ -91,7 +99,13 @@ export function WorkItemNode({
           )}
           <PriorityBadge priority={item.priority} />
           <StateBadge state={item.state} />
-          <AvatarStack people={assignees} size="sm" max={3} emptyLabel="—" />
+          <AvatarStack
+            people={assignees}
+            size="sm"
+            max={3}
+            emptyLabel="—"
+            ownerIds={item.owners}
+          />
         </span>
       </div>
 
@@ -105,6 +119,7 @@ export function WorkItemNode({
               onToggleExpand={onToggleExpand}
               selectedId={selectedId}
               onSelect={onSelect}
+              colorBy={colorBy}
             />
           ))}
         </div>

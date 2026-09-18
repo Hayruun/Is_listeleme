@@ -27,6 +27,9 @@ interface Props {
   onOpenAppearance: () => void;
   onSignOut: () => void;
   onAddEpic: () => void;
+  /** O anda uygulanan tema; dugmenin simgesini belirler. */
+  theme: 'light' | 'dark';
+  onToggleTheme: () => void;
 }
 
 export function TopBar({
@@ -35,6 +38,8 @@ export function TopBar({
   onOpenAppearance,
   onSignOut,
   onAddEpic,
+  theme,
+  onToggleTheme,
 }: Props): JSX.Element {
   const { board, dispatch, saveStatus, replaceBoard } = useBoard();
   const [editingName, setEditingName] = useState(false);
@@ -104,6 +109,16 @@ export function TopBar({
         </span>
 
         <div className="row" style={{ gap: 6 }}>
+          <button
+            type="button"
+            className="btn btn--sm btn--icon"
+            onClick={onToggleTheme}
+            aria-label={theme === 'dark' ? 'Açık temaya geç' : 'Koyu temaya geç'}
+            title={theme === 'dark' ? 'Açık temaya geç' : 'Koyu temaya geç'}
+          >
+            {theme === 'dark' ? '☀' : '☾'}
+          </button>
+
           <button type="button" className="btn btn--sm" onClick={onOpenTeam}>
             Ekip
           </button>
@@ -147,7 +162,7 @@ export function TopBar({
                   }}
                 >
                   <span aria-hidden="true">◑</span>
-                  <span className="picker__option-name">Görünüm ve renk paleti</span>
+                  <span className="picker__option-name">Tema ve renk paleti</span>
                 </button>
 
                 <button

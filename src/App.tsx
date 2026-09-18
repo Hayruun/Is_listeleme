@@ -12,6 +12,7 @@ import { QuickAdd } from './components/QuickAdd';
 import {
   DEFAULT_APPEARANCE,
   applyAppearance,
+  resolveTheme,
   loadAppearance,
   saveAppearance,
   type Appearance,
@@ -62,8 +63,14 @@ export function App(): JSX.Element {
     setAppearanceState(userId ? loadAppearance(userId) : DEFAULT_APPEARANCE);
   }, [userId]);
 
+  // Uygulanan tema ayrica durumda tutulur: ust bardaki dugmenin simgesi ve
+  // etiketi, "Sistem" secilmisken isletim sistemi degistiginde de guncellensin.
+  const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>(() =>
+    resolveTheme(DEFAULT_APPEARANCE.theme),
+  );
+
   useEffect(() => {
-    applyAppearance(appearance);
+    setResolvedTheme(applyAppearance(appearance));
   }, [appearance]);
 
   // "Sistem" secildiginde isletim sisteminin temasini takip eder.
@@ -71,11 +78,27 @@ export function App(): JSX.Element {
     if (appearance.theme !== 'system') return;
     const media = window.matchMedia('(prefers-color-scheme: dark)');
     const onChange = (): void => {
-      applyAppearance(appearance);
+      setResolvedTheme(applyAppearance(appearance));
     };
     media.addEventListener('change', onChange);
     return () => media.removeEventListener('change', onChange);
   }, [appearance]);
+
+  /**
+   * Ust bardaki tek tikla tema degistirme. "Sistem" secilmisken tiklanirsa o
+   * anda gecerli olan temanin tersine sabitlenir; uc secenekli tam ayar
+   * Gorunum penceresinde durmaya devam eder.
+   */
+  const toggleTheme = useCallback(() => {
+    setAppearanceState((current) => {
+      const next: Appearance = {
+        ...current,
+        theme: resolveTheme(current.theme) === 'dark' ? 'light' : 'dark',
+      };
+      if (userId) saveAppearance(userId, next);
+      return next;
+    });
+  }, [userId]);
 
   const signIn = useCallback((personId: string) => {
     saveSessionUserId(personId);
@@ -143,6 +166,8 @@ export function App(): JSX.Element {
         currentUser={currentUser}
         onOpenTeam={() => setTeamOpen(true)}
         onOpenAppearance={() => setAppearanceOpen(true)}
+        theme={resolvedTheme}
+        onToggleTheme={toggleTheme}
         onSignOut={signOut}
         onAddEpic={addEpic}
       />

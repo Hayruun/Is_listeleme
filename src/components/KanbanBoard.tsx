@@ -119,7 +119,7 @@ export function KanbanBoard({ nodes, selectedId, onSelect, colorBy }: Props): JS
                     tabIndex={0}
                   >
                     <div className="kanban__card-top">
-                      <TypeChip type={item.type} compact />
+                      <TypeChip type={item.type} />
                       <PriorityBadge priority={item.priority} withLabel />
                       {item.effort !== null && <span className="tag">{item.effort} sp</span>}
                       <StepBadge item={item} />

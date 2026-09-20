@@ -83,7 +83,7 @@ export function WorkItemNode({
           ▶
         </button>
 
-        <TypeChip type={item.type} compact />
+        <TypeChip type={item.type} />
 
         <span className={`node__title${isDone ? ' node__title--done' : ''}`}>{item.title}</span>
 

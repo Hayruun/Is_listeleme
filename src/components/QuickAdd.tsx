@@ -73,7 +73,7 @@ export function QuickAdd({ parentId, types, triggerLabel }: Props): JSX.Element 
           </select>
         ) : (
           <span className="type-chip" style={{ background: TYPE_META[type].color }}>
-            {TYPE_META[type].short}
+            {TYPE_META[type].label}
           </span>
         )}
 

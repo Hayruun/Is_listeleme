@@ -1,12 +1,21 @@
 import { PRIORITY_META, STATE_META, TYPE_META } from '../lib/constants';
 import type { Priority, WorkItemState, WorkItemType } from '../types';
 
-export function TypeChip({ type, compact = false }: { type: WorkItemType; compact?: boolean }): JSX.Element {
+/**
+ * Tur rozeti. Kisaltma kullanilmaz: "FTR" / "STR" gibi kodlar hicbir sey
+ * anlatmiyordu, bu yuzden her yerde turun tam adi yazilir. Uzerine gelince
+ * seviyenin ne demek oldugunu anlatan ipucu cikar.
+ */
+export function TypeChip({ type }: { type: WorkItemType }): JSX.Element {
   const meta = TYPE_META[type];
   return (
-    <span className="type-chip" style={{ background: meta.color, color: meta.ink }}>
+    <span
+      className="type-chip"
+      style={{ background: meta.color, color: meta.ink }}
+      title={meta.hint}
+    >
       <span aria-hidden="true">{meta.icon}</span>
-      {compact ? meta.short : meta.label}
+      {meta.label}
     </span>
   );
 }

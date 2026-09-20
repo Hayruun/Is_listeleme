@@ -90,6 +90,22 @@ barındırma) açılır; bu durumda dosya salt okunur okunur, değişiklikler o
 tarayıcıda tutulur ve arayüz "Yalnızca bu tarayıcıda" uyarısı gösterir.
 Paylaşmak için dışa aktarma kullanılır.
 
+## İş öğesi türleri
+
+Azure Boards hiyerarşisi, büyükten küçüğe:
+
+| Tür | Ne demek | Örnek |
+|---|---|---|
+| **Epic** | En büyük kapsayıcı; aylara yayılan bir hedef | ".NET 8 Geçişi" |
+| **Feature** | Epic'i oluşturan işlev parçası | "Breaking change taraması" |
+| **User Story** | Kullanıcı gözünden anlamlı tek bir iş | "EF Core migration uyumluluğu doğrulansın" |
+| **Task** | Story'yi bitirmek için yapılacak somut adım | "Migration'lar yeniden üretilsin" |
+| **Bug** | Hata kaydı; story ya da feature altında durur | "System.Text.Json alan adlarını değiştiriyor" |
+
+Rozetlerde kısaltma kullanılmaz: türün tam adı yazılır, üzerine gelince ne
+anlama geldiğini söyleyen ipucu çıkar. Hangi türün altına ne eklenebileceği
+`src/lib/constants.ts` içindeki `TYPE_META[...].children` ile tanımlıdır.
+
 ## Veri modeli
 
 `src/types.ts` içindeki `Board` tipi dosyanın tamamını tanımlar:

@@ -476,7 +476,7 @@ function RiskList({
               className="risklist__row"
               onClick={() => onSelect(item.id)}
             >
-              <TypeChip type={item.type} compact />
+              <TypeChip type={item.type} />
               <span className="risklist__title">{item.title}</span>
               {showDue && item.dueDate && (
                 <span className="risklist__due">

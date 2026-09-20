@@ -275,7 +275,7 @@ export function DetailPanel({ itemId, onClose, onSelect }: Props): JSX.Element |
                     style={{ border: '1px solid var(--border)' }}
                     onClick={() => onSelect(child.item.id)}
                   >
-                    <TypeChip type={child.item.type} compact />
+                    <TypeChip type={child.item.type} />
                     <span className="picker__option-name">{child.item.title}</span>
                     <span className="picker__option-role">
                       {STATE_META[child.item.state].label}

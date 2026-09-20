@@ -2,7 +2,8 @@ import type { Priority, WorkItemState, WorkItemType } from '../types';
 
 interface TypeMeta {
   label: string;
-  short: string;
+  /** Rozetin uzerine gelince cikan, seviyenin ne demek oldugunu anlatan metin. */
+  hint: string;
   color: string;
   /** Rozet zemininin uzerine yazilacak murekkep; palete gore hesaplanir. */
   ink: string;
@@ -14,7 +15,7 @@ interface TypeMeta {
 export const TYPE_META: Record<WorkItemType, TypeMeta> = {
   epic: {
     label: 'Epic',
-    short: 'EPC',
+    hint: 'Epic — en büyük kapsayıcı; aylara yayılan bir hedef.',
     color: 'var(--type-epic)',
     ink: 'var(--type-epic-ink)',
     icon: '◆',
@@ -22,7 +23,7 @@ export const TYPE_META: Record<WorkItemType, TypeMeta> = {
   },
   feature: {
     label: 'Feature',
-    short: 'FTR',
+    hint: 'Feature — epic’i oluşturan işlev parçası.',
     color: 'var(--type-feature)',
     ink: 'var(--type-feature-ink)',
     icon: '◈',
@@ -30,7 +31,7 @@ export const TYPE_META: Record<WorkItemType, TypeMeta> = {
   },
   story: {
     label: 'User Story',
-    short: 'STR',
+    hint: 'User Story — kullanıcı gözünden anlamlı tek bir iş.',
     color: 'var(--type-story)',
     ink: 'var(--type-story-ink)',
     icon: '▣',
@@ -38,7 +39,7 @@ export const TYPE_META: Record<WorkItemType, TypeMeta> = {
   },
   task: {
     label: 'Task',
-    short: 'TSK',
+    hint: 'Task — bir story’yi bitirmek için yapılacak somut adım.',
     color: 'var(--type-task)',
     ink: 'var(--type-task-ink)',
     icon: '▪',
@@ -46,7 +47,7 @@ export const TYPE_META: Record<WorkItemType, TypeMeta> = {
   },
   bug: {
     label: 'Bug',
-    short: 'BUG',
+    hint: 'Bug — hata kaydı; story ya da feature altında durur.',
     color: 'var(--type-bug)',
     ink: 'var(--type-bug-ink)',
     icon: '●',

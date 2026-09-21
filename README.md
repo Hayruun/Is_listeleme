@@ -48,10 +48,12 @@ npm run typecheck  # yalnızca tip kontrolü
   ya da başka bir ebeveynin altına taşıyabilirsiniz: kartın üst/alt kenarına
   bırakmak sıralar, ortasına bırakmak alt öğe yapar. Panoda kartı başka bir
   sütuna sürüklemek durumunu değiştirir.
-- **Filtreler.** Metin araması (başlık, açıklama, etiket, kişi adı) ile tür,
-  durum, öncelik ve kişi filtreleri birlikte çalışır. **Bana atananlar**
-  kısayolu tek tıkla size atanmış işleri süzer. Bir öğe filtreye uymasa bile
-  alt öğelerinden biri uyuyorsa bağlamı korumak için ağaçta kalır.
+- **Filtreler.** Arama kutusu dışındaki bütün seçenekler tek bir **Filtreler**
+  düğmesinin altında toplanır; panel gruplara ayrılmıştır (hızlı filtreler,
+  tür, durum, öncelik, kişi). Açık filtreler panel kapalıyken de çubuğun
+  altında kaldırılabilir rozetler olarak durur, düğmede de sayısı görünür.
+  Bir öğe filtreye uymasa bile alt öğelerinden biri uyuyorsa bağlamı korumak
+  için ağaçta kalır.
 - **İlerleme.** Her epic, alt ağacındaki tamamlanma yüzdesini ve toplanmış story
   point'i gösterir.
 - **Oturum açma.** Uygulama önce kim olduğunuzu sorar: ekipten kendinizi seçer

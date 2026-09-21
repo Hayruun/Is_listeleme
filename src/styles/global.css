@@ -626,14 +626,119 @@ textarea {
    ========================================================================== */
 .filters {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 9px;
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 9px 11px;
   box-shadow: var(--shadow-sm);
+}
+
+.filters__bar {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+/* Dugmenin uzerindeki, kac filtrenin acik oldugunu soyleyen sayac. */
+.filters__count {
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: 99px;
+  background: var(--accent-contrast);
+  color: var(--accent);
+  font-size: 10.5px;
+  font-weight: 700;
+  display: inline-grid;
+  place-items: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Acilir filtre paneli */
+.filters__panel {
+  position: absolute;
+  z-index: 70;
+  top: calc(100% + 6px);
+  left: 0;
+  width: max-content;
+  min-width: 300px;
+  max-width: min(440px, calc(100vw - 32px));
+  max-height: min(70vh, 540px);
+  overflow-y: auto;
+  padding: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  animation: fade 0.12s ease;
+}
+
+.filters__group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filters__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.filters__footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 11px;
+  border-top: 1px solid var(--border);
+  position: sticky;
+  bottom: -13px;
+  background: var(--bg-elevated);
+  margin: 0 -13px -13px;
+  padding: 11px 13px;
+}
+
+/* Acik filtreler panel kapaliyken de gorunur kalir. */
+.filters__active {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding-top: 9px;
+  border-top: 1px solid var(--border);
+}
+
+.activefilter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 25px;
+  padding: 0 7px 0 10px;
+  border-radius: 99px;
+  border: 1px solid var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 12px;
+  font-weight: 550;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.activefilter:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.activefilter__x {
+  font-size: 14px;
+  line-height: 1;
+  opacity: 0.7;
 }
 
 .chip {

@@ -115,7 +115,9 @@ export function App(): JSX.Element {
     () => filterTree(tree, filters, board, { starred }),
     [tree, filters, board, starred],
   );
-  const stats = useMemo(() => statsOf(tree), [tree]);
+  // Istatistikler filtrelenmis kumeden hesaplanir: filtre acikken ust seritte
+  // ve arac cubugunda ekranda olmayan ogelerin sayisi yazmasin.
+  const stats = useMemo(() => statsOf(visible), [visible]);
 
   const toggleExpand = useCallback((id: string) => {
     setExpanded((current) => {

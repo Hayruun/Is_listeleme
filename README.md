@@ -67,6 +67,9 @@ npm run typecheck  # yalnızca tip kontrolü
 - **Renk paletleri.** Beş hazır palet (biri renk körlüğüne uygun) ve kendi beş
   renginizi hex ile girebileceğiniz özel palet. Vurgu rengini de siz seçersiniz.
 - **Dışa / içe aktarma.** Panoyu JSON olarak indirip paylaşabilir, geri yükleyebilirsiniz.
+- **Azure Boards'a aktarma.** Kullanıcı menüsündeki *Azure Boards CSV olarak dışa
+  aktar* panoyu Azure DevOps'un *Import Work Items* ekranının okuduğu hiyerarşik
+  CSV'ye çevirir (bkz. aşağıda).
 
 ## Veri nerede duruyor
 
@@ -107,6 +110,30 @@ Azure Boards hiyerarşisi, büyükten küçüğe:
 Rozetlerde kısaltma kullanılmaz: türün tam adı yazılır, üzerine gelince ne
 anlama geldiğini söyleyen ipucu çıkar. Hangi türün altına ne eklenebileceği
 `src/lib/constants.ts` içindeki `TYPE_META[...].children` ile tanımlıdır.
+
+## Azure Boards'a aktarma
+
+Azure DevOps'ta **Boards → Work items → Import Work Items** ile CSV seçilir.
+Hiyerarşi `Title 1 / Title 2 / Title 3 …` sütunlarından kurulur: başlığın
+bulunduğu sütun öğenin seviyesidir, ebeveyni üstteki bir seviye sığ satırdır.
+
+- Tür eşlemesi: Epic, Feature, User Story, Task, Bug (Agile süreci).
+- Durum: Yeni → New, Devam Ediyor / Engellendi → Active (engellilere
+  `Engellendi` etiketi), İncelemede → Resolved (Task'ta Active), Tamamlandı → Closed.
+- *Start Date / Target Date* Azure'da varsayılan olarak yalnızca Epic ve
+  Feature'da bulunduğundan tarih sütunlarına yalnızca bunlar yazılır; story ve
+  task tarihleri açıklamaya "Planlanan tarih" olarak eklenir.
+- Adımlar açıklamaya işaretli liste olarak eklenir. Azure tek kişi atadığı için
+  *Assigned To* sorumlunun (yoksa ilk atananın) e-postasıdır; e-postası olmayan
+  kişi yazılmaz. Tamamen boş kalan isteğe bağlı sütunlar dosyaya konmaz.
+
+### 2026 Performans Yönetimi kırılımı
+
+`public/data/performans-2026.json`, "2026 Dinamik Yönetici Ajandası"ndaki 15
+süreci ve 63 alt görevi **7 Epic → 23 User Story → 63 Task** olarak içerir.
+*JSON'dan içe aktar* ile uygulamada açılabilir (mevcut panonun yerini alır,
+önce dışa aktarıp yedek alın). Aynı verinin Azure'a hazır CSV'si
+`azure/performans-2026-azure-boards.csv` dosyasındadır.
 
 ## Veri modeli
 

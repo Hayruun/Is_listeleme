@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { exportAzureCsv } from '../lib/azureCsv';
 import { exportBoard, importBoardFile } from '../lib/boardApi';
 import { useDismiss } from '../lib/useDismiss';
 import { useBoard, type SaveStatus } from '../state/boardStore';
@@ -176,6 +177,19 @@ export function TopBar({
                 >
                   <span aria-hidden="true">↓</span>
                   <span className="picker__option-name">Panoyu dışa aktar</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="picker__option"
+                  role="menuitem"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    exportAzureCsv(board);
+                  }}
+                >
+                  <span aria-hidden="true">⇩</span>
+                  <span className="picker__option-name">Azure Boards CSV olarak dışa aktar</span>
                 </button>
 
                 <button

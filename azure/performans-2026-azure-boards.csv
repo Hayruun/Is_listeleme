@@ -1,0 +1,94 @@
+﻿ID,Work Item Type,Title 1,Title 2,Title 3,State,Priority,Start Date,Target Date,Tags,Description
+,Epic,2026 Performans Döngüsü Açılışı ve Kurumsal Hedefler,,,New,2,2026-02-01,2027-02-01,PY 2026,<p>Yeni performans döngüsünün sistemde açılması ve Strateji'den gelen kurumsal hedeflerin sisteme alınması.</p>
+,User Story,,2026 performans döngüsü sistemde açılsın,,New,2,,,PY 2026; Genel Müdürlük; Sistem / İK,<p>Kaynak: &quot;2026 Performans Döngüsü Açılışı&quot;.</p><p><b>Planlanan tarih:</b> 01.02.2026 – 01.02.2027</p>
+,Task,,,Sistem parametrelerinin kontrol edilmesi,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Parametre girişi ile ekranların yeni döngüye hazır hale getirilmesi (İsmail Bey ile),New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Ekip içinde portföy dağılımının yapılması,New,2,,,PY 2026; Genel Müdürlük,
+,User Story,,Strateji'den gelen hedefler sisteme alınsın,,New,2,,,PY 2026; Genel Müdürlük; Sistem / İK,<p>Kaynak: &quot;Strateji Tarafından Hedeflerin Alınması&quot;.</p><p><b>Planlanan tarih:</b> 17.02.2026</p>
+,Task,,,Excel hazırlığının yapılması,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Yolculuğum'a scriptin girilmesi için BT'ye iletilmesi,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Grup Müdürlerinin BAK ve SHY karnelerinin alınması,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,HİZA sistemine eklenmesi,New,2,,,PY 2026; Genel Müdürlük,
+,Epic,Yetkinlik Seçim Süreci,,,New,2,2026-02-16,2026-03-09,PY 2026,"<p>Çalışanların 2026 yetkinliklerini seçmesi, sürecin takibi ve mutabakata alınması. Kaynak: &quot;Yetkinlik Seçimleri&quot; (16.02 – 09.03.2026).</p>"
+,User Story,,Yetkinlik seçim altyapısı test edilip hazırlansın,,New,2,,,PY 2026; Şube & Saha; Çalışan,<p><b>Planlanan tarih:</b> 16.02.2026 – 09.03.2026</p>
+,Task,,,Altyapı testleri (BT),New,2,,,PY 2026; Şube & Saha,
+,Task,,,PYYM testleri,New,2,,,PY 2026; Şube & Saha,
+,Task,,,Ortak yetkinliklerin belirlenmesi,New,2,,,PY 2026; Şube & Saha,
+,Task,,,Bir önceki yılın atanan yetkinliklerinin pasife alınması (yetkinlik atama listeleme ekranı),New,2,,,PY 2026; Şube & Saha,
+,Task,,,Değerlendiricilerin kontrolü,New,2,,,PY 2026; Şube & Saha,
+,User Story,,Yetkinlik seçimi başlatılsın ve duyurulsun,,New,2,,,PY 2026; Şube & Saha; Çalışan,<p><b>Planlanan tarih:</b> 16.02.2026 – 09.03.2026</p>
+,Task,,,"Duyuru içeriklerinin hazırlanması (mail, iyi ki, kılavuzlar)",New,2,,,PY 2026; Şube & Saha,
+,Task,,,Esnek Seçim > Hazırla/Başlat aksiyonunun alınması,New,2,,,PY 2026; Şube & Saha,
+,Task,,,Canlıda testlerin yapılması,New,2,,,PY 2026; Şube & Saha,
+,Task,,,Duyuru içeriklerinin paylaşılması,New,2,,,PY 2026; Şube & Saha,
+,User Story,,Yetkinlik seçimi takip edilsin,,New,2,,,PY 2026; Şube & Saha; Çalışan,<p><b>Planlanan tarih:</b> 16.02.2026 – 09.03.2026</p>
+,Task,,,Yetkinlik seçimi durumu dashboard'unun hazırlanması,New,2,,,PY 2026; Şube & Saha,
+,Task,,,Hatırlatma iletişimleri,New,2,,,PY 2026; Şube & Saha,
+,Task,,,Periyodik olarak işe yeni girenlerin kontrolü ve yetkinlik seçme süreçlerinin takibi,New,2,,,PY 2026; Şube & Saha,
+,User Story,,Yetkinlik seçimi kapatılıp mutabakata alınsın,,New,2,,,PY 2026; Şube & Saha; Çalışan,<p><b>Planlanan tarih:</b> 16.02.2026 – 09.03.2026</p>
+,Task,,,Yetkinlik seçmeyenlere atanacak yetkinliklerin belirlenmesi ve atanması,New,2,,,PY 2026; Şube & Saha,
+,Task,,,Onayda bekleyen yetkinliklerin otomatik olarak onaylanması,New,2,,,PY 2026; Şube & Saha,
+,Task,,,Yetkinlik seçim sayısı kontrolü (çoklama vb.),New,2,,,PY 2026; Şube & Saha,
+,Task,,,Yetkinlik süreç durumunun mutabakat durumuna çekilmesi,New,2,,,PY 2026; Şube & Saha,
+,Epic,Hedef Belirleme Süreci,,,New,2,2026-03-10,2026-04-10,PY 2026,"<p>Tüm kurumda hedef girişinin başlatılması, kalite takibi ve mutabakata alınması. Kaynak: &quot;Hedef Belirleme Süreci&quot; (10.03 – 10.04.2026).</p>"
+,User Story,,Hedef ekranları test edilip hazırlansın,,New,2,,,PY 2026; Genel Müdürlük; Çalışan,<p><b>Planlanan tarih:</b> 10.03.2026 – 10.04.2026</p>
+,Task,,,BT altyapı testleri,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,PYYM ekran testleri,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Değerlendiricilerin kontrolü,New,2,,,PY 2026; Genel Müdürlük,
+,User Story,,Hedef belirleme tüm kurumda başlatılsın,,New,2,,,PY 2026; Genel Müdürlük; Çalışan,<p><b>Planlanan tarih:</b> 10.03.2026 – 10.04.2026</p>
+,Task,,,Duyuru iletişimlerinin hazırlanması,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Tüm kurum Hazırla/Başlat,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Canlıda testlerin yapılması,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Duyuru mailinin paylaşılması,New,2,,,PY 2026; Genel Müdürlük,
+,User Story,,Hedef girişi ve kalitesi takip edilsin,,New,2,,,PY 2026; Genel Müdürlük; Çalışan,<p><b>Planlanan tarih:</b> 10.03.2026 – 10.04.2026</p>
+,Task,,,Hedef seçimi durum dashboard'unun hazırlanması,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Hatırlatma iletişimleri,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Hedef olgunluk ve kalite takibinin başlatılması,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,1 Ekim'e kadar periyodik olarak işe yeni başlayanların hedef seçim kontrolü,New,2,,,PY 2026; Genel Müdürlük,
+,User Story,,Hedef süreci kapatılıp mutabakata alınsın,,New,2,,,PY 2026; Genel Müdürlük; Çalışan,<p><b>Planlanan tarih:</b> 10.03.2026 – 10.04.2026</p>
+,Task,,,Onayda bekleyen hedeflerin otomatik olarak onaylatılması,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Hedef durum bilgisinin mutabakata çekilmesi,New,2,,,PY 2026; Genel Müdürlük,
+,Epic,Şube Performans Yönetimi,,,New,2,2026-02-15,2026-10-15,PY 2026,"<p>Şube ve portföy ağırlıklarının belirlenmesi, çeyreklik süreç yönetimi ve inisiyatifler.</p>"
+,User Story,,Şube ağırlıkları belirlensin,,New,2,,,PY 2026; Şube & Saha; Sistem / İK,<p>Kaynak: &quot;Şube Ağırlıkları&quot;.</p><p><b>Planlanan tarih:</b> 15.02.2026 – 28.02.2026</p>
+,Task,,,Sektörlerle mutabakat sağlanması,New,2,,,PY 2026; Şube & Saha,
+,Task,,,Şube ağırlıklarının sisteme girilmesi,New,2,,,PY 2026; Şube & Saha,
+,User Story,,Portföy ağırlıkları sisteme girilsin,,New,2,,,PY 2026; Şube & Saha; Sistem / İK,<p>Kaynak: &quot;Portföy Ağırlıklarının Girilmesi&quot;.</p><p><b>Planlanan tarih:</b> 01.03.2026</p>
+,Task,,,Şube ağırlıklarının kontrol edilmesi,New,2,,,PY 2026; Şube & Saha,
+,Task,,,Excel hazırlıklarının tamamlanıp sisteme yüklenmesi,New,2,,,PY 2026; Şube & Saha,
+,Task,,,Şube çalışan listesinin kontrol edilmesi,New,2,,,PY 2026; Şube & Saha,
+,User Story,,1. çeyrek süreç yönetimi ve inisiyatifler,,New,2,,,PY 2026; Şube & Saha; Sistem / İK,<p>Kaynak panelde alt görev tanımlanmamış.</p><p><b>Planlanan tarih:</b> 15.04.2026</p>
+,User Story,,3. çeyrek süreç yönetimi ve inisiyatifler,,New,2,,,PY 2026; Şube & Saha; Sistem / İK,<p>Kaynak panelde alt görev tanımlanmamış.</p><p><b>Planlanan tarih:</b> 15.10.2026</p>
+,Epic,Ara Dönem Performans ve Geri Besleme,,,New,2,2026-06-01,2026-07-31,PY 2026,<p>Haziran – Temmuz ara dönem şube performans dönemi ve tüm kurum geri besleme görüşmeleri.</p>
+,User Story,,Ara dönem şube performans dönemi yürütülsün,,New,2,,,PY 2026; Şube & Saha; Sistem / İK,<p>Kaynak: &quot;Ara Dönem Şube Performans Dönemi&quot;.</p><p><b>Planlanan tarih:</b> 01.06.2026 – 31.07.2026</p>
+,Task,,,Ara dönem şube performans dönemi hazırlıkları,New,2,,,PY 2026; Şube & Saha,
+,Task,,,Şube inisiyatif süreçlerinin başlatılması,New,2,,,PY 2026; Şube & Saha,
+,Task,,,Ara dönem performans notlarının açıklanması ve yeniden değerlendirmeler,New,2,,,PY 2026; Şube & Saha,
+,Task,,,Süreç yönetimi notlarının hesaplanması,New,2,,,PY 2026; Şube & Saha,
+,User Story,,Ara dönem tüm kurum geri besleme görüşmeleri yapılsın,,New,2,,,PY 2026; Genel Müdürlük; Sistem / İK,<p>Kaynak: &quot;Ara Dönem Tüm Kurum Geri Besleme Görüşmeleri&quot;.</p><p><b>Planlanan tarih:</b> 15.06.2026</p>
+,Task,,,Geri besleme görüşmeleri için iletişim çalışması,New,2,,,PY 2026; Genel Müdürlük,
+,Epic,Yıl Sonu Performans Değerlendirme,,,New,2,2026-04-10,2027-01-31,PY 2026,"<p>Yıl sonu ekran testleri (Nisan), değerlendirme dönemi Part 1 (Aralık 2026) ve Part 2 (Ocak 2027).</p>"
+,User Story,,Yıl sonu değerlendirme ekranları test edilsin,,New,2,,,PY 2026; Genel Müdürlük; Sistem / İK,<p>Kaynak: &quot;Yıl Sonu Değerlendirme Süreci Ekran Testleri&quot;.</p><p><b>Planlanan tarih:</b> 10.04.2026</p>
+,Task,,,Yetkinlik ekranlarının testi,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Hedef ekranlarının testi,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Performans ekranlarının testi,New,2,,,PY 2026; Genel Müdürlük,
+,User Story,,Yıl sonu değerlendirme dönemi başlatılıp duyurulsun,,New,2,,,PY 2026; Genel Müdürlük; Sistem / İK,<p>Kaynak: &quot;Yıl Sonu Performans Değerlendirme Dönemi – Part 1&quot;.</p><p><b>Planlanan tarih:</b> 01.12.2026</p>
+,Task,,,Yıl sonu performans değerlendirme süreçlerinin ekranlardan başlatılması,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Takvimlerin duyurulması,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Yetkinlik ve performans değerlendirme görüşmelerinin iletişimi,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Hatırlatma iletişimleri,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,İletişim çalışması,New,2,,,PY 2026; Genel Müdürlük,
+,User Story,,Yetkinlik komiteleri ve kalibrasyonlar yapılsın,,New,2,,,PY 2026; Genel Müdürlük; Sistem / İK,<p>Kaynak: &quot;Yıl Sonu Performans Değerlendirme Dönemi – Part 1&quot;.</p><p><b>Planlanan tarih:</b> 01.12.2026</p>
+,Task,,,Yetkinlik komiteleri,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Kalibrasyonlar,New,2,,,PY 2026; Genel Müdürlük,
+,User Story,,Şube nihai notları hesaplansın,,New,2,,,PY 2026; Genel Müdürlük; Sistem / İK,<p>Kaynak: &quot;Yıl Sonu Performans Değerlendirme Dönemi – Part 2&quot;.</p><p><b>Planlanan tarih:</b> 01.01.2027 – 31.01.2027</p>
+,Task,,,Süreç yönetimi ve inisiyatifler,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Bölge Müdürleri performans görüşmeleri,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Sektör karneleriyle uç performans oranının hizalanması,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Şube nihai notlarının hesaplanması,New,2,,,PY 2026; Genel Müdürlük,
+,User Story,,Sonuçlar ilan edilsin ve ücret çalışmasına aktarılsın,,New,2,,,PY 2026; Genel Müdürlük; Sistem / İK,<p>Kaynak: &quot;Yıl Sonu Performans Değerlendirme Dönemi – Part 2&quot;.</p><p><b>Planlanan tarih:</b> 01.01.2027 – 31.01.2027</p>
+,Task,,,Yetkinliklerin duyurulması ve yeniden değerlendirme dönemi,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Notların ilanı ve yeniden değerlendirme süreçleri,New,2,,,PY 2026; Genel Müdürlük,
+,Task,,,Nihai notların düzenlenip ücret çalışması için gönderilmesi,New,2,,,PY 2026; Genel Müdürlük,
+,Epic,İtiraz ve Nihai Sonuç Süreci,,,New,2,2026-02-20,2026-03-08,PY 2026,<p>Yöneticilerden itiraz taleplerinin toplanması ve nihai sonuçların açıklanması (Şubat – Mart 2026).</p>
+,User Story,,İtiraz talepleri toplansın,,New,2,,,PY 2026; Yönetici; Yönetici,<p>Kaynak: &quot;İtiraz Talepleri Toplama&quot;. Kaynak panelde alt görev tanımlanmamış.</p><p><b>Planlanan tarih:</b> 20.02.2026 – 25.02.2026</p>
+,User Story,,Nihai sonuçlar açıklansın,,New,2,,,PY 2026; Yönetici; Sonuç,<p>Kaynak: &quot;Nihai Sonuç Açıklama&quot;. Kaynak panelde alt görev tanımlanmamış.</p><p><b>Planlanan tarih:</b> 08.03.2026</p>

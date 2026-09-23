@@ -31,9 +31,14 @@ npm run typecheck  # yalnızca tip kontrolü
   yazıp Enter'a basmak yeterli; Enter'da alan açık kalır, arka arkaya öğe girilir.
 - **Detay paneli.** Durum, öncelik, tür, efor (story point), başlangıç/bitiş
   tarihi, etiketler, açıklama ve atananlar tek yerden düzenlenir.
-- **Üç görünüm.** *Ağaç* hiyerarşiyi gösterir; *Pano* aynı öğeleri durum
+- **Üç görünüm.** *Ağaç* hiyerarşiyi gösterir; *Pano* user story'leri durum
   sütunlarına dizer; *Özet* işlerin gidişatını grafiklerle anlatır. Geçiş araç
   çubuğundaki anahtarla yapılır.
+- **Pano.** Kart yalnızca user story'dir; üstünde bağlı olduğu epic yazar.
+  Story'nin task'ları kartın içinde açılıp kapanır, oradan tamamlandı olarak
+  işaretlenir ya da detayı açılır. Panonun üstündeki kişi şeridi, seçilen
+  kişinin story'lerini (kendisi ya da task'larından biri o kişideyse) bırakır
+  ve açılan listede o kişinin task'larını öne çıkarır.
 - **Sorumlular.** Atananlardan ayrı olarak, bir işin hesap verebilir sahibi
   işaretlenir ve birden fazla olabilir. Sorumlu yapılan kişi atananlara da
   eklenir; avatarı vurgu halkasıyla gösterilir.

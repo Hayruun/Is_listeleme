@@ -314,6 +314,9 @@ export function App(): JSX.Element {
             selectedId={selectedId}
             onSelect={setSelectedId}
             colorBy={appearance.colorBy}
+            filters={filters}
+            onFiltersChange={setFilters}
+            currentUserId={currentUser.id}
           />
         ) : (
           <DndProvider>

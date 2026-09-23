@@ -1,3 +1,4 @@
+import { offerFile } from './download';
 import { normalizeBoard } from './normalize';
 import type { Board, LoadResult } from '../types';
 
@@ -18,6 +19,36 @@ export type SaveOutcome =
   | { status: 'conflict'; remote: Board }
   | { status: 'offline'; reason: string };
 
+/**
+ * claude.ai Artifact olarak yayinlandiginda sayfa, platformun paylasimli
+ * belge deposunu (db) kullanir: pano tek bir belgede tutulur, degisiklikler
+ * herkes icin kalici olur. Yerel gelistirmede `window.claude` yoktur ve bu
+ * yol hic devreye girmez.
+ */
+interface ArtifactDoc {
+  get(): Promise<{ exists: boolean; data(): Record<string, unknown> | undefined }>;
+  set(data: Record<string, unknown>): Promise<void>;
+}
+
+const ARTIFACT_DOC_PATH = 'boards/main';
+let artifactDocPromise: Promise<ArtifactDoc | null> | null = null;
+
+function artifactDoc(): Promise<ArtifactDoc | null> {
+  if (!artifactDocPromise) {
+    const host = (window as { claude?: { use?: (name: string) => Promise<unknown> } }).claude;
+    artifactDocPromise =
+      typeof host?.use === 'function'
+        ? host
+            .use('db')
+            .then((db) =>
+              db ? ((db as { doc(path: string): ArtifactDoc }).doc(ARTIFACT_DOC_PATH)) : null,
+            )
+            .catch(() => null)
+        : Promise.resolve(null);
+  }
+  return artifactDocPromise;
+}
+
 function absolute(path: string): string {
   return new URL(path, document.baseURI).toString();
 }
@@ -30,6 +61,22 @@ async function readJson(response: Response): Promise<unknown> {
 
 /** Ortak dosyayi okur; ulasilamazsa yerel kopyaya duser. */
 export async function loadBoard(): Promise<LoadResult> {
+  const doc = await artifactDoc();
+  if (doc) {
+    try {
+      const snap = await doc.get();
+      const stored = snap.exists ? snap.data()?.board : undefined;
+      if (stored) return { board: normalizeBoard(stored), mode: 'shared-file', notice: null };
+      // Depo henuz bos: yayinla birlikte gelen dosyayla baslanir, ilk kayitta depoya yazilir.
+      const response = await fetch(absolute(STATIC_FALLBACK), { cache: 'no-store' });
+      if (response.ok) {
+        return { board: normalizeBoard(await readJson(response)), mode: 'shared-file', notice: null };
+      }
+    } catch {
+      // Depo okunamadi: asagidaki olagan yola dusulur.
+    }
+  }
+
   try {
     const response = await fetch(absolute(API_ENDPOINT), {
       headers: { Accept: 'application/json' },
@@ -85,6 +132,25 @@ export async function loadBoard(): Promise<LoadResult> {
 export async function saveBoard(board: Board, baseUpdatedAt: string | null): Promise<SaveOutcome> {
   writeLocal(board);
 
+  const doc = await artifactDoc();
+  if (doc) {
+    try {
+      const snap = await doc.get();
+      const remote = snap.exists ? snap.data()?.board : undefined;
+      const remoteStamp =
+        remote && typeof (remote as { updatedAt?: unknown }).updatedAt === 'string'
+          ? (remote as { updatedAt: string }).updatedAt
+          : null;
+      if (remote && remoteStamp && baseUpdatedAt && remoteStamp !== baseUpdatedAt) {
+        return { status: 'conflict', remote: normalizeBoard(remote) };
+      }
+      await doc.set({ board: JSON.parse(JSON.stringify(board)) as Record<string, unknown> });
+      return { status: 'saved' };
+    } catch {
+      return { status: 'offline', reason: 'Paylaşımlı depoya yazılamadı.' };
+    }
+  }
+
   let response: Response;
   try {
     response = await fetch(absolute(API_ENDPOINT), {
@@ -131,12 +197,7 @@ export function exportBoard(board: Board): void {
   const blob = new Blob([`${JSON.stringify(board, null, 2)}\n`], {
     type: 'application/json',
   });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = `board-${new Date().toISOString().slice(0, 10)}.json`;
-  link.click();
-  URL.revokeObjectURL(url);
+  void offerFile(`board-${new Date().toISOString().slice(0, 10)}.json`, blob);
 }
 
 /** Disaridan gelen JSON dosyasi: boyut siniri + sema dogrulamasindan gecirilir. */

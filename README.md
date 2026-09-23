@@ -135,6 +135,20 @@ eklenmiştir; hepsi `PY 2026` etiketini taşır, filtreden bu etiketle süzüleb
 Bu kalemlerin Azure'a hazır CSV'si `azure/performans-2026-azure-boards.csv`
 dosyasındadır.
 
+## claude.ai'de etkileşimli sayfa olarak yayınlama
+
+`npm run build:artifact` derlemeyi JS ve CSS'i gömülü tek bir HTML'e çevirir
+(`dist-artifact/`). Bu sayfa claude.ai Artifact olarak yayınlandığında:
+
+- Pano, platformun paylaşımlı deposunda tek bir belgede (`boards/main`) tutulur;
+  değişiklikler kalıcıdır ve sayfaya erişimi olan herkes aynı panoyu görür.
+  Depo boşsa yayınla birlikte gelen `data/board.json` ile başlanır.
+- Çakışma koruması aynı sözleşmeyle çalışır: başkası arada kaydettiyse uyarı çıkar.
+- JSON ve Azure CSV dışa aktarmaları, kullanıcının onayına sunulan platform
+  indirmesiyle verilir.
+
+Yerel geliştirmede (`npm run dev`) bu yol hiç devreye girmez.
+
 ## Veri modeli
 
 `src/types.ts` içindeki `Board` tipi dosyanın tamamını tanımlar:

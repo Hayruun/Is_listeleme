@@ -1,3 +1,4 @@
+import { offerFile } from './download';
 import { buildTree, type TreeNode } from './hierarchy';
 import type { Board, Person, WorkItem, WorkItemState, WorkItemType } from '../types';
 
@@ -151,10 +152,5 @@ export function buildAzureCsv(board: Board): string {
 /** Panoyu Azure Boards'a ice aktarilabilecek CSV olarak indirir. */
 export function exportAzureCsv(board: Board): void {
   const blob = new Blob([buildAzureCsv(board)], { type: 'text/csv;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = `azure-boards-${new Date().toISOString().slice(0, 10)}.csv`;
-  link.click();
-  URL.revokeObjectURL(url);
+  void offerFile(`azure-boards-${new Date().toISOString().slice(0, 10)}.csv`, blob);
 }

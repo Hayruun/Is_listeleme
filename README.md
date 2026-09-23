@@ -129,11 +129,11 @@ bulunduğu sütun öğenin seviyesidir, ebeveyni üstteki bir seviye sığ satı
 
 ### 2026 Performans Yönetimi kırılımı
 
-`public/data/performans-2026.json`, "2026 Dinamik Yönetici Ajandası"ndaki 15
-süreci ve 63 alt görevi **7 Epic → 23 User Story → 63 Task** olarak içerir.
-*JSON'dan içe aktar* ile uygulamada açılabilir (mevcut panonun yerini alır,
-önce dışa aktarıp yedek alın). Aynı verinin Azure'a hazır CSV'si
-`azure/performans-2026-azure-boards.csv` dosyasındadır.
+"2026 Dinamik Yönetici Ajandası"ndaki 15 süreç ve 63 alt görev ortak panoya
+(`public/data/board.json`) **7 Epic → 23 User Story → 63 Task** olarak
+eklenmiştir; hepsi `PY 2026` etiketini taşır, filtreden bu etiketle süzülebilir.
+Bu kalemlerin Azure'a hazır CSV'si `azure/performans-2026-azure-boards.csv`
+dosyasındadır.
 
 ## Veri modeli
 
